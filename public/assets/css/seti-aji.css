@@ -1,0 +1,46 @@
+table.table-bordered.dataTable th {
+    vertical-align: middle;
+    text-align: center;
+    font-weight: bold;
+    padding: 5px 0;
+}
+
+table.table-bordered.dataTable td {
+    text-align: center;
+}
+
+.brand span.logo {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.left-sidenav .brand .logo .logo-sm {
+    height: 45px;
+    margin-top: -15px;
+}
+
+.avatar {
+    display: inline-flex;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+}
+
+.avatar .avatar-content {
+    width: 32px;
+    height: 32px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.875rem;
+}
+
+.item-active {
+    background-color: aliceblue;
+    border-radius: 5%;
+    border-right: 7px solid;
+    border-right-color: #ffb822;
+}
