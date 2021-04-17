@@ -34,7 +34,7 @@
                 ],
                 "actions" => [
                     "edit" => [
-                        "route" => "edit",
+                        "url" => "karyawan.edit",
                         "type" => "url",
                         "button" => "info",
                         "attribute" => [
@@ -42,7 +42,7 @@
                         ]
                     ],
                     "delete" => [
-                        "route" => "destroy",
+                        "url" => "karyawan.destroy",
                         "type" => "url",
                         "button" => "danger",
                         "attribute" => [

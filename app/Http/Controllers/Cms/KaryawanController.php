@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Cms;
 
-use App\Helpers\CommonHelper;
 use App\Models\Karyawan;
 use App\Models\KomponenGaji;
 use App\Models\KomponenKaryawan;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class KaryawanController extends Controller
 {
@@ -32,13 +31,6 @@ class KaryawanController extends Controller
         DB::beginTransaction();
         try {
             $model = new Karyawan($request->all());
-            $model->validate();
-            if ($model->fails) {
-                return redirect(route('karyawan.create'))
-                ->withErrors($model->errors)
-                ->withInput();
-            }
-
             $model->nik_karyawan = $request->nik_karyawan;
             $model->nama_lengkap = $request->nama_lengkap;
             $model->tipe = $request->tipe;
@@ -63,5 +55,61 @@ class KaryawanController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
         }        
+    }
+
+    public function edit($id)
+    {
+        $karyawan = Karyawan::find($id);
+        $komponen = KomponenGaji::select('komponen_gaji.*', 'komponen_karyawan.karyawan_id', 'komponen_karyawan.komponen_nama', 'komponen_karyawan.komponen_nilai')
+                    ->leftJoin('komponen_karyawan', function($query) use ($id) {
+                        $query->on('komponen_gaji.id', '=', 'komponen_karyawan.komponen_id')
+                        ->where('komponen_karyawan.karyawan_id', '=', "$id");
+                    })
+                    ->orderBy('order')
+                    ->get();
+        
+        return view('cms.karyawan.edit', [
+            "id" => $id,
+            "komponen" => $komponen,
+            "karyawan" => $karyawan
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $model = Karyawan::find($id);
+            $model->nik_karyawan = $request->nik_karyawan;
+            $model->nama_lengkap = $request->nama_lengkap;
+            $model->tipe = $request->tipe;
+            $model->waktu_penggajian = $request->waktu_penggajian;
+            $model->status = (isset($request->status) && $request->status == "on") ? '1' : '0';
+            $model->save();       
+
+            $komponentKaryawan = new KomponenKaryawan;
+            $komponen = $komponentKaryawan->formatData($request->all());
+            
+            foreach ($komponen as $key => $value) {
+                $attr = clone $komponentKaryawan;
+                $attr->updateOrCreate(
+                    ['karyawan_id' => $id, 'komponen_id' => $value['komponen_id'], 'komponen_nama' => $value['komponen_nama']],
+                    ['komponen_nilai' => $value['komponen_nilai']]
+                );
+            }
+            
+            DB::commit();
+            return redirect(route('karyawan'))->with("message", "Berhasil Simpan");
+
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
+    }
+
+    public function destroy($id)
+    {
+        $karyawan = Karyawan::find($id);
+        $karyawan->delete();
+        return redirect(route('karyawan'))->with("message", "Berhasil Hapus Data");
     }
 }

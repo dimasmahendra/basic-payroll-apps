@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\KomponenKaryawan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Karyawan extends BaseModel
@@ -28,5 +29,18 @@ class Karyawan extends BaseModel
             "tipe.required" => "Tipe field is required.",
             "waktu_penggajian.required" => "Waktu Penggajian field is required."
         ];
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        self::deleted(function($model){
+            $model->komponenkaryawan()->delete();
+        });
+    }
+
+    public function komponenkaryawan()
+    {
+        return $this->hasMany(KomponenKaryawan::class, 'karyawan_id', 'id');
     }
 }

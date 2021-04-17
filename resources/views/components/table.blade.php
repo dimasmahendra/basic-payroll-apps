@@ -31,7 +31,10 @@
             @isset($actions)
                 <td>
                     @foreach ($actions as $a => $aksi)
-                        <a href="">
+                        @php
+                            $url = route($aksi['url'], $item->id);
+                        @endphp
+                        <a href="{{ $url }}">
                             @isset($aksi['attribute'])
                                 <span class="badge badge-boxed badge-pill badge-outline-{{ $aksi['button'] }}">
                                     @foreach ($aksi['attribute'] as $key => $attr)
