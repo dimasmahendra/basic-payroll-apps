@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
+
+Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
@@ -9,7 +10,6 @@ Route::get('/', function () {
 
 Route::get('/login', [App\Http\Controllers\AuthController::class, 'loginForm'])->name('login');
 Route::post('/login', [App\Http\Controllers\AuthController::class, 'loginProcess'])->name('login-process');
-Route::get('/register', [App\Http\Controllers\AuthController::class, 'registerForm'])->name('register');
 Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logoutProcess'])->name('logout');
 
 Route::middleware(["auth"])->group(function(){
