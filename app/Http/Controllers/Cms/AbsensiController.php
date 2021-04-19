@@ -8,11 +8,19 @@ use Illuminate\Http\Request;
 
 class AbsensiController extends Controller
 {
-    public function index() {
-        $karyawan = Karyawan::get();
-        return view('cms.absensi.index', [
-            "karyawan" => $karyawan
-        ]);
+    public function index(Request $request) 
+    {
+        if($request->ajax()){
+            $absensi = Karyawan::get();
+            return view('cms.absensi.index-ajax', [
+                "karyawan" => $absensi
+            ]);
+        } else {
+            $karyawan = Karyawan::get();
+            return view('cms.absensi.index', [
+                "karyawan" => $karyawan
+            ]);
+        }
     }
 
     public function store(Request $request)

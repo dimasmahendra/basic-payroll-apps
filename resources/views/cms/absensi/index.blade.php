@@ -31,7 +31,7 @@
                     <input type="text" class="form-control tanggal-kehadiran" name="tanggal_kehadiran" required/>
                 </div>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive" id="section-absensi">
                 <table id="absensi-datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
@@ -84,35 +84,57 @@
 
 @push('js-plugins')
     <script>
-        $('#absensi-datatable').dataTable( {
-            "ordering": false,
-            "bLengthChange" : false
+        function init() {
+            $('#absensi-datatable').dataTable( {
+                "ordering": false,
+                "bLengthChange" : false
+            });
+            $(document).on('change', '.custom-control-input', function() {
+                $(this).closest('tr').find('.nilai, .jam-hadir, .jam-lembur-1, .jam-lembur-2').prop('disabled', !this.checked);
+            })
+            
+            $('.jam-hadir').daterangepicker({
+                timePicker: true,
+                timePicker24Hour: true,
+                timePickerIncrement: 1,
+                startDate: moment().hours(8).minutes(0),
+                endDate: moment().hours(17).minutes(0),
+                locale: {
+                    format: 'HH:mm'
+                }
+            }).on('show.daterangepicker', function (ev, picker) {
+                picker.container.find(".calendar-table").hide();
+            });
+
+            $(document).on('click', '#simpan-absensi', function() {
+                $("#form-absensi").submit();
+            });
+        }
+
+        $(document).ready(function() {
+            init();
         });
         
-        $(document).on('change', '.custom-control-input', function() {
-            $(this).closest('tr').find('.nilai, .jam-hadir, .jam-lembur-1, .jam-lembur-2').prop('disabled', !this.checked);
-        })
-
         $(".tanggal-kehadiran").daterangepicker({
             locale: {
                 format: 'DD/MM/YYYY',
             },
-            singleDatePicker: true
-        });
-
-        $('.jam-hadir').daterangepicker({
-            timePicker: true,
-            timePicker24Hour: true,
-            timePickerIncrement: 1,
-            locale: {
-                format: 'HH:mm'
-            }
-        }).on('show.daterangepicker', function (ev, picker) {
-            picker.container.find(".calendar-table").hide();
-        });
-
-        $(document).on('click', '#simpan-absensi', function() {
-            $("#form-absensi").submit();
+            singleDatePicker: true,
+        }, function () {
+            var date = $(".tanggal-kehadiran").val();
+            $.ajax({
+                url: '?t=' + date,
+                method: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data) {
+                    console.log(data);
+                    $('#section-absensi').empty();
+                    $('#section-absensi').html(data);
+                    init();
+                }
+            });
         });
     </script>
 @endpush
