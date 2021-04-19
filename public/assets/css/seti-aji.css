@@ -44,3 +44,7 @@ table.table-bordered.dataTable td {
     border-right: 7px solid;
     border-right-color: #ffb822;
 }
+
+.custom-switch label{
+    cursor:pointer;
+}

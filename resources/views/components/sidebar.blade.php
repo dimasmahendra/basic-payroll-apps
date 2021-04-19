@@ -1,5 +1,5 @@
 @php
-    $page = \Request::route()->getName();
+    $page = URL::current();
 @endphp
 
 <div class="left-sidenav">
@@ -19,6 +19,18 @@
             <li class="menu-label my-2">Data Karyawan</li>
             <li class="nav-item {{ (strpos($page, 'karyawan') !== false) ? 'item-active' : '' }}">
                 <a href="{{ route('karyawan') }}"><i data-feather="list" class="align-self-center menu-icon"></i><span>Daftar</span></a>
+            </li>
+
+            <hr class="hr-dashed hr-menu" />
+            <li class="menu-label my-2">Absensi</li>
+            <li class="nav-item {{ (strpos($page, 'absensi') !== false) ? 'item-active' : '' }}">
+                <a href="{{ route('absensi') }}"><i data-feather="list" class="align-self-center menu-icon"></i><span>Daftar</span></a>
+            </li>
+
+            <hr class="hr-dashed hr-menu" />
+            <li class="menu-label my-2">Angsuran</li>
+            <li class="nav-item {{ (strpos($page, 'kantor') !== false) ? 'item-active' : '' }}">
+                <a href="{{ route('angsuran', ['kantor']) }}"><i data-feather="list" class="align-self-center menu-icon"></i><span>Kantor</span></a>
             </li>
             
       </ul>

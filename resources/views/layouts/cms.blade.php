@@ -16,6 +16,7 @@
     <link href="/assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="/plugins/toastify/toastify.css">
     <link href="/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/app.min.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/seti-aji.css" rel="stylesheet" type="text/css" />
     @stack('css-plugins')
@@ -53,6 +54,8 @@
     <script src="/plugins/datatables/dataTables.buttons.min.js"></script>
     <script src="/assets/js/maskmoney.js"></script>
     <script src="/plugins/toastify/toastify.js"></script>
+    <script src="/assets/js/moment.js"></script>
+    <script src="/plugins/daterangepicker/daterangepicker.js"></script>
     <script src="/assets/js/app.js"></script>
     <script src="/assets/js/seti-aji.js"></script>
     @stack('js-plugins')
