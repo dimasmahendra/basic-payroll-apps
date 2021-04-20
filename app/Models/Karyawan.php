@@ -11,6 +11,8 @@ class Karyawan extends BaseModel
 
     protected $table = "karyawan";
 
+    protected $appends = ["jam_hadir"];
+
     public function rules()
     {
         return [
@@ -42,5 +44,17 @@ class Karyawan extends BaseModel
     public function komponenkaryawan()
     {
         return $this->hasMany(KomponenKaryawan::class, 'karyawan_id', 'id');
+    }
+
+    public function getJamHadirAttribute()
+    {
+        $jam_masuk = (empty($this->jam_masuk)) ? $this->jam_masuk : date('H:i', strtotime($this->jam_masuk));
+        $jam_keluar = (empty($this->jam_keluar)) ? $this->jam_keluar : date('H:i', strtotime($this->jam_keluar));
+
+        if (!empty($jam_masuk) && !empty($jam_keluar)) {
+            return "{$jam_masuk} - {$jam_keluar}";
+        } else {
+            return "08:00 - 17:00";
+        }
     }
 }

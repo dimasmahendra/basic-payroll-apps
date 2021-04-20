@@ -48,25 +48,31 @@
                         <tr>
                             <td>
                                 <div class="custom-control custom-switch switch-success">
-                                    <input type="checkbox" class="custom-control-input" id="customSwitches{{ $key+1 }}" name="status"> 
+                                    <input type="checkbox" class="custom-control-input" id="customSwitches{{ $key+1 }}" name="status" {{ empty($item->hitungan_hari) ? '' : 'checked' }}> 
                                     <label class="custom-control-label" for="customSwitches{{ $key+1 }}"></label>
                                 </div>
                             </td>
                             <td>{{ $item->nama_lengkap }}</td>
                             <td style="width: 10%">
-                                <select class="form-control nilai" name="nilai[{{ $item->id }}]" disabled>
-                                    <option value="1">1</option>
-                                    <option value="0.5">0.5</option>
+                                <select class="form-control nilai" name="hitungan_hari[{{ $item->id }}]" {{ isset($item->hitungan_hari) ? '' : 'disabled' }}>
+                                    <option value="1" {{ (!empty($item->hitungan_hari) && $item->hitungan_hari == 1.0) ? 'selected' : '' }}>1</option>
+                                    <option value="0.5" {{ (!empty($item->hitungan_hari) && $item->hitungan_hari == 0.5) ? 'selected' : '' }}>0.5</option>
                                 </select>
                             </td>
                             <td style="width: 10%">
-                                <input type="text" class="form-control jam-hadir" name="jam_hadir[{{ $item->id }}]" disabled/>
+                                <input type="text" class="form-control jam-hadir" name="jam_hadir[{{ $item->id }}]" 
+                                value="{{ $item->jam_hadir }}" 
+                                {{ isset($item->hitungan_hari) ? '' : 'disabled' }}/>
                             </td>
                             <td style="width: 10%">
-                                <input type="text" class="form-control jam-lembur-1" name="jam_lembur_1[{{ $item->id }}]" disabled/>
+                                <input type="text" class="form-control jam-lembur-1" name="jam_lembur_1[{{ $item->id }}]" 
+                                value="{{ empty($item->jam_lembur_1) ? '' : $item->jam_lembur_1 }}"
+                                {{ isset($item->hitungan_hari) ? '' : 'disabled' }}/>
                             </td>
                             <td style="width: 10%">
-                                <input type="text" class="form-control jam-lembur-2" name="jam_lembur_2[{{ $item->id }}]" disabled/>
+                                <input type="text" class="form-control jam-lembur-2" name="jam_lembur_2[{{ $item->id }}]" 
+                                value="{{ empty($item->jam_lembur_2) ? '' : $item->jam_lembur_2 }}"
+                                {{ isset($item->hitungan_hari) ? '' : 'disabled' }}/>
                             </td>
                         </tr>
                         @endforeach
@@ -83,6 +89,11 @@
 @endpush
 
 @push('js-plugins')
+    @php
+        foreach ($event as $key => $value) {
+            $parseEvent[$value] = $value;
+        }
+    @endphp
     <script>
         function init() {
             $('#absensi-datatable').dataTable( {
@@ -97,11 +108,9 @@
                 timePicker: true,
                 timePicker24Hour: true,
                 timePickerIncrement: 1,
-                startDate: moment().hours(8).minutes(0),
-                endDate: moment().hours(17).minutes(0),
                 locale: {
                     format: 'HH:mm'
-                }
+                },
             }).on('show.daterangepicker', function (ev, picker) {
                 picker.container.find(".calendar-table").hide();
             });
@@ -115,13 +124,24 @@
             init();
         });
         
+        var eventDates = {!! json_encode($parseEvent); !!}
+
         $(".tanggal-kehadiran").daterangepicker({
             locale: {
                 format: 'DD/MM/YYYY',
             },
             singleDatePicker: true,
-        }, function () {
-            var date = $(".tanggal-kehadiran").val();
+            isCustomDate: function( date ) {
+                console.log(eventDates);
+                var highlight = eventDates[moment(date).format("YYYY-MM-DD HH:mm:ss")];
+                if( highlight ) {
+                    return [true, "event-date", ''];
+                } else {
+                    return [true, '', ''];
+                }
+            },
+        }, function (start) {
+            var date = start.format('YYYY-MM-DD');
             $.ajax({
                 url: '?t=' + date,
                 method: 'GET',

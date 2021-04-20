@@ -48,3 +48,8 @@ table.table-bordered.dataTable td {
 .custom-switch label{
     cursor:pointer;
 }
+
+.event-date {
+    background-color: green;
+    color: white;
+}
