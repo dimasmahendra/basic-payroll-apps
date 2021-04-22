@@ -23,13 +23,20 @@ Route::middleware(["auth"])->group(function(){
         Route::get('/karyawan/destroy/{id}', [App\Http\Controllers\Cms\KaryawanController::class, 'destroy'])->name('karyawan.destroy');
         Route::put('/karyawan/update/{id}', [App\Http\Controllers\Cms\KaryawanController::class, 'update'])->name('karyawan.update');
         Route::post('/karyawan/store', [App\Http\Controllers\Cms\KaryawanController::class, 'store'])->name('karyawan.store');
-
-        // Angsuran Kantor
-        Route::get('/angsuran/{jenis}', [App\Http\Controllers\Cms\AngsuranController::class, 'index'])->name('angsuran');
-
+        
         // Absensi
         Route::get('/absensi', [App\Http\Controllers\Cms\AbsensiController::class, 'index'])->name('absensi');
         Route::post('/absensi/store', [App\Http\Controllers\Cms\AbsensiController::class, 'store'])->name('absensi.store');
+
+        // Angsuran Kantor
+        Route::get('/angsuran/kantor', [App\Http\Controllers\Cms\AngsuranController::class, 'indexKantor'])->name('angsuran.kantor');
+        Route::get('/angsuran/koperasi', [App\Http\Controllers\Cms\AngsuranController::class, 'indexKoperasi'])->name('angsuran.koperasi');
+        Route::get('/angsuran/create', [App\Http\Controllers\Cms\AngsuranController::class, 'create'])->name('angsuran.create');
+        Route::post('/angsuran/store', [App\Http\Controllers\Cms\AngsuranController::class, 'store'])->name('angsuran.store');
+    });
+
+    Route::prefix("internal-api")->group(function(){
+        Route::get('/data/karyawan', [App\Http\Controllers\InternalDataController::class, 'karyawan'])->name('karyawan');
     });
 });
 

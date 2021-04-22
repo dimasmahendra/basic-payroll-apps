@@ -30,7 +30,10 @@
             <hr class="hr-dashed hr-menu" />
             <li class="menu-label my-2">Angsuran</li>
             <li class="nav-item {{ (strpos($page, 'kantor') !== false) ? 'item-active' : '' }}">
-                <a href="{{ route('angsuran', ['kantor']) }}"><i data-feather="list" class="align-self-center menu-icon"></i><span>Kantor</span></a>
+                <a href="{{ route('angsuran.kantor') }}"><i data-feather="list" class="align-self-center menu-icon"></i><span>Kantor</span></a>
+            </li>
+            <li class="nav-item {{ (strpos($page, 'koperasi') !== false) ? 'item-active' : '' }}">
+                <a href="{{ route('angsuran.koperasi') }}"><i data-feather="list" class="align-self-center menu-icon"></i><span>Koperasi</span></a>
             </li>
             
       </ul>
