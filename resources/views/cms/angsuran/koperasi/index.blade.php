@@ -42,24 +42,21 @@
                             return $data->karyawan->nama_lengkap;
                         },
                         "sisa_angsuran" => function($data){
-                            return number_format($data->sisa_angsuran, 0, ',', '.');
+                            if ($data->sisa_angsuran < 0) {
+                                echo '<span class="text-danger">' . number_format($data->sisa_angsuran, 0, ',', '.') . '<span>';
+                            } else {
+                                echo '<span class="text-success">' . number_format($data->sisa_angsuran, 0, ',', '.') . '<span>';
+                            }
                         },
                     ],
                 "actions" => [
-                    "edit" => [
-                        "url" => "karyawan.edit",
+                    "show" => [
+                        "url" => "angsuran.show",
+                        "url_params" => ["koperasi", "karyawan_id"],
                         "type" => "url",
                         "button" => "info",
                         "attribute" => [
                             'icon' => 'las la-eye'
-                        ]
-                    ],
-                    "delete" => [
-                        "url" => "karyawan.destroy",
-                        "type" => "url",
-                        "button" => "danger",
-                        "attribute" => [
-                            'icon' => 'las la-trash-alt'
                         ]
                     ],
                 ]

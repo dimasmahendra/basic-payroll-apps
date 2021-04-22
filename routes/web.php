@@ -32,6 +32,7 @@ Route::middleware(["auth"])->group(function(){
         Route::get('/angsuran/kantor', [App\Http\Controllers\Cms\AngsuranController::class, 'indexKantor'])->name('angsuran.kantor');
         Route::get('/angsuran/koperasi', [App\Http\Controllers\Cms\AngsuranController::class, 'indexKoperasi'])->name('angsuran.koperasi');
         Route::get('/angsuran/create', [App\Http\Controllers\Cms\AngsuranController::class, 'create'])->name('angsuran.create');
+        Route::get('/angsuran/show/{jenis}/{id}', [App\Http\Controllers\Cms\AngsuranController::class, 'show'])->name('angsuran.show');
         Route::post('/angsuran/store', [App\Http\Controllers\Cms\AngsuranController::class, 'store'])->name('angsuran.store');
     });
 

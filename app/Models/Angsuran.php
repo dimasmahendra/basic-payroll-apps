@@ -13,12 +13,12 @@ class Angsuran extends BaseModel
 
     public function scopeKantor($query)
     {
-        return $query->where('jenis_angsuran', '=', 'kantor')->where('sisa_angsuran', '>', 0);
+        return $query->where('jenis_angsuran', '=', 'kantor');
     }
 
     public function scopeKoperasi($query)
     {
-        return $query->where('jenis_angsuran', '=', 'koperasi')->where('sisa_angsuran', '>', 0);
+        return $query->where('jenis_angsuran', '=', 'koperasi');
     }
 
     public function karyawan()

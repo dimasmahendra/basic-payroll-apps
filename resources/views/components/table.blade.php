@@ -32,7 +32,15 @@
                 <td>
                     @foreach ($actions as $a => $aksi)
                         @php
-                            $url = route($aksi['url'], $item->id);
+                            if (isset($aksi['url_params'])) {
+                                list($type, $karyawan_id) = $aksi['url_params'];
+                                $url = route($aksi['url'], [ 
+                                        "jenis" => $type,
+                                        "id" => $item->{$karyawan_id}
+                                    ]);
+                            } else {
+                                $url = route($aksi['url'], $item->id);
+                            }
                         @endphp
                         <a href="{{ $url }}">
                             @isset($aksi['attribute'])
