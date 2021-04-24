@@ -90,8 +90,12 @@
 
 @push('js-plugins')
     @php
-        foreach ($event as $key => $value) {
-            $parseEvent[$value] = $value;
+        if (count($event) > 0) {
+            foreach ($event as $key => $value) {
+                $parseEvent[$value] = $value;
+            }
+        } else {
+            $parseEvent = array();
         }
     @endphp
     <script>
