@@ -37,7 +37,7 @@ Route::middleware(["auth"])->group(function(){
     });
 
     Route::prefix("internal-api")->group(function(){
-        Route::get('/data/karyawan', [App\Http\Controllers\InternalDataController::class, 'karyawan'])->name('karyawan');
+        Route::get('/data/karyawan', [App\Http\Controllers\InternalDataController::class, 'karyawan'])->name('internal.karyawan');
     });
 });
 
