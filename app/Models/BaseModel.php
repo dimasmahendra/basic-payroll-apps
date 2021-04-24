@@ -22,7 +22,7 @@ class BaseModel extends Model
      * @var string
      */
     protected $useLog = true;
-    public Request $request;
+    public $request;
     public $method;
     public $rawData;
     protected $rules = [];
