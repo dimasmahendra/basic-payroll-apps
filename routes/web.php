@@ -34,6 +34,10 @@ Route::middleware(["auth"])->group(function(){
         Route::get('/angsuran/create', [App\Http\Controllers\Cms\AngsuranController::class, 'create'])->name('angsuran.create');
         Route::get('/angsuran/show/{jenis}/{id}', [App\Http\Controllers\Cms\AngsuranController::class, 'show'])->name('angsuran.show');
         Route::post('/angsuran/store', [App\Http\Controllers\Cms\AngsuranController::class, 'store'])->name('angsuran.store');
+
+        // Gaji Harian
+        Route::get('/gaji/harian', [App\Http\Controllers\Cms\HarianController::class, 'index'])->name('harian');
+        Route::post('/gaji/harian/generate', [App\Http\Controllers\Cms\HarianController::class, 'generate'])->name('generate.harian');
     });
 
     Route::prefix("internal-api")->group(function(){

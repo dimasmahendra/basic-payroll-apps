@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Collections\GajiMingguan;
 use App\Models\KomponenKaryawan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Karyawan extends BaseModel
@@ -41,9 +43,31 @@ class Karyawan extends BaseModel
         });
     }
 
+    public function newCollection(array $models = [])
+    {
+        return new GajiMingguan($models);
+    }
+
+    public function scopeMingguan($query)
+    {
+        return $query->where('tipe', 'like', '%mingguan%');
+    }
+
     public function komponenkaryawan()
     {
         return $this->hasMany(KomponenKaryawan::class, 'karyawan_id', 'id');
+    }
+
+    public function absen()
+    {
+        return $this->hasOne(Absensi::class, 'karyawan_id', 'id')
+                ->select([
+                    'absensi.karyawan_id',
+                    DB::raw("SUM(absensi.hitungan_hari) as total_masuk"),
+                    DB::raw("SUM(absensi.jam_lembur_1) as total_lembur_1"),
+                    DB::raw("SUM(absensi.jam_lembur_2) as total_lembur_2"),
+                ])
+                ->groupBy('absensi.karyawan_id');
     }
 
     public function getJamHadirAttribute()

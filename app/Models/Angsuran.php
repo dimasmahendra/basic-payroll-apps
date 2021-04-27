@@ -21,6 +21,11 @@ class Angsuran extends BaseModel
         return $query->where('jenis_angsuran', '=', 'koperasi');
     }
 
+    public function scopeJenisAngsuran($query, $jenis)
+    {
+        return $query->where('jenis_angsuran', '=', $jenis);
+    }
+
     public function karyawan()
     {
         return $this->hasOne(Karyawan::class, 'id', 'karyawan_id');

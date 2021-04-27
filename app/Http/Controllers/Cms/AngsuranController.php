@@ -50,6 +50,9 @@ class AngsuranController extends Controller
         $angsuran->karyawan_id = $karyawan_id;
         $angsuran->jenis_angsuran = $model->jenis_angsuran;
         $angsuran->sisa_angsuran = $model->sisa_angsuran;
+        $angsuran->nilai_angsuran_terakhir = $model->saldo;
+        $angsuran->mutasi_terakhir = $model->mutasi;
+        $angsuran->tanggal_angsuran_terakhir = $model->tanggal_angsuran;
         $angsuran->save();
 
         return redirect(route('angsuran.show', [

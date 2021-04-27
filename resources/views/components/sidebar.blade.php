@@ -35,6 +35,12 @@
             <li class="nav-item {{ (strpos($page, 'koperasi') !== false) ? 'item-active' : '' }}">
                 <a href="{{ route('angsuran.koperasi') }}"><i data-feather="list" class="align-self-center menu-icon"></i><span>Koperasi</span></a>
             </li>
+
+            <hr class="hr-dashed hr-menu" />
+            <li class="menu-label my-2">Gaji</li>
+            <li class="nav-item {{ (strpos($page, 'harian') !== false) ? 'item-active' : '' }}">
+                <a href="{{ route('harian') }}"><i data-feather="list" class="align-self-center menu-icon"></i><span>Generate Harian</span></a>
+            </li>
             
       </ul>
   </div>
