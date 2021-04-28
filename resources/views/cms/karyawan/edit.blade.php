@@ -42,8 +42,8 @@
                     <input type="text" class="form-control" id="nama-lengkap" name="nama_lengkap" value="{{ $karyawan->nama_lengkap }}" required/>
                 </div>
             </div>
-            <div class="row col-md-10">
-                <div class="col-md-2">
+            <div class="row col-md-12">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label>Tipe Gaji Karyawan <span class="text-warning">*</span></label> 
                         <select class="form-control" id="tipegaji" name="tipe" required>
@@ -52,7 +52,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="container-waktugajian col-md-2">
+                <div class="container-waktugajian col-md-4">
                     @if ($karyawan->tipe == 'bulanan')
                         @include('cms.partial.bulanan')
                     @else
@@ -60,7 +60,7 @@
                     @endif
                 </div>
             </div>
-            <div class="row col-md-8">
+            <div class="row col-md-12">
                 @foreach ($komponen as $item)
                     <div class="col-md-4">
                         <div class="form-group">

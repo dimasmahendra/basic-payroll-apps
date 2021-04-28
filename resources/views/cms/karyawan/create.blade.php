@@ -30,7 +30,7 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <div class="custom-control custom-switch switch-success">
-                        <input type="checkbox" class="custom-control-input" id="customSwitchSuccess" name="status"> 
+                        <input type="checkbox" class="custom-control-input" id="customSwitchSuccess" name="status" checked> 
                         <label class="custom-control-label" for="customSwitchSuccess">Status Karyawan</label>
                     </div>
                 </div>
@@ -41,8 +41,8 @@
                     <input type="text" class="form-control" id="nama-lengkap" name="nama_lengkap" required/>
                 </div>
             </div>
-            <div class="row col-md-10">
-                <div class="col-md-2">
+            <div class="row col-md-12">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label>Tipe Gaji Karyawan <span class="text-warning">*</span></label> 
                         <select class="form-control" id="tipegaji" name="tipe" required>
@@ -51,9 +51,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="container-waktugajian col-md-2"></div>
+                <div class="container-waktugajian col-md-4"></div>
             </div>
-            <div class="row col-md-8">
+            <div class="row col-md-12">
                 @foreach ($komponen as $item)
                     <div class="col-md-4">
                         <div class="form-group">
