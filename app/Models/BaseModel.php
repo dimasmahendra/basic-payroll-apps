@@ -180,4 +180,14 @@ class BaseModel extends Model
         $this->fails = $validator->fails();
         $this->errors = $validator;
     }
+
+    public function scopeDropdown($query, String $primaryKey = "id", String $label="name")
+    {
+        $arr = [];
+        $data = $query->get();
+        foreach ($data as $key => $value) {
+            $arr[$value[$primaryKey]] = $value[$label];
+        }
+        return $arr;
+    }
 }

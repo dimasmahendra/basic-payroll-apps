@@ -21,10 +21,22 @@
     <div class="card-body">
         <form id="form-simpan-karyawan" method="POST" action="{{ route('karyawan.store') }}">
             {{ csrf_field() }}
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>NIK Karyawan <span class="text-warning">*</span></label> 
-                    <input type="text" class="form-control" id="nik-karyawan" name="nik_karyawan" required/>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>NIK Karyawan <span class="text-warning">*</span></label> 
+                        <input type="text" class="form-control" id="nik-karyawan" name="nik_karyawan" required/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Jabatan <span class="text-warning">*</span></label> 
+                        <select class="form-control" id="jabatanid" name="jabatan_id" required>
+                            @foreach ($jabatan as $key => $item)
+                                <option value="{{ $key }}">{{ $item }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="col-md-8">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cms;
 
 use App\Models\Karyawan;
+use App\Models\Jabatan;
 use App\Models\KomponenGaji;
 use App\Models\KomponenKaryawan;
 use Illuminate\Http\Request;
@@ -22,7 +23,8 @@ class KaryawanController extends Controller
     {
         $komponen = KomponenGaji::orderBy('order')->get();
         return view('cms.karyawan.create', [
-            "komponen" => $komponen
+            "komponen" => $komponen,
+            "jabatan" => Jabatan::dropdown('id', 'nama')
         ]);
     }
 
@@ -33,6 +35,7 @@ class KaryawanController extends Controller
             $model = new Karyawan($request->all());
             $model->nik_karyawan = $request->nik_karyawan;
             $model->nama_lengkap = $request->nama_lengkap;
+            $model->jabatan_id = $request->jabatan_id;
             $model->tipe = $request->tipe;
             $model->waktu_penggajian = $request->waktu_penggajian;
             $model->status = (isset($request->status) && $request->status == "on") ? '1' : '0';
@@ -71,7 +74,8 @@ class KaryawanController extends Controller
         return view('cms.karyawan.edit', [
             "id" => $id,
             "komponen" => $komponen,
-            "karyawan" => $karyawan
+            "karyawan" => $karyawan,
+            "jabatan" => Jabatan::dropdown('id', 'nama')
         ]);
     }
 
@@ -82,6 +86,7 @@ class KaryawanController extends Controller
             $model = Karyawan::find($id);
             $model->nik_karyawan = $request->nik_karyawan;
             $model->nama_lengkap = $request->nama_lengkap;
+            $model->jabatan_id = $request->jabatan_id;
             $model->tipe = $request->tipe;
             $model->waktu_penggajian = $request->waktu_penggajian;
             $model->status = (isset($request->status) && $request->status == "on") ? '1' : '0';
