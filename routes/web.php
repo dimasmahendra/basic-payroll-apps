@@ -38,6 +38,16 @@ Route::middleware(["auth"])->group(function(){
         // Gaji Harian
         Route::get('/gaji/harian', [App\Http\Controllers\Cms\HarianController::class, 'index'])->name('harian');
         Route::post('/gaji/harian/generate', [App\Http\Controllers\Cms\HarianController::class, 'generate'])->name('generate.harian');
+
+        /* Master Data */
+
+        // Jabatan
+        Route::get('/jabatan', [App\Http\Controllers\Cms\JabatanController::class, 'index'])->name('jabatan');
+        Route::get('/jabatan/create', [App\Http\Controllers\Cms\JabatanController::class, 'create'])->name('jabatan.create');
+        Route::post('/jabatan/store', [App\Http\Controllers\Cms\JabatanController::class, 'store'])->name('jabatan.store');
+        Route::get('/jabatan/edit/{id}', [App\Http\Controllers\Cms\JabatanController::class, 'edit'])->name('jabatan.edit');
+        Route::put('/jabatan/update/{id}', [App\Http\Controllers\Cms\JabatanController::class, 'update'])->name('jabatan.update');
+        Route::get('/jabatan/destroy/{id}', [App\Http\Controllers\Cms\JabatanController::class, 'destroy'])->name('jabatan.destroy');
     });
 
     Route::prefix("internal-api")->group(function(){

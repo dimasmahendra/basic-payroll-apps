@@ -2,7 +2,8 @@
 1. Inputan Upah lembur di halaman karyawan itu merupakan nilai dari gaji perhari pada rumus hitungan lembur.
 2. Angsuran Koperasi dan Kantor, Asumsi nya seperti ini, jika masih ada tanggungan, bisa ambil kredit lagi dan total nya di akumulasi dengan hutang sebelumnya.
 3. Semua angka yang di inputkan di dalam halaman karyawan itu nilai dari perhari.
-
+4. Asusmsi Sementara :
+    - Tunjangan Stkr, Prh -> hitungannya di kalikan jumlah masuk karyawan tersebut.
 
 Request 
 2 pegawai harian (beda orang), slip gaji untuk 1 bulan terakhir (berarti harusnya ada 8 slip gaji)

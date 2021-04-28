@@ -31,6 +31,12 @@ class GajiMingguan extends Collection
                 if ($komponenkaryawan->komponen_nama == 'tunjangan_makan') {
                     $this->checkTunjanganMakan($value->absen, $komponenkaryawan);
                 }
+                if ($komponenkaryawan->komponen_nama == 'tunjangan_stkr') {
+                    $this->checkTunjanganStkr($value->absen, $komponenkaryawan);
+                }
+                if ($komponenkaryawan->komponen_nama == 'tunjangan_prh') {
+                    $this->checkTunjanganPrh($value->absen, $komponenkaryawan);
+                }
                 else if ($komponenkaryawan->komponen_nama == 'bonus_masuk') {
                     $this->checkBonusMasuk($value->absen, $komponenkaryawan);
                 }
@@ -55,24 +61,25 @@ class GajiMingguan extends Collection
         dd($komponen);
     }
 
-    public function checkAngsuran($komponenkaryawan, $awal, $akhir, $jenis)
+    public function checkUpahPokok($absen, $komponenkaryawan)
     {
-        $angsuran = Angsuran::jenisAngsuran($jenis)->where([
-                            'karyawan_id' => $komponenkaryawan->karyawan_id,    
-                            'mutasi_terakhir' => 'kredit',
-                        ])
-                        ->whereBetween('tanggal_angsuran_terakhir', [$awal, $akhir])
-                        ->first('nilai_angsuran_terakhir');
-        $nilai = ($angsuran) ? $angsuran->nilai_angsuran_terakhir : 0;
-        if ($nilai == 0) {
-            $komponenkaryawan->komponen_nilai = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
-        } else {
-            $komponenkaryawan->komponen_nilai = "($nilai)";
-        }
+        $komponenkaryawan->komponen_nilai = (($absen) ? $absen->total_masuk : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
         return $this->map($komponenkaryawan);
     }
 
-    public function checkUpahPokok($absen, $komponenkaryawan)
+    public function checkTunjanganMakan($absen, $komponenkaryawan)
+    {
+        $komponenkaryawan->komponen_nilai = (($absen) ? $absen->total_masuk : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        return $this->map($komponenkaryawan);
+    }
+
+    public function checkTunjanganStkr($absen, $komponenkaryawan)
+    {
+        $komponenkaryawan->komponen_nilai = (($absen) ? $absen->total_masuk : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        return $this->map($komponenkaryawan);
+    }
+
+    public function checkTunjanganPrh($absen, $komponenkaryawan)
     {
         $komponenkaryawan->komponen_nilai = (($absen) ? $absen->total_masuk : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
         return $this->map($komponenkaryawan);
@@ -93,9 +100,20 @@ class GajiMingguan extends Collection
         return $this->map($komponenkaryawan);
     }
 
-    public function checkTunjanganMakan($absen, $komponenkaryawan)
+    public function checkAngsuran($komponenkaryawan, $awal, $akhir, $jenis)
     {
-        $komponenkaryawan->komponen_nilai = (($absen) ? $absen->total_masuk : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        $angsuran = Angsuran::jenisAngsuran($jenis)->where([
+                            'karyawan_id' => $komponenkaryawan->karyawan_id,    
+                            'mutasi_terakhir' => 'kredit',
+                        ])
+                        ->whereBetween('tanggal_angsuran_terakhir', [$awal, $akhir])
+                        ->first('nilai_angsuran_terakhir');
+        $nilai = ($angsuran) ? $angsuran->nilai_angsuran_terakhir : 0;
+        if ($nilai == 0) {
+            $komponenkaryawan->komponen_nilai = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        } else {
+            $komponenkaryawan->komponen_nilai = "($nilai)";
+        }
         return $this->map($komponenkaryawan);
     }
 }

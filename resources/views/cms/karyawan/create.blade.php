@@ -19,7 +19,7 @@
         <h4 class="card-title">Tambah Karyawan</h4>
     </div>
     <div class="card-body">
-        <form id="form-simpan-nikah" method="POST" action="{{ route('karyawan.store') }}">
+        <form id="form-simpan-karyawan" method="POST" action="{{ route('karyawan.store') }}">
             {{ csrf_field() }}
             <div class="col-md-3">
                 <div class="form-group">
