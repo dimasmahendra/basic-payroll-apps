@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\KomponenKaryawan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Absensi extends BaseModel
@@ -39,5 +40,10 @@ class Absensi extends BaseModel
             ]; 
         }
         return array_replace_recursive($hitungan_hari, $jam_hadir, $jam_lembur_1, $jam_lembur_2);
-    }    
+    }  
+    
+    public function komponenkaryawan()
+    {
+        return $this->hasMany(KomponenKaryawan::class, 'karyawan_id', 'karyawan_id');
+    }
 }
