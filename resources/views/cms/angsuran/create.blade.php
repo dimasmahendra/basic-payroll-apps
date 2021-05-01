@@ -16,7 +16,7 @@
 @section('content')
 <div class="card">
     <div class="card-header">
-        <h4 class="card-title">Tambah Angsuran</h4>
+        <h4 class="card-title">Pinjaman Angsuran</h4>
     </div>
     <div class="card-body">
         <form id="form-simpan-angsuran" method="POST" action="{{ route('angsuran.store') }}">
@@ -42,17 +42,6 @@
                 <div class="form-group">
                     <label>NIK Karyawan <span class="text-warning">*</span></label>
                     <select class="form-control" id="nik-karyawan" name="karyawan_id"></select>
-                </div>
-            </div>
-            <div class="row col-md-10">
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label>Mutasi <span class="text-warning">*</span></label> 
-                        <select class="form-control" name="mutasi" required>
-                            <option value="debet">Debet</option>
-                            <option value="kredit">Kredit</option>
-                        </select>
-                    </div>
                 </div>
             </div>
             <div class="col-md-6">

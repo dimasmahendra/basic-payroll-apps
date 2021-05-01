@@ -49,4 +49,27 @@ class AngsuranDetail extends BaseModel
         }
         return $totalKredit - $totalDebet;
     }
+
+    public function groupDataByKaryawan($request)
+    {
+        foreach ($request->saldo as $key => $value) {
+            $saldo[] = [
+                'karyawan_id' => $key,
+                'saldo' => floatval(str_replace('.', '' , $value))
+            ]; 
+        }
+        foreach ($request->keterangan as $key => $value) {
+            $keterangan[] = [
+                'karyawan_id' => $key,
+                'keterangan' => $value,
+            ]; 
+        }
+        foreach ($request->angsuran_ke as $key => $value) {
+            $angsuran_ke[] = [
+                'karyawan_id' => $key,
+                'angsuran_ke' => $value,
+            ]; 
+        }
+        return array_replace_recursive($saldo, $keterangan, $angsuran_ke);
+    } 
 }

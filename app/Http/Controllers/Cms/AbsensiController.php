@@ -22,7 +22,8 @@ class AbsensiController extends Controller
                     })
                     ->get();
             return view('cms.absensi.index-ajax', [
-                "karyawan" => $karyawan
+                "karyawan" => $karyawan,
+                "event" => $eventDate
             ]);
         } else {
             $karyawan = Karyawan::select('karyawan.*', 'absensi.hitungan_hari', 'absensi.jam_masuk', 'absensi.jam_keluar', 'absensi.jam_lembur_1', 'absensi.jam_lembur_2', 

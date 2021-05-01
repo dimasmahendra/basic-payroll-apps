@@ -2,5 +2,6 @@ $(".currency").maskMoney({
     thousands: ".",
     decimal:',',
     precision: 0,
-    affixesStay: false
+    affixesStay: false,
+    allowZero: true
 })

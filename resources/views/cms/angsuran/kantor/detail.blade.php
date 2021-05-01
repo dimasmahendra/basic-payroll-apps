@@ -32,6 +32,8 @@
                     'debet' => "Debet",
                     'kredit' => "Kredit",
                     'tanggal_angsuran' => "Tanggal Angsuran Terakhir",
+                    'keterangan' => "Keterangan",
+                    'angsuran_ke' => "Ansuran Ke",
                 ],
                 "values" => [
                     "karyawan_nik" => function($data){
