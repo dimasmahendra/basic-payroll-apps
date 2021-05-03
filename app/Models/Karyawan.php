@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Angsuran;
 use App\Models\KomponenKaryawan;
+use App\Models\GajiMingguan as Mingguan;
 use App\Collections\GajiMingguan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -57,6 +58,11 @@ class Karyawan extends BaseModel
     public function komponenkaryawan()
     {
         return $this->hasMany(KomponenKaryawan::class, 'karyawan_id', 'id');
+    }
+    
+    public function karyawanmingguan()
+    {
+        return $this->hasMany(Mingguan::class, 'karyawan_id', 'id');
     }
 
     public function angsuran()

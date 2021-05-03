@@ -40,6 +40,7 @@ Route::middleware(["auth"])->group(function(){
 
         // Gaji Harian
         Route::get('/gaji/harian', [App\Http\Controllers\Cms\HarianController::class, 'index'])->name('harian');
+        Route::get("/gaji/harian/export", [App\Http\Controllers\Cms\HarianController::class, 'export'])->name("generate.export");
         Route::post('/gaji/harian/generate', [App\Http\Controllers\Cms\HarianController::class, 'generate'])->name('generate.harian');
 
         /* Master Data */

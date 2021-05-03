@@ -2,6 +2,7 @@
 namespace App\Collections;
 
 use App\Models\Angsuran;
+use App\Models\GajiMingguan as Mingguan;
 use Illuminate\Database\Eloquent\Collection;
 
 class GajiMingguan extends Collection
@@ -23,43 +24,62 @@ class GajiMingguan extends Collection
         $periode_akhir = date('Y-m-d', strtotime(str_replace('/', '-', $req->periode_akhir)));
 
         foreach ($this as $key => $karyawan) {
-            $userKomponen = array();
-            $absen = $karyawan->absen($periode_awal, $periode_akhir)->first();
-            foreach ($karyawan->komponenkaryawan as $k => $komponenkaryawan) {
-                if ($komponenkaryawan->komponen_nama == 'upah_pokok') {
-                    $this->checkUpahPokok($absen, $komponenkaryawan);
-                }
-                else if ($komponenkaryawan->komponen_nama == 'tunjangan_makan') {
-                    $this->checkTunjanganMakan($absen, $komponenkaryawan);
-                }
-                else if ($komponenkaryawan->komponen_nama == 'tunjangan_stkr') {
-                    $this->checkTunjanganStkr($absen, $komponenkaryawan);
-                }
-                else if ($komponenkaryawan->komponen_nama == 'tunjangan_prh') {
-                    $this->checkTunjanganPrh($absen, $komponenkaryawan);
-                }
-                else if ($komponenkaryawan->komponen_nama == 'bonus_masuk') {
-                    $this->checkBonusMasuk($absen, $komponenkaryawan);
-                }
-                else if ($komponenkaryawan->komponen_nama == 'upah_lembur') {
-                    $this->checkUpahLembur($absen, $komponenkaryawan);
-                }
-                else {
-                    $komponenkaryawan->komponen_nilai = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));        
-                }
-                
-                $komponenkaryawan->periode_awal = $periode_awal;
-                $komponenkaryawan->periode_akhir = $periode_akhir;
-
-                $userKomponen[] = $this->map($komponenkaryawan);
-            }
-            $userKomponen[] = $this->checkAngsuran($karyawan, $periode_awal, $periode_akhir, 'koperasi');
-            $userKomponen[] = $this->checkAngsuran($karyawan, $periode_awal, $periode_akhir, 'kantor');
+            $data['komponen'] = $this->dataKomponen($karyawan, $periode_awal, $periode_akhir);
             $data['karyawan'] = $karyawan->toArray();
-            $data['komponen'] = $userKomponen;
             $komponen[] = $data;
         }
         return $komponen;
+    }
+
+    public function dataKomponen($karyawan, $periode_awal, $periode_akhir)
+    {
+        $absen = $karyawan->absen($periode_awal, $periode_akhir)->first();
+        foreach ($karyawan->komponenkaryawan as $k => $komponenkaryawan) {
+            if ($komponenkaryawan->komponen_nama == 'upah_pokok') {
+                $this->checkUpahPokok($absen, $komponenkaryawan);
+            }
+            else if ($komponenkaryawan->komponen_nama == 'tunjangan_makan') {
+                $this->checkTunjanganMakan($absen, $komponenkaryawan);
+            }
+            else if ($komponenkaryawan->komponen_nama == 'tunjangan_stkr') {
+                $this->checkTunjanganStkr($absen, $komponenkaryawan);
+            }
+            else if ($komponenkaryawan->komponen_nama == 'tunjangan_prh') {
+                $this->checkTunjanganPrh($absen, $komponenkaryawan);
+            }
+            else if ($komponenkaryawan->komponen_nama == 'bonus_masuk') {
+                $this->checkBonusMasuk($absen, $komponenkaryawan);
+            }
+            else if ($komponenkaryawan->komponen_nama == 'upah_lembur') {
+                $this->checkUpahLembur($absen, $komponenkaryawan);
+            }
+            else {
+                $komponenkaryawan->komponen_nilai = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));        
+            }
+            
+            $komponenkaryawan->periode_awal = $periode_awal;
+            $komponenkaryawan->periode_akhir = $periode_akhir;
+
+            $data[] = $this->map($komponenkaryawan);
+        }
+        $data[] = $this->checkAngsuran($karyawan, $periode_awal, $periode_akhir, 'koperasi');
+        $data[] = $this->checkAngsuran($karyawan, $periode_awal, $periode_akhir, 'kantor');
+
+        foreach ($data as $i => $komponenmingguan) {
+            $model = new Mingguan;
+            $model->updateOrCreate(
+                [
+                    'karyawan_id' => $komponenmingguan['karyawan_id'], 
+                    'periode_awal' => $komponenmingguan['periode_awal'],
+                    'periode_akhir' => $komponenmingguan['periode_akhir'],
+                    'komponen_nama' => $komponenmingguan['komponen_nama']
+                ],
+                [
+                    'komponen_nilai' => $komponenmingguan['komponen_nilai']
+                ]
+            );
+        }
+        return $data;
     }
 
     public function checkUpahPokok($absen, $komponenkaryawan)

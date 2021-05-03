@@ -24,6 +24,11 @@
                 <h4 class="card-title">Daftar Gaji Mingguan Karyawan</h4>
                 <p class="text-muted mb-0">Periode : {{ $periode }}</p>
             </div>
+            <div class="col-auto">
+                <a href="{{ route('generate.export') }}" download>
+                    <button class="btn btn-warning me-1 float-end">Export</button>
+                </a>
+            </div>
         </div>
     </div>
     <div class="card-body">

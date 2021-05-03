@@ -27,11 +27,13 @@
             @include('components/table', [
                 'data' => $angsuran,
                 'headers' => [
+                    'tanggal_angsuran' => "Tanggal Angsuran Terakhir",
                     'karyawan_nik' => "NIK Karyawan",
                     'karyawan_nama' => "Nama Karyawan",
                     'debet' => "Debet",
                     'kredit' => "Kredit",
-                    'tanggal_angsuran' => "Tanggal Angsuran Terakhir",
+                    'keterangan' => "Keterangan",
+                    'angsuran_ke' => "Ansuran Ke",
                 ],
                 "values" => [
                     "karyawan_nik" => function($data){
