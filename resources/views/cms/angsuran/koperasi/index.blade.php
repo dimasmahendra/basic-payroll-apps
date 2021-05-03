@@ -35,7 +35,7 @@
                     'karyawan_nik' => "NIK Karyawan",
                     'karyawan_nama' => "Nama Karyawan",
                     'sisa_angsuran' => "Sisa Angsuran",
-                    'updated_at' => "Tanggal Angsuran Terakhir",
+                    'tanggal_angsuran_terakhir' => "Tanggal Angsuran Terakhir",
                 ],
                 "values" => [
                         "karyawan_nik" => function($data){

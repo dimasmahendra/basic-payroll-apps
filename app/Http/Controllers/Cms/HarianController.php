@@ -19,25 +19,8 @@ class HarianController extends Controller
 
     public function generate(Request $request)
     {
-        $model = new Absensi;
-        // $karyawan = $model->mingguan()->get()->dataMingguan($request);
-
-        $periode_awal = date('Y-m-d', strtotime(str_replace('/', '-', $request->periode_awal)));
-        $periode_akhir = date('Y-m-d', strtotime(str_replace('/', '-', $request->periode_akhir)));
-        $karyawan = $model->select([
-            'absensi.karyawan_id',
-            DB::raw("SUM(absensi.hitungan_hari) as total_masuk"),
-            DB::raw("SUM(absensi.jam_lembur_1) as total_lembur_1"),
-            DB::raw("SUM(absensi.jam_lembur_2) as total_lembur_2"),
-        ])
-        ->leftJoin('karyawan', function($query) {
-            $query->on('absensi.karyawan_id', '=', 'karyawan.id')
-            ->where('karyawan.tipe', 'like', '%mingguan%');
-        })
-        ->whereBetween('tanggal_kehadiran', [$periode_awal, $periode_akhir])
-        ->groupBy('absensi.karyawan_id')
-        ->get();
-
+        $model = new Karyawan;
+        $karyawan = $model->mingguan()->get()->dataMingguan($request);
         if (count($karyawan) > 0) { 
             return view('cms.harian.generate', [
                 "karyawan" => $karyawan,
@@ -45,7 +28,7 @@ class HarianController extends Controller
                 "periode" => $request->periode_awal .' - '. $request->periode_akhir
             ]);
         } else {
-            return redirect(route('harian'))->with("error", "Tidak Ada karyawan Mingguan");
+            return redirect(route('harian'))->with("error", "Tidak Ada karyawan Mingguan Pada periode yang di pilih.");
         }
     }
 }

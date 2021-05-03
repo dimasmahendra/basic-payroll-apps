@@ -22,98 +22,96 @@ class GajiMingguan extends Collection
         $periode_awal = date('Y-m-d', strtotime(str_replace('/', '-', $req->periode_awal)));
         $periode_akhir = date('Y-m-d', strtotime(str_replace('/', '-', $req->periode_akhir)));
 
-        foreach ($this as $key => $value) {
+        foreach ($this as $key => $karyawan) {
             $userKomponen = array();
-            foreach ($value->komponenkaryawan as $k => $komponenkaryawan) {
+            $absen = $karyawan->absen($periode_awal, $periode_akhir)->first();
+            foreach ($karyawan->komponenkaryawan as $k => $komponenkaryawan) {
                 if ($komponenkaryawan->komponen_nama == 'upah_pokok') {
-                    $this->checkUpahPokok($value->absen, $komponenkaryawan);
+                    $this->checkUpahPokok($absen, $komponenkaryawan);
                 }
-                if ($komponenkaryawan->komponen_nama == 'tunjangan_makan') {
-                    $this->checkTunjanganMakan($value->absen, $komponenkaryawan);
+                else if ($komponenkaryawan->komponen_nama == 'tunjangan_makan') {
+                    $this->checkTunjanganMakan($absen, $komponenkaryawan);
                 }
-                if ($komponenkaryawan->komponen_nama == 'tunjangan_stkr') {
-                    $this->checkTunjanganStkr($value->absen, $komponenkaryawan);
+                else if ($komponenkaryawan->komponen_nama == 'tunjangan_stkr') {
+                    $this->checkTunjanganStkr($absen, $komponenkaryawan);
                 }
-                if ($komponenkaryawan->komponen_nama == 'tunjangan_prh') {
-                    $this->checkTunjanganPrh($value->absen, $komponenkaryawan);
+                else if ($komponenkaryawan->komponen_nama == 'tunjangan_prh') {
+                    $this->checkTunjanganPrh($absen, $komponenkaryawan);
                 }
                 else if ($komponenkaryawan->komponen_nama == 'bonus_masuk') {
-                    $this->checkBonusMasuk($value->absen, $komponenkaryawan);
+                    $this->checkBonusMasuk($absen, $komponenkaryawan);
                 }
                 else if ($komponenkaryawan->komponen_nama == 'upah_lembur') {
-                    $this->checkUpahLembur($value->absen, $komponenkaryawan);
+                    $this->checkUpahLembur($absen, $komponenkaryawan);
                 }
-                else if ($komponenkaryawan->komponen_nama == 'angsuran_hutang_koperasi') {
-                    $this->checkAngsuran($komponenkaryawan, $periode_awal, $periode_akhir, 'koperasi');
-                }
-                else if ($komponenkaryawan->komponen_nama == 'angsuran_hutang_kantor') {
-                    $this->checkAngsuran($komponenkaryawan, $periode_awal, $periode_akhir, 'kantor');
-                } 
                 else {
                     $komponenkaryawan->komponen_nilai = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));        
                 }
+                
                 $komponenkaryawan->periode_awal = $periode_awal;
                 $komponenkaryawan->periode_akhir = $periode_akhir;
+
                 $userKomponen[] = $this->map($komponenkaryawan);
             }
-            $komponen[] = $userKomponen;
+            $userKomponen[] = $this->checkAngsuran($karyawan, $periode_awal, $periode_akhir, 'koperasi');
+            $userKomponen[] = $this->checkAngsuran($karyawan, $periode_awal, $periode_akhir, 'kantor');
+            $data['karyawan'] = $karyawan->toArray();
+            $data['komponen'] = $userKomponen;
+            $komponen[] = $data;
         }
-        dd($komponen);
+        return $komponen;
     }
 
     public function checkUpahPokok($absen, $komponenkaryawan)
     {
-        $komponenkaryawan->komponen_nilai = (($absen) ? $absen->total_masuk : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        $komponenkaryawan->komponen_nilai = ((!empty($absen)) ? $absen->total_masuk : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
         return $this->map($komponenkaryawan);
     }
 
     public function checkTunjanganMakan($absen, $komponenkaryawan)
     {
-        $komponenkaryawan->komponen_nilai = (($absen) ? $absen->total_masuk : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        $komponenkaryawan->komponen_nilai = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
         return $this->map($komponenkaryawan);
     }
 
     public function checkTunjanganStkr($absen, $komponenkaryawan)
     {
-        $komponenkaryawan->komponen_nilai = (($absen) ? $absen->total_masuk : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        $komponenkaryawan->komponen_nilai = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
         return $this->map($komponenkaryawan);
     }
 
     public function checkTunjanganPrh($absen, $komponenkaryawan)
     {
-        $komponenkaryawan->komponen_nilai = (($absen) ? $absen->total_masuk : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        $komponenkaryawan->komponen_nilai = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
         return $this->map($komponenkaryawan);
     }
 
     public function checkBonusMasuk($absen, $komponenkaryawan)
     {
-        $total_masuk = ($absen) ? $absen->total_masuk : 0;
+        $total_masuk = (!empty($absen)) ? $absen->total_masuk : 0;
         $komponenkaryawan->komponen_nilai = (($total_masuk == 6) ? $total_masuk : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
         return $this->map($komponenkaryawan);
     }
 
     public function checkUpahLembur($absen, $komponenkaryawan)
     {
-        $total_lembur_1 = 1.5 * (($absen) ? $absen->total_lembur_1 : 0) * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
-        $total_lembur_2 = 2 * (($absen) ? $absen->total_lembur_2 : 0) * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));        
+        $total_lembur_1 = 1.5 * ((!empty($absen)) ? $absen->total_lembur_1 : 0) * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        $total_lembur_2 = 2 * ((!empty($absen)) ? $absen->total_lembur_2 : 0) * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));        
         $komponenkaryawan->komponen_nilai = $total_lembur_1 + $total_lembur_2;
         return $this->map($komponenkaryawan);
     }
 
-    public function checkAngsuran($komponenkaryawan, $awal, $akhir, $jenis)
+    public function checkAngsuran($karyawan, $awal, $akhir, $jenis)
     {
-        $angsuran = Angsuran::jenisAngsuran($jenis)->where([
-                            'karyawan_id' => $komponenkaryawan->karyawan_id,    
-                            'mutasi_terakhir' => 'kredit',
-                        ])
-                        ->whereBetween('tanggal_angsuran_terakhir', [$awal, $akhir])
-                        ->first('nilai_angsuran_terakhir');
+        $angsuran = $karyawan->angsuran()->jenisAngsuran($jenis)->whereBetween('tanggal_angsuran_terakhir', [$awal, $akhir])->first('nilai_angsuran_terakhir');
         $nilai = ($angsuran) ? $angsuran->nilai_angsuran_terakhir : 0;
-        if ($nilai == 0) {
-            $komponenkaryawan->komponen_nilai = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
-        } else {
-            $komponenkaryawan->komponen_nilai = "($nilai)";
-        }
+        
+        $komponenkaryawan = new \stdClass();
+        $komponenkaryawan->karyawan_id = $karyawan->id;
+        $komponenkaryawan->komponen_nama = "angsuran_{$jenis}";
+        $komponenkaryawan->komponen_nilai = $nilai;
+        $komponenkaryawan->periode_awal = $awal;
+        $komponenkaryawan->periode_akhir = $akhir;
         return $this->map($komponenkaryawan);
     }
 }

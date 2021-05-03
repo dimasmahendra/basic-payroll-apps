@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use App\Collections\GajiMingguan;
+use App\Models\Angsuran;
 use App\Models\KomponenKaryawan;
+use App\Collections\GajiMingguan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -58,7 +59,12 @@ class Karyawan extends BaseModel
         return $this->hasMany(KomponenKaryawan::class, 'karyawan_id', 'id');
     }
 
-    public function absen()
+    public function angsuran()
+    {
+        return $this->hasOne(Angsuran::class, 'karyawan_id', 'id');
+    }
+
+    public function absen($awal, $akhir)
     {
         return $this->hasOne(Absensi::class, 'karyawan_id', 'id')
                 ->select([
@@ -67,6 +73,7 @@ class Karyawan extends BaseModel
                     DB::raw("SUM(absensi.jam_lembur_1) as total_lembur_1"),
                     DB::raw("SUM(absensi.jam_lembur_2) as total_lembur_2"),
                 ])
+                ->whereBetween('tanggal_kehadiran', [$awal, $akhir])
                 ->groupBy('absensi.karyawan_id');
     }
 
