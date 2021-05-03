@@ -18,7 +18,7 @@
                 <h4 class="card-title">Daftar Angsuran Kantor</h4>
             </div>
             <div class="col-auto">
-                <a class="btn btn-outline-success waves-effect waves-light d-inline-block" href="{{ route('angsuran.kantor.bayar') }}">
+                <a class="btn btn-outline-success waves-effect waves-light d-inline-block" href="{{ route('angsuran.bayar.show', ['kantor']) }}"> 
                     <i class="mdi mdi-plus-circle-outline mr-2"></i>Pembayaran
                 </a>
                 <a class="btn btn-outline-primary waves-effect waves-light d-inline-block" href="{{ route('angsuran.create') }}">

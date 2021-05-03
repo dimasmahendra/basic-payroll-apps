@@ -28,7 +28,7 @@
                         <i class="mdi mdi-chevron-right"></i>
                     </span>
                 </a>
-                <ul class="nav-second-level mm-collapse" aria-expanded="false">
+                <ul class="nav-second-level mm-collapse {{ (strpos($page, 'bayar') !== false) ? 'mm-show' : '' }}" aria-expanded="false">
                     <li class="nav-item {{ (strpos($page, 'kantor') !== false) ? 'item-active' : '' }}">
                         <a class="nav-link" href="{{ route('angsuran.kantor') }}">
                             <i class="ti-control-record"></i>Kantor

@@ -71,39 +71,41 @@ class AngsuranController extends Controller
         ]);
     }
 
-    public function showBayarKantor(Request $request)
+    public function showBayarKantor(Request $request, $type)
     {
         $eventDate = AngsuranDetail::where([
                                 'mutasi' => 'kredit',
-                                'jenis_angsuran' => 'kantor',
+                                'jenis_angsuran' => $type,
                             ])->
                         distinct()->pluck('tanggal_angsuran');
 
         if($request->ajax()){
             $karyawan = Karyawan::select('karyawan.*', 'angsuran_detail.saldo', 'angsuran_detail.keterangan', 'angsuran_detail.tanggal_angsuran', 
                         'angsuran_detail.mutasi', 'angsuran_detail.jenis_angsuran', 'angsuran_detail.angsuran_ke')
-                        ->leftJoin('angsuran_detail', function($query) use($request) {
+                        ->leftJoin('angsuran_detail', function($query) use($request, $type) {
                         $query->on('karyawan.id', '=', 'angsuran_detail.karyawan_id')
                         ->where('mutasi', '=', 'kredit')
+                        ->where('jenis_angsuran', '=', $type)
                         ->whereDate('tanggal_angsuran', '=', $request->t);
                     })
                     ->get();
 
-            return view('cms.angsuran.kantor.bayarindex-ajax', [
+            return view('cms.angsuran.'.$type.'.bayarindex-ajax', [
                 "karyawan" => $karyawan,
                 "event" => $eventDate
             ]);
         } else {
             $karyawan = Karyawan::select('karyawan.*', 'angsuran_detail.saldo', 'angsuran_detail.keterangan', 'angsuran_detail.tanggal_angsuran', 
                         'angsuran_detail.mutasi', 'angsuran_detail.jenis_angsuran', 'angsuran_detail.angsuran_ke')
-                        ->leftJoin('angsuran_detail', function($query) {
+                        ->leftJoin('angsuran_detail', function($query) use($type) {
                         $query->on('karyawan.id', '=', 'angsuran_detail.karyawan_id')
                         ->where('mutasi', '=', 'kredit')
+                        ->where('jenis_angsuran', '=', $type)
                         ->whereDate('tanggal_angsuran', '=', date('Y-m-d'));
                     })
                     ->get();
-
-            return view('cms.angsuran.kantor.bayarindex', [
+            
+            return view('cms.angsuran.'.$type.'.bayarindex', [
                 "karyawan" => $karyawan,
                 "event" => $eventDate
             ]);
@@ -145,8 +147,9 @@ class AngsuranController extends Controller
             }
 
             DB::commit();
-            return redirect(route('angsuran.kantor.bayar'))->with("message", "Berhasil Simpan");
+            return redirect(route('angsuran.bayar.show', [$request->jenis_angsuran]))->with("message", "Berhasil Simpan");
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             DB::rollBack();
         }
     }

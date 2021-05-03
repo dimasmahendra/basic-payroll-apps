@@ -32,8 +32,8 @@ Route::middleware(["auth"])->group(function(){
         Route::get('/angsuran/kantor', [App\Http\Controllers\Cms\AngsuranController::class, 'indexKantor'])->name('angsuran.kantor');
         Route::get('/angsuran/koperasi', [App\Http\Controllers\Cms\AngsuranController::class, 'indexKoperasi'])->name('angsuran.koperasi');
         Route::get('/angsuran/create', [App\Http\Controllers\Cms\AngsuranController::class, 'create'])->name('angsuran.create');
-        Route::get('/angsuran/kantor/bayar', [App\Http\Controllers\Cms\AngsuranController::class, 'showBayarKantor'])->name('angsuran.kantor.bayar');
-        Route::get('/angsuran/koperasi/create', [App\Http\Controllers\Cms\AngsuranController::class, 'create'])->name('angsuran.koperasi.create');
+        // Route::get('/angsuran/kantor/bayar', [App\Http\Controllers\Cms\AngsuranController::class, 'showBayarKantor'])->name('angsuran.kantor.bayar');
+        Route::get('/angsuran/bayar/{type}', [App\Http\Controllers\Cms\AngsuranController::class, 'showBayarKantor'])->name('angsuran.bayar.show');
         Route::get('/angsuran/show/{jenis}/{id}', [App\Http\Controllers\Cms\AngsuranController::class, 'show'])->name('angsuran.show');
         Route::post('/angsuran/store', [App\Http\Controllers\Cms\AngsuranController::class, 'store'])->name('angsuran.store');
         Route::post('/angsuran/bayar', [App\Http\Controllers\Cms\AngsuranController::class, 'bayarAngsuran'])->name('angsuran.bayar');

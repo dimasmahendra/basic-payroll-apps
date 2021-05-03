@@ -17,9 +17,12 @@
             <div class="col">
                 <h4 class="card-title">Daftar Angsuran Koperasi</h4>
             </div>
-            <div class="col-auto">
-                <a class="btn btn-outline-success waves-effect waves-light d-inline-block" href="{{ route('angsuran.create') }}">
-                    <i class="mdi mdi-plus-circle-outline mr-2"></i>Tambah Data
+            <div class="col-auto">                
+                <a class="btn btn-outline-success waves-effect waves-light d-inline-block" href="{{ route('angsuran.bayar.show', ['koperasi']) }}">
+                    <i class="mdi mdi-plus-circle-outline mr-2"></i>Pembayaran
+                </a>
+                <a class="btn btn-outline-primary waves-effect waves-light d-inline-block" href="{{ route('angsuran.create') }}">
+                    <i class="mdi mdi-plus-circle-outline mr-2"></i>Pinjaman
                 </a>
             </div>
         </div>
