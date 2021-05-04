@@ -72,16 +72,10 @@ class DatabaseSeeder extends Seeder
                 'order' => 9,
                 'created_at' => now(),
             ],[
-                'nama' => 'angsuran_hutang_koperasi',
-                'label' => 'Angs. Utg Kop.',
+                'nama' => 'bpjs_orangtua',
+                'label' => 'Pot. BPJS Orang Tua',
                 'status' => '1',
                 'order' => 10,
-                'created_at' => now(),
-            ],[
-                'nama' => 'angsuran_hutang_kantor',
-                'label' => 'Angs. Utg Kan.',
-                'status' => '1',
-                'order' => 11,
                 'created_at' => now(),
             ]
         ];

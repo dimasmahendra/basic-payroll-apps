@@ -39,6 +39,9 @@ class KaryawanController extends Controller
             $model->tipe = $request->tipe;
             $model->waktu_penggajian = $request->waktu_penggajian;
             $model->status = (isset($request->status) && $request->status == "on") ? '1' : '0';
+            $model->bpjs_kesehatan = (isset($request->bpjs_kesehatan) && $request->bpjs_kesehatan == "on") ? 1 : 0;
+            $model->bpjs_tenagakerja = (isset($request->bpjs_tenagakerja) && $request->bpjs_tenagakerja == "on") ? 1 : 0;
+            $model->bpjs_orangtua = (isset($request->bpjs_orangtua) && $request->bpjs_orangtua == "on") ? 1 : 0;
             $model->save();       
 
             $komponentKaryawan = new KomponenKaryawan;
@@ -90,6 +93,9 @@ class KaryawanController extends Controller
             $model->tipe = $request->tipe;
             $model->waktu_penggajian = $request->waktu_penggajian;
             $model->status = (isset($request->status) && $request->status == "on") ? '1' : '0';
+            $model->bpjs_kesehatan = (isset($request->bpjs_kesehatan) && $request->bpjs_kesehatan == "on") ? 1 : 0;
+            $model->bpjs_tenagakerja = (isset($request->bpjs_tenagakerja) && $request->bpjs_tenagakerja == "on") ? 1 : 0;
+            $model->bpjs_orangtua = (isset($request->bpjs_orangtua) && $request->bpjs_orangtua == "on") ? 1 : 0;
             $model->save();       
 
             $komponentKaryawan = new KomponenKaryawan;

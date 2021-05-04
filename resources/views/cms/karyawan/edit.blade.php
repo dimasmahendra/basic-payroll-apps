@@ -54,6 +54,30 @@
                     <input type="text" class="form-control" id="nama-lengkap" name="nama_lengkap" value="{{ $karyawan->nama_lengkap }}" required/>
                 </div>
             </div>
+            <div class="col-md-8">
+                <div class="form-group">
+                    <div class="custom-control custom-switch switch-success">
+                        <input type="checkbox" class="custom-control-input" id="switch-kesehatan" name="bpjs_kesehatan" {{ ($karyawan->bpjs_kesehatan == 1) ? 'checked' : '' }}> 
+                        <label class="custom-control-label" for="switch-kesehatan">BPJS Kesehatan</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-group">
+                    <div class="custom-control custom-switch switch-success">
+                        <input type="checkbox" class="custom-control-input" id="switch-tenagakerja" name="bpjs_tenagakerja" {{ ($karyawan->bpjs_tenagakerja == 1) ? 'checked' : '' }}> 
+                        <label class="custom-control-label" for="switch-tenagakerja">BPJS Ketenaga Kerjaan</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-group">
+                    <div class="custom-control custom-switch switch-success">
+                        <input type="checkbox" class="custom-control-input" id="switch-orangtua" name="bpjs_orangtua" {{ ($karyawan->bpjs_orangtua == 1) ? 'checked' : '' }}> 
+                        <label class="custom-control-label" for="switch-orangtua">BPJS Orang Tua</label>
+                    </div>
+                </div>
+            </div>
             <div class="row col-md-12">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -77,7 +101,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>{{ $item->label }}</label> 
-                            <input type="text" class="form-control currency" name="{{ $item->id .'|'. $item->nama }}" value="{{ $item->komponen_nilai }}"/>
+                            <input type="text" class="form-control currency" id="{{ str_replace('_', '-', $item->nama) }}" name="{{ $item->id .'|'. $item->nama }}" value="{{ $item->komponen_nilai }}"/>
                         </div>
                     </div>
                 @endforeach
@@ -95,10 +119,51 @@
 @endpush
 
 @push('js-plugins')
+    @php
+        $bpjskesehatan = $karyawan->bpjs_kesehatan;
+    @endphp
     <script>
+        $(document).ready(function() {
+            var bpjskesehatan = {!! json_encode($karyawan->bpjs_kesehatan) !!};
+            if (bpjskesehatan) {
+                $("#bpjs-kesehatan").prop('readonly', "");
+            } else {
+                $("#bpjs-kesehatan").prop('readonly', "readonly");
+            }
+
+            var bpjstenagakerja = {!! json_encode($karyawan->bpjs_tenagakerja) !!};
+            if (bpjstenagakerja) {
+                $("#bpjs-tenagakerja").prop('readonly', "");
+            } else {
+                $("#bpjs-tenagakerja").prop('readonly', "readonly");
+            }
+
+            var bpjsorangtua = {!! json_encode($karyawan->bpjs_orangtua) !!};
+            if (bpjsorangtua) {
+                $("#bpjs-orangtua").prop('readonly', "");
+            } else {
+                $("#bpjs-orangtua").prop('readonly', "readonly");
+            }
+        });
+
         $(document).on('change', '#tipegaji', function() {
             let tipe = $(this).val();
             $(".container-waktugajian").load('/partial-waktu-' + tipe);
+        });
+
+        $(document).on('change', '#switch-kesehatan', function() {
+            $("#bpjs-kesehatan").prop('readonly', !this.checked);
+            $("#bpjs-kesehatan").val(0);
+        });
+
+        $(document).on('change', '#switch-tenagakerja', function() {
+            $("#bpjs-tenagakerja").prop('readonly', !this.checked);
+            $("#bpjs-tenagakerja").val(0);
+        });
+
+        $(document).on('change', '#switch-orangtua', function() {
+            $("#bpjs-orangtua").prop('readonly', !this.checked);
+            $("#bpjs-orangtua").val(0);
         });
     </script>
 @endpush

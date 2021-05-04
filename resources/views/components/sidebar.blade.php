@@ -58,6 +58,11 @@
                             <i class="ti-control-record"></i>Jabatan
                         </a>
                     </li>
+                    <li class="nav-item {{ (strpos($page, 'bpjs') !== false) ? 'item-active' : '' }}">
+                        <a class="nav-link" href="{{ route('bpjs') }}">
+                            <i class="ti-control-record"></i>BPJS
+                        </a>
+                    </li>
                 </ul>
             </li>        
       </ul>

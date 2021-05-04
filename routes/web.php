@@ -52,6 +52,9 @@ Route::middleware(["auth"])->group(function(){
         Route::get('/jabatan/edit/{id}', [App\Http\Controllers\Cms\JabatanController::class, 'edit'])->name('jabatan.edit');
         Route::put('/jabatan/update/{id}', [App\Http\Controllers\Cms\JabatanController::class, 'update'])->name('jabatan.update');
         Route::get('/jabatan/destroy/{id}', [App\Http\Controllers\Cms\JabatanController::class, 'destroy'])->name('jabatan.destroy');
+
+        // BPJS
+        Route::get('/bpjs', [App\Http\Controllers\Cms\BPJSController::class, 'index'])->name('bpjs');
     });
 
     Route::prefix("internal-api")->group(function(){
