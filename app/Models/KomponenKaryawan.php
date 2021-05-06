@@ -12,10 +12,16 @@ class KomponenKaryawan extends BaseModel
 
     public function formatData($data)
     {
-        foreach ($data as $key => $value) {       
+        $jumlah_orangtua = $data['jumlah_orangtua'];
+        foreach ($data as $key => $value) {     
             $komponens = explode("|", $key);
             if (count($komponens) == 2) {
                 list($k, $v) = $komponens;
+                if ($v == "bpjs_orangtua") {
+                    $value = floatval(str_replace('.', '' , $value)) * $jumlah_orangtua;
+                } else {
+                    $value = floatval(str_replace('.', '' , $value));
+                }
                 $result[] = [
                     'komponen_id' => $k,
                     'komponen_nama' => $v,

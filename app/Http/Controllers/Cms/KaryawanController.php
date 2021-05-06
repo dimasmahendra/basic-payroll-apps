@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Cms;
 
+use App\Models\Setting;
 use App\Models\Karyawan;
 use App\Models\Jabatan;
 use App\Models\KomponenGaji;
@@ -22,8 +23,14 @@ class KaryawanController extends Controller
     public function create()
     {
         $komponen = KomponenGaji::orderBy('order')->get();
+        $data = Setting::bpjs()->get();
+        foreach ($data as $key => $value) {
+            $setting[$value->komponen_nama] = $value->komponen_nilai;
+        }
+
         return view('cms.karyawan.create', [
             "komponen" => $komponen,
+            "bpjs" => $setting,
             "jabatan" => Jabatan::dropdown('id', 'nama')
         ]);
     }
@@ -42,6 +49,7 @@ class KaryawanController extends Controller
             $model->bpjs_kesehatan = (isset($request->bpjs_kesehatan) && $request->bpjs_kesehatan == "on") ? 1 : 0;
             $model->bpjs_tenagakerja = (isset($request->bpjs_tenagakerja) && $request->bpjs_tenagakerja == "on") ? 1 : 0;
             $model->bpjs_orangtua = (isset($request->bpjs_orangtua) && $request->bpjs_orangtua == "on") ? 1 : 0;
+            $model->jumlah_orangtua = $request->jumlah_orangtua;
             $model->save();       
 
             $komponentKaryawan = new KomponenKaryawan;
@@ -73,11 +81,17 @@ class KaryawanController extends Controller
                     })
                     ->orderBy('order')
                     ->get();
+
+        $data = Setting::bpjs()->get();
+        foreach ($data as $key => $value) {
+            $setting[$value->komponen_nama] = $value->komponen_nilai;
+        }
         
         return view('cms.karyawan.edit', [
             "id" => $id,
             "komponen" => $komponen,
             "karyawan" => $karyawan,
+            "bpjs" => $setting,
             "jabatan" => Jabatan::dropdown('id', 'nama')
         ]);
     }
@@ -96,11 +110,11 @@ class KaryawanController extends Controller
             $model->bpjs_kesehatan = (isset($request->bpjs_kesehatan) && $request->bpjs_kesehatan == "on") ? 1 : 0;
             $model->bpjs_tenagakerja = (isset($request->bpjs_tenagakerja) && $request->bpjs_tenagakerja == "on") ? 1 : 0;
             $model->bpjs_orangtua = (isset($request->bpjs_orangtua) && $request->bpjs_orangtua == "on") ? 1 : 0;
+            $model->jumlah_orangtua = $request->jumlah_orangtua;
             $model->save();       
 
             $komponentKaryawan = new KomponenKaryawan;
             $komponen = $komponentKaryawan->formatData($request->all());
-            
             foreach ($komponen as $key => $value) {
                 $attr = clone $komponentKaryawan;
                 $attr->updateOrCreate(

@@ -55,6 +55,7 @@ Route::middleware(["auth"])->group(function(){
 
         // BPJS
         Route::get('/bpjs', [App\Http\Controllers\Cms\BPJSController::class, 'index'])->name('bpjs');
+        Route::post('/bpjs/store', [App\Http\Controllers\Cms\BPJSController::class, 'store'])->name('bpjs.store');
     });
 
     Route::prefix("internal-api")->group(function(){

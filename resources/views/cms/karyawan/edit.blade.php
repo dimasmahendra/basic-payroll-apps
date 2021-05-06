@@ -70,12 +70,17 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <div class="custom-control custom-switch switch-success">
-                        <input type="checkbox" class="custom-control-input" id="switch-orangtua" name="bpjs_orangtua" {{ ($karyawan->bpjs_orangtua == 1) ? 'checked' : '' }}> 
-                        <label class="custom-control-label" for="switch-orangtua">BPJS Orang Tua</label>
+            <div class="col-md-8 row pb-3">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <div class="custom-control custom-switch switch-success">
+                            <input type="checkbox" class="custom-control-input" id="switch-orangtua" name="bpjs_orangtua" {{ ($karyawan->bpjs_orangtua == 1) ? 'checked' : '' }}> 
+                            <label class="custom-control-label" for="switch-orangtua">BPJS Orang Tua</label>
+                        </div>
                     </div>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" id="jumlah-orangtua" name="jumlah_orangtua" readonly required/>
                 </div>
             </div>
             <div class="row col-md-12">
@@ -97,13 +102,21 @@
                 </div>
             </div>
             <div class="row col-md-12">
+                @php
+                    $hide = ['bpjs_kesehatan', 'bpjs_tenagakerja', 'bpjs_orangtua'];                    
+                @endphp
                 @foreach ($komponen as $item)
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>{{ $item->label }}</label> 
-                            <input type="text" class="form-control currency" id="{{ str_replace('_', '-', $item->nama) }}" name="{{ $item->id .'|'. $item->nama }}" value="{{ $item->komponen_nilai }}"/>
+                    @if (in_array($item->nama, $hide) == true)
+                        <input type="hidden" id="{{ str_replace('_', '-', $item->nama) }}" name="{{ $item->id .'|'. $item->nama }}"
+                        value="{{ ($karyawan->{$item->komponen_nama} == 1) ? $bpjs[$item->komponen_nama] : 0 }}" />
+                    @else
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>{{ $item->label }}</label> 
+                                <input type="text" class="form-control currency" id="{{ str_replace('_', '-', $item->nama) }}" name="{{ $item->id .'|'. $item->nama }}" value="{{ $item->komponen_nilai }}"/>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 @endforeach
             </div>
             <div class="text-right">
@@ -119,51 +132,44 @@
 @endpush
 
 @push('js-plugins')
-    @php
-        $bpjskesehatan = $karyawan->bpjs_kesehatan;
-    @endphp
     <script>
-        $(document).ready(function() {
-            var bpjskesehatan = {!! json_encode($karyawan->bpjs_kesehatan) !!};
-            if (bpjskesehatan) {
-                $("#bpjs-kesehatan").prop('readonly', "");
-            } else {
-                $("#bpjs-kesehatan").prop('readonly', "readonly");
-            }
-
-            var bpjstenagakerja = {!! json_encode($karyawan->bpjs_tenagakerja) !!};
-            if (bpjstenagakerja) {
-                $("#bpjs-tenagakerja").prop('readonly', "");
-            } else {
-                $("#bpjs-tenagakerja").prop('readonly', "readonly");
-            }
-
-            var bpjsorangtua = {!! json_encode($karyawan->bpjs_orangtua) !!};
-            if (bpjsorangtua) {
-                $("#bpjs-orangtua").prop('readonly', "");
-            } else {
-                $("#bpjs-orangtua").prop('readonly', "readonly");
-            }
-        });
-
         $(document).on('change', '#tipegaji', function() {
             let tipe = $(this).val();
             $(".container-waktugajian").load('/partial-waktu-' + tipe);
         });
 
+        $(document).on('change', '#switch-orangtua', function() {
+            $("#jumlah-orangtua").prop('readonly', !this.checked);
+            if (this.checked) {
+                $("#jumlah-orangtua").val();    
+            } else {
+                $("#jumlah-orangtua").val(0);
+            }
+        });
+
         $(document).on('change', '#switch-kesehatan', function() {
-            $("#bpjs-kesehatan").prop('readonly', !this.checked);
-            $("#bpjs-kesehatan").val(0);
+            if (this.checked) {
+                $("#bpjs-kesehatan").val({!! json_encode($bpjs["bpjs_kesehatan"]) !!});
+            } else {
+                $("#bpjs-kesehatan").val(0);
+            }
         });
 
         $(document).on('change', '#switch-tenagakerja', function() {
-            $("#bpjs-tenagakerja").prop('readonly', !this.checked);
-            $("#bpjs-tenagakerja").val(0);
+            if (this.checked) {
+                $("#bpjs-tenagakerja").val({!! json_encode($bpjs["bpjs_tenagakerja"]) !!});
+            } else {
+                $("#bpjs-tenagakerja").val(0);
+            }
         });
 
         $(document).on('change', '#switch-orangtua', function() {
-            $("#bpjs-orangtua").prop('readonly', !this.checked);
-            $("#bpjs-orangtua").val(0);
+            if (this.checked) {
+                $("#bpjs-orangtua").val({!! json_encode($bpjs["bpjs_orangtua"]) !!});
+            } else {
+                $("#bpjs-orangtua").val(0);
+            }
         });
+
     </script>
 @endpush

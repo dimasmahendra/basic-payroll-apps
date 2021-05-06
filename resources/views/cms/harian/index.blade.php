@@ -60,6 +60,7 @@
         todayHighlight: true,
         autoclose: true,
         format: 'dd/mm/yyyy',
+        startDate: new Date(),
     }).on('changeDate', function (selected) {
         endDate = $(this).datepicker('getDate');
         var final=new Date(endDate);

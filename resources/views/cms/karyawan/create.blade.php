@@ -69,12 +69,17 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
-                <div class="form-group">
-                    <div class="custom-control custom-switch switch-success">
-                        <input type="checkbox" class="custom-control-input" id="switch-orangtua" name="bpjs_orangtua"> 
-                        <label class="custom-control-label" for="switch-orangtua">BPJS Orang Tua</label>
+            <div class="col-md-8 row pb-3">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <div class="custom-control custom-switch switch-success">
+                            <input type="checkbox" class="custom-control-input" id="switch-orangtua" name="bpjs_orangtua"> 
+                            <label class="custom-control-label" for="switch-orangtua">BPJS Orang Tua</label>
+                        </div>
                     </div>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" id="jumlah-orangtua" name="jumlah_orangtua" readonly required/>
                 </div>
             </div>
             <div class="row col-md-12">
@@ -90,13 +95,20 @@
                 <div class="container-waktugajian col-md-4"></div>
             </div>
             <div class="row col-md-12">
+                @php
+                    $hide = ['bpjs_kesehatan', 'bpjs_tenagakerja', 'bpjs_orangtua'];
+                @endphp
                 @foreach ($komponen as $item)
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>{{ $item->label }}</label> 
-                            <input type="text" class="form-control currency" id="{{ str_replace('_', '-', $item->nama) }}" name="{{ $item->id .'|'. $item->nama }}"/>
+                    @if (in_array($item->nama, $hide) == true)
+                        <input type="hidden" id="{{ str_replace('_', '-', $item->nama) }}" name="{{ $item->id .'|'. $item->nama }}" />
+                    @else
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>{{ $item->label }}</label> 
+                                <input type="text" class="form-control currency" id="{{ str_replace('_', '-', $item->nama) }}" name="{{ $item->id .'|'. $item->nama }}"/>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 @endforeach
             </div>
             <div class="text-right">
@@ -116,10 +128,6 @@
         $(document).ready(function() {
             let tipe = $("#tipegaji").val();
             $(".container-waktugajian").load('/partial-waktu-' + tipe);
-
-            $("#bpjs-kesehatan").prop('readonly', "readonly");
-            $("#bpjs-tenagakerja").prop('readonly', "readonly");
-            $("#bpjs-orangtua").prop('readonly', "readonly");
         });
 
         $(document).on('change', '#tipegaji', function() {
@@ -127,19 +135,37 @@
             $(".container-waktugajian").load('/partial-waktu-' + tipe);
         });
 
+        $(document).on('change', '#switch-orangtua', function() {
+            $("#jumlah-orangtua").prop('readonly', !this.checked);
+            if (this.checked) {
+                $("#jumlah-orangtua").val();    
+            } else {
+                $("#jumlah-orangtua").val(0);
+            }
+        });
+
         $(document).on('change', '#switch-kesehatan', function() {
-            $("#bpjs-kesehatan").prop('readonly', !this.checked);
-            $("#bpjs-kesehatan").val(0);
+            if (this.checked) {
+                $("#bpjs-kesehatan").val({!! json_encode($bpjs["bpjs_kesehatan"]) !!});
+            } else {
+                $("#bpjs-kesehatan").val(0);
+            }
         });
 
         $(document).on('change', '#switch-tenagakerja', function() {
-            $("#bpjs-tenagakerja").prop('readonly', !this.checked);
-            $("#bpjs-tenagakerja").val(0);
+            if (this.checked) {
+                $("#bpjs-tenagakerja").val({!! json_encode($bpjs["bpjs_tenagakerja"]) !!});
+            } else {
+                $("#bpjs-tenagakerja").val(0);
+            }
         });
 
         $(document).on('change', '#switch-orangtua', function() {
-            $("#bpjs-orangtua").prop('readonly', !this.checked);
-            $("#bpjs-orangtua").val(0);
+            if (this.checked) {
+                $("#bpjs-orangtua").val({!! json_encode($bpjs["bpjs_orangtua"]) !!});
+            } else {
+                $("#bpjs-orangtua").val(0);
+            }
         });
     </script>
 @endpush

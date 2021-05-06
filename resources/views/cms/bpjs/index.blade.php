@@ -19,24 +19,24 @@
         <h4 class="card-title">Master Data BPJS</h4>
     </div>
     <div class="card-body">
-        <form id="form-simpan-jabatan" method="POST" action="#">
+        <form id="form-simpan-jabatan" method="POST" action="{{ route('bpjs.store') }}">
             {{ csrf_field() }}
             <div class="col-md-3">
                 <div class="form-group">
                     <label>UMK <span class="text-warning">*</span></label> 
-                    <input type="text" class="form-control currency" id="nilaiumk" name="nilaiumk" required/>
+                    <input type="text" class="form-control currency" id="nilaiumk" name="nilaiumk" value="{{ $setting['nilaiumk'] }}" required/>
                 </div>
             </div>
             <div class="col-md-8 row">
                 <div class="col-md-3">
                     <label>BPJS KESEHATAN <span class="text-warning">*</span></label> 
                     <div class="form-group">
-                        <input type="text" class="form-control" id="persen-kesehatan" name="nama" required/>
+                        <input type="text" class="form-control" id="persen-kesehatan" name="persen_kesehatan" value="{{ $setting['persen_kesehatan'] }}" required/>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group" style="margin-top: 26px">
-                        <input type="text" class="form-control" id="nilai-kesehatan" readonly/>
+                        <input type="text" class="form-control" id="nilai-kesehatan" name="bpjs_kesehatan" value="{{ $setting['bpjs_kesehatan'] }}" readonly/>
                     </div>
                 </div>
             </div>
@@ -44,12 +44,12 @@
                 <div class="col-md-3">
                     <label>BPJS KETENAGAKERJAAN <span class="text-warning">*</span></label> 
                     <div class="form-group">
-                        <input type="text" class="form-control" id="persen-tenagakerja" name="nama" required/>
+                        <input type="text" class="form-control" id="persen-tenagakerja" name="persen_tenaga" value="{{ $setting['persen_tenaga'] }}" required/>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group" style="margin-top: 26px">
-                        <input type="text" class="form-control" id="nilai-tenagakerja" readonly/>
+                        <input type="text" class="form-control" id="nilai-tenagakerja" name="bpjs_tenagakerja" value="{{ $setting['bpjs_tenagakerja'] }}" readonly/>
                     </div>
                 </div>
             </div>
@@ -57,17 +57,17 @@
                 <div class="col-md-3">
                     <label>BPJS ORANG TUA <span class="text-warning">*</span></label> 
                     <div class="form-group">
-                        <input type="text" class="form-control" id="persen-orangtua" name="nama" required/>
+                        <input type="text" class="form-control" id="persen-orangtua" name="persen_orangtua" value="{{ $setting['persen_orangtua'] }}" required/>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group" style="margin-top: 26px">
-                        <input type="text" class="form-control" id="nilai-orangtua" readonly/>
+                        <input type="text" class="form-control" id="nilai-orangtua" name="bpjs_orangtua" value="{{ $setting['bpjs_orangtua'] }}" readonly/>
                     </div>
                 </div>
             </div>
             <div class="text-right">
-                <button type="submit" class="btn btn-success" disabled>Simpan</button>
+                <button type="submit" class="btn btn-success">Simpan</button>
             </div>
         </form>
     </div>
