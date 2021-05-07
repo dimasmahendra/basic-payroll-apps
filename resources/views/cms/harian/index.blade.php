@@ -60,7 +60,7 @@
         todayHighlight: true,
         autoclose: true,
         format: 'dd/mm/yyyy',
-        startDate: new Date(),
+        // startDate: moment().subtract('days', 7).format('DD/MM/YYYY'),
     }).on('changeDate', function (selected) {
         endDate = $(this).datepicker('getDate');
         var final=new Date(endDate);

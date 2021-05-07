@@ -32,6 +32,8 @@ class GajiMingguanExport implements FromCollection, WithMapping, WithStyles,With
     {
         return [
             "No",
+            "NIK Karyawan",
+            "Nama Lengkap",
             "Upah Pokok",
             "Tunjangan Makan",
             "Tunjangan Stkr",
@@ -40,6 +42,7 @@ class GajiMingguanExport implements FromCollection, WithMapping, WithStyles,With
             "Upah Lembur",
             "BPJS Kesehatan",
             "BPJS Tenagakerja",
+            "BPJS Orangtua",
             "Iuran Wajib",
             "Angsuran Koperasi",
             "Angsuran Kantor"
@@ -59,6 +62,7 @@ class GajiMingguanExport implements FromCollection, WithMapping, WithStyles,With
             $datamingguan['upah_lembur'],
             $datamingguan['bpjs_kesehatan'],
             $datamingguan['bpjs_tenagakerja'],
+            $datamingguan['bpjs_orangtua'],
             $datamingguan['iuran_wajib'],
             $datamingguan['angsuran_koperasi'],
             $datamingguan['angsuran_kantor']

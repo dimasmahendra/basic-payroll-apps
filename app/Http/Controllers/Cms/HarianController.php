@@ -29,11 +29,15 @@ class HarianController extends Controller
             $model = new Karyawan;
             $karyawan = $model->mingguan()->get()->dataMingguan($request);
             DB::commit();
-            if (count($karyawan) > 0) { 
+            if (count($karyawan) > 0) {
+                $awal = date('Y-m-d', strtotime(str_replace('/', '-', $request->periode_awal)));
+                $akhir = date('Y-m-d', strtotime(str_replace('/', '-', $request->periode_akhir)));
                 return view('cms.harian.generate', [
                     "karyawan" => $karyawan,
-                    "komponen" => KomponenGaji::get(),
-                    "periode" => $request->periode_awal .' - '. $request->periode_akhir
+                    "komponen" => KomponenGaji::orderBy('order')->get(),
+                    "periode" => $request->periode_awal .' - '. $request->periode_akhir,
+                    "awal" => $awal,
+                    "akhir" => $akhir
                 ]);
             } else {
                 return redirect(route('harian'))->with("error", "Tidak Ada karyawan Mingguan Pada periode yang di pilih.");
@@ -44,7 +48,7 @@ class HarianController extends Controller
         }
     }
 
-    public function export()
+    public function export($awal, $akhir)
     {
         $karyawan = Karyawan::mingguan()->get();
         $cache_key = "@generate-gaji-mingguan_".now();
@@ -60,7 +64,11 @@ class HarianController extends Controller
         $data = [];
         
         foreach ($karyawan as $key => $value) {
-            foreach ($value->karyawanmingguan as $i => $komponen) {
+            $karyawanmingguan = $value->karyawanmingguan()
+                                    ->whereDate('periode_awal', '=', $awal)
+                                    ->whereDate('periode_akhir', '=', $akhir)
+                                    ->get();
+            foreach ($karyawanmingguan as $i => $komponen) {
                 $array['no'] = $key + 1;
                 $array['nik_karyawan'] = $value->nik_karyawan;
                 $array['nama_lengkap'] = $value->nama_lengkap;

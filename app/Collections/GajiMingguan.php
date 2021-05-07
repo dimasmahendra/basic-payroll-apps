@@ -121,9 +121,15 @@ class GajiMingguan extends Collection
         return $this->map($komponenkaryawan);
     }
 
+    /* public function checkBpjsOrangTua($absen, $komponenkaryawan)
+    {
+        # code...
+    } */
+
     public function checkAngsuran($karyawan, $awal, $akhir, $jenis)
     {
-        $angsuran = $karyawan->angsuran()->jenisAngsuran($jenis)->whereBetween('tanggal_angsuran_terakhir', [$awal, $akhir])->first('nilai_angsuran_terakhir');
+        $angsuran = $karyawan->angsuran()->jenisAngsuran($jenis)->whereBetween('tanggal_angsuran_terakhir', [$awal, $akhir])
+                        ->first('nilai_angsuran_terakhir');
         $nilai = ($angsuran) ? $angsuran->nilai_angsuran_terakhir : 0;
         
         $komponenkaryawan = new \stdClass();

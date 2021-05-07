@@ -77,7 +77,8 @@ class KaryawanController extends Controller
         $komponen = KomponenGaji::select('komponen_gaji.*', 'komponen_karyawan.karyawan_id', 'komponen_karyawan.komponen_nama', 'komponen_karyawan.komponen_nilai')
                     ->leftJoin('komponen_karyawan', function($query) use ($id) {
                         $query->on('komponen_gaji.id', '=', 'komponen_karyawan.komponen_id')
-                        ->where('komponen_karyawan.karyawan_id', '=', "$id");
+                        ->where('komponen_karyawan.karyawan_id', '=', "$id")
+                        ->orderBy('order');
                     })
                     ->orderBy('order')
                     ->get();

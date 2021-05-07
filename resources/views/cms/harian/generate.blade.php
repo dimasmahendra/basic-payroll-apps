@@ -25,7 +25,7 @@
                 <p class="text-muted mb-0">Periode : {{ $periode }}</p>
             </div>
             <div class="col-auto">
-                <a href="{{ route('generate.export') }}" download>
+                <a href="{{ route('generate.export', ['awal' => $awal, 'akhir' => $akhir]) }}" download>
                     <button class="btn btn-warning me-1 float-end">Export</button>
                 </a>
             </div>
