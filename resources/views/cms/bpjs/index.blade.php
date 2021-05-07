@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="col-md-8 row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label>BPJS KESEHATAN <span class="text-warning">*</span></label> 
                     <div class="form-group">
                         <input type="text" class="form-control" id="persen-kesehatan" name="persen_kesehatan" value="{{ $setting['persen_kesehatan'] }}" required/>
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="col-md-8 row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label>BPJS KETENAGAKERJAAN <span class="text-warning">*</span></label> 
                     <div class="form-group">
                         <input type="text" class="form-control" id="persen-tenagakerja" name="persen_tenaga" value="{{ $setting['persen_tenaga'] }}" required/>
@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div class="col-md-8 row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label>BPJS ORANG TUA <span class="text-warning">*</span></label> 
                     <div class="form-group">
                         <input type="text" class="form-control" id="persen-orangtua" name="persen_orangtua" value="{{ $setting['persen_orangtua'] }}" required/>

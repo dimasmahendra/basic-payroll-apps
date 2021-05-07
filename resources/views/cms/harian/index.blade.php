@@ -30,12 +30,12 @@
         <form method="POST" action="{{ route('generate.harian') }}">
             {{ csrf_field() }}
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="form-group">
                         <input type="text" class="form-control" id="tanggal-harian" name="periode_awal" required />
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="form-group">
                         <input type="text" class="form-control" id="tanggal-end" name="periode_akhir" readonly />
                     </div>

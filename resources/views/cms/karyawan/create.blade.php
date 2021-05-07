@@ -70,7 +70,7 @@
                 </div>
             </div>
             <div class="col-md-8 row pb-3">
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <div class="form-group">
                         <div class="custom-control custom-switch switch-success">
                             <input type="checkbox" class="custom-control-input" id="switch-orangtua" name="bpjs_orangtua"> 
@@ -78,7 +78,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <input type="text" class="form-control" id="jumlah-orangtua" name="jumlah_orangtua" readonly required/>
                 </div>
             </div>
