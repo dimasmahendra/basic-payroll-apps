@@ -50,12 +50,12 @@
                     </span>
                 </a>
                 <ul class="nav-second-level mm-collapse" aria-expanded="false">
-                    <li class="nav-item {{ (strpos($page, 'harian') !== false) ? 'item-active' : '' }}">
+                    <li class="nav-item {{ (stripos($page, 'gaji/harian') !== false) ? 'item-active' : '' }}">
                         <a class="nav-link" href="{{ route('harian') }}">
                             <i class="ti-control-record"></i>Hitung
                         </a>
                     </li>
-                    <li class="nav-item {{ (strpos($page, 'history-harian') !== false) ? 'item-active' : '' }}">
+                    <li class="nav-item {{ (stripos($page, 'history/harian') !== false) ? 'item-active' : '' }}">
                         <a class="nav-link" href="{{ route('history-harian') }}">
                             <i class="ti-control-record"></i>History
                         </a>
