@@ -43,8 +43,12 @@ Route::middleware(["auth"])->group(function(){
         Route::get("/gaji/harian/export/{awal}/{akhir}", [App\Http\Controllers\Cms\HarianController::class, 'export'])->name("generate.export");
         Route::post('/gaji/harian/generate', [App\Http\Controllers\Cms\HarianController::class, 'generate'])->name('generate.harian');
 
-        /* Master Data */
+        // History Gaji Mingguan
+        Route::get('/history/harian', [App\Http\Controllers\Cms\HarianController::class, 'history'])->name('history-harian');
+        Route::get('/history/harian/{awal}/{akhir}', [App\Http\Controllers\Cms\HarianController::class, 'detail'])->name('history-harian.detail');
+        Route::get("/history/harian/pdf/{awal}/{akhir}", [App\Http\Controllers\Cms\HarianController::class, 'pdf'])->name("history-harian.pdf");
 
+        /* Master Data */
         // Jabatan
         Route::get('/jabatan', [App\Http\Controllers\Cms\JabatanController::class, 'index'])->name('jabatan');
         Route::get('/jabatan/create', [App\Http\Controllers\Cms\JabatanController::class, 'create'])->name('jabatan.create');

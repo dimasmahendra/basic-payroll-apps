@@ -1,10 +1,7 @@
 @php
 	$title = "Gaji Harian";
     $breadcrumbs[] = [
-		"label" => "Gaji", "url" => "#"
-	];
-	$breadcrumbs[] = [
-		"label" => "Harian", "url" => "#"
+		"label" => "Gaji Harian", "url" => "#"
 	];
     $breadcrumbs[] = [
 		"label" => "Daftar", "url" => "#"

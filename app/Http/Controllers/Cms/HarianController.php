@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Cms;
 
+use PDF;
 use App\Models\Absensi;
 use App\Models\Karyawan;
 use App\Models\KomponenGaji;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Collection;
 
 class HarianController extends Controller
 {
@@ -97,5 +99,78 @@ class HarianController extends Controller
             'Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         );
         return response()->download($data['path'], $data['file_name'], $headers);
+    }
+
+    public function history()
+    {
+        $data = Mingguan::select('periode_awal', 'periode_akhir')->distinct()->pluck('periode_awal', 'periode_akhir');
+        return view('cms.harian.history', [
+            "data" => $data
+        ]);
+    }
+
+    public function detail($awal, $akhir)
+    {
+        $karyawan = Karyawan::mingguan()->get();
+
+        foreach ($karyawan as $key => $value) {
+            $karyawanmingguan = $value->karyawanmingguan()
+                                    ->whereDate('periode_awal', '=', $awal)
+                                    ->whereDate('periode_akhir', '=', $akhir)
+                                    ->get();
+            foreach ($karyawanmingguan as $i => $komponen) {
+                $array['no'] = $key + 1;
+                $array['nik_karyawan'] = $value->nik_karyawan;
+                $array['nama_lengkap'] = $value->nama_lengkap;
+                $array[$komponen->komponen_nama] = $komponen->komponen_nilai;
+            }
+            $data[] = $array;
+        }
+
+        return view('cms.harian.history-detail', [
+            "komponen" => KomponenGaji::orderBy('order')->get(),
+            "periode" => date('d F Y', strtotime($awal)) .' - '. date('d F Y', strtotime($akhir)),
+            "karyawan" => $data,
+            "awal" => $awal,
+            "akhir" => $akhir
+        ]);
+    }
+
+    public function pdf($awal, $akhir)
+    {
+        $karyawan = Karyawan::mingguan()->get();
+        foreach ($karyawan as $key => $value) {
+            $karyawanmingguan = $value->karyawanmingguan()
+                                    ->whereDate('periode_awal', '=', $awal)
+                                    ->whereDate('periode_akhir', '=', $akhir)
+                                    ->get();
+            $absen = $value->absen($awal, $akhir)->first();
+            $komponengaji = array();
+            foreach ($karyawanmingguan as $i => $komponen) {
+                $array['no'] = $key + 1;
+                $array['nik_karyawan'] = $value->nik_karyawan;
+                $array['nama_lengkap'] = $value->nama_lengkap;
+                $array['masuk_kerja'] = isset($absen->total_masuk) ? $absen->total_masuk : 0;
+                $array['total_lembur_1'] = isset($absen->total_lembur_1) ? $absen->total_lembur_1 : 0;
+                $array['total_lembur_2'] = isset($absen->total_lembur_2) ? $absen->total_lembur_2 : 0;
+                $array[$komponen->komponen_nama] = floatval(str_replace('.', '' , $komponen->komponen_nilai));
+            }
+            $array['total_gaji'] = $komponen->hitungTotal($array);
+            $array['total_potongan'] = $komponen->hitungPotongan($array);
+            $data[] = $array;
+        }
+        $collection = collect($data);
+        // return view('cms.harian.pdf-gaji', [
+        //     "data" => $collection,
+        //     "awal" => $awal
+        // ]);
+
+        $pdf = PDF::loadView('cms.harian.pdf-gaji', [
+            "data" => $collection,
+            "awal" => $awal
+        ]);
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream();
+        // return $pdf->download('invoice.pdf');
     }
 }

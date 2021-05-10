@@ -41,10 +41,28 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item {{ (strpos($page, 'harian') !== false) ? 'item-active' : '' }}">
-                <a href="{{ route('harian') }}"><i data-feather="database" class="align-self-center menu-icon"></i><span>Gaji Mingguan</span></a>
+            <li>
+                <a href="javascript: void(0);" aria-expanded="false">
+                    <i data-feather="credit-card" class="align-self-center menu-icon"></i>
+                    <span>Gaji Mingguan</span>
+                    <span class="menu-arrow">
+                        <i class="mdi mdi-chevron-right"></i>
+                    </span>
+                </a>
+                <ul class="nav-second-level mm-collapse" aria-expanded="false">
+                    <li class="nav-item {{ (strpos($page, 'harian') !== false) ? 'item-active' : '' }}">
+                        <a class="nav-link" href="{{ route('harian') }}">
+                            <i class="ti-control-record"></i>Hitung
+                        </a>
+                    </li>
+                    <li class="nav-item {{ (strpos($page, 'history-harian') !== false) ? 'item-active' : '' }}">
+                        <a class="nav-link" href="{{ route('history-harian') }}">
+                            <i class="ti-control-record"></i>History
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li class="">
+            <li>
                 <a href="javascript: void(0);" aria-expanded="false">
                     <i data-feather="credit-card" class="align-self-center menu-icon"></i>
                     <span>Master Data</span>

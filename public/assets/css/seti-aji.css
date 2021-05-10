@@ -59,3 +59,7 @@ table.table-bordered.dataTable td {
     user-select: none;
     width: 300px;
 }
+
+.text-underline {
+    text-decoration: underline
+}
