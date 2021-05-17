@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-
+use App\Models\Setting;
 use App\Models\KomponenGaji;
 
 class DatabaseSeeder extends Seeder
@@ -82,6 +82,58 @@ class DatabaseSeeder extends Seeder
 
         foreach ($komponen as $key => $value) {
             KomponenGaji::create($value);
+        }
+
+        $setting = [
+            [
+                'nama' => 'bpjs',
+                'komponen_nama' => 'nilaiumk',
+                'komponen_nilai' => '0',
+                'created_at' => now(),
+            ],[
+                'nama' => 'bpjs',
+                'komponen_nama' => 'persen_kesehatan',
+                'komponen_nilai' => '0',
+                'created_at' => now(),
+            ],[
+                'nama' => 'bpjs',
+                'komponen_nama' => 'bpjs_kesehatan',
+                'komponen_nilai' => '0',
+                'created_at' => now(),
+            ],[
+                'nama' => 'bpjs',
+                'komponen_nama' => 'persen_tenaga',
+                'komponen_nilai' => '0',
+                'created_at' => now(),
+            ],[
+                'nama' => 'bpjs',
+                'komponen_nama' => 'bpjs_tenagakerja',
+                'komponen_nilai' => '0',
+                'created_at' => now(),
+            ], [
+                'nama' => 'bpjs',
+                'komponen_nama' => 'persen_orangtua',
+                'komponen_nilai' => '0',
+                'created_at' => now(),
+            ], [
+                'nama' => 'bpjs',
+                'komponen_nama' => 'bpjs_orangtua',
+                'komponen_nilai' => '0',
+                'created_at' => now(),
+            ]
+        ];
+
+        foreach ($setting as $s => $index) {
+            $model = new Setting;
+            $model->updateOrCreate(
+                [
+                    'nama' => $index['nama'], 
+                    'komponen_nama' => $index['komponen_nama']
+                ],
+                [
+                    'komponen_nilai' => $index['komponen_nilai']
+                ]
+            );
         }
     }
 }
