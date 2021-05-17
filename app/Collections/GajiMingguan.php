@@ -23,11 +23,13 @@ class GajiMingguan extends Collection
         $periode_awal = date('Y-m-d', strtotime(str_replace('/', '-', $req->periode_awal)));
         $periode_akhir = date('Y-m-d', strtotime(str_replace('/', '-', $req->periode_akhir)));
 
+        $komponen = array();
         foreach ($this as $key => $karyawan) {
             $data['komponen'] = $this->dataKomponen($karyawan, $periode_awal, $periode_akhir);
             $data['karyawan'] = $karyawan->toArray();
             $komponen[] = $data;
         }
+
         return $komponen;
     }
 
