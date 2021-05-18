@@ -137,7 +137,7 @@ class AngsuranController extends Controller
             }
 
             foreach ($data as $index => $item) {
-                $angsuran = Angsuran::find($item['karyawan_id']);
+                $angsuran = Angsuran::where('karyawan_id', $item['karyawan_id'])->first();
                 $angsuran->sisa_angsuran = $angsuran->sisa_pembayaran;
                 $angsuran->nilai_angsuran_terakhir = $item['saldo'];
                 $angsuran->mutasi_terakhir = $request->mutasi;
