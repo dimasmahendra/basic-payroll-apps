@@ -70,6 +70,18 @@ class Karyawan extends BaseModel
         return $this->hasOne(Angsuran::class, 'karyawan_id', 'id');
     }
 
+    public function angsuranKeKantor()
+    {
+        return $this->hasOne(Angsuran::class, 'karyawan_id', 'id')
+                    ->where('jenis_angsuran', 'kantor');
+    }
+
+    public function angsuranKeKoperasi()
+    {
+        return $this->hasOne(Angsuran::class, 'karyawan_id', 'id')
+                    ->where('jenis_angsuran', 'koperasi');
+    }
+
     public function absen($awal, $akhir)
     {
         return $this->hasOne(Absensi::class, 'karyawan_id', 'id')

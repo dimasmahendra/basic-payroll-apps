@@ -154,6 +154,8 @@ class HarianController extends Controller
                 $array['total_lembur_1'] = isset($absen->total_lembur_1) ? $absen->total_lembur_1 : 0;
                 $array['total_lembur_2'] = isset($absen->total_lembur_2) ? $absen->total_lembur_2 : 0;
                 $array[$komponen->komponen_nama] = floatval(str_replace('.', '' , $komponen->komponen_nilai));
+                $array['angsuran_ke_kantor'] = isset($value->angsuranKeKantor) ? (empty($value->angsuranKeKantor->angsuran_ke_terakhir) ? 0 : $value->angsuranKeKantor->angsuran_ke_terakhir) : 0;
+                $array['angsuran_ke_koperasi'] = isset($value->angsuranKeKoperasi) ? (empty($value->angsuranKeKoperasi->angsuran_ke_terakhir) ? 0 : $value->angsuranKeKoperasi->angsuran_ke_terakhir) : 0;
             }
             $array['total_gaji'] = $komponen->hitungTotal($array);
             $array['total_potongan'] = $komponen->hitungPotongan($array);
@@ -171,6 +173,5 @@ class HarianController extends Controller
         ]);
         $pdf->setPaper('A4', 'landscape');
         return $pdf->stream();
-        // return $pdf->download('invoice.pdf');
     }
 }

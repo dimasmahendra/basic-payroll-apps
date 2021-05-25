@@ -137,7 +137,10 @@ class AngsuranController extends Controller
             }
 
             foreach ($data as $index => $item) {
-                $angsuran = Angsuran::where('karyawan_id', $item['karyawan_id'])->first();
+                $angsuran = Angsuran::where([
+                        'karyawan_id' => $item['karyawan_id'],
+                        'jenis_angsuran' => $request->jenis_angsuran
+                    ])->first();
                 if (empty($angsuran)) {
                     return redirect(route('angsuran.bayar.show', [$request->jenis_angsuran]))->with("error", "Simpan Gagal, Karena Karyawan tidak memiliki pinjaman.");
                 }

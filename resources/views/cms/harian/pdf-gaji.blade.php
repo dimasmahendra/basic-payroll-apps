@@ -29,11 +29,18 @@
             width: 100%;
         }
         td {
-            padding: 2px;
+            padding-top: 2px;
+            padding-right: 2px;
+            padding-bottom: 2px;
+            padding-left: 2px;
             text-align: left;
         }
-        th {
-            padding: 2px;
+
+        td.text-inline {
+            padding-top: 2px;
+            padding-right: 20px;
+            padding-bottom: 2px;
+            padding-left: 2px;
             text-align: left;
         }
         table.personal-info {
@@ -42,6 +49,11 @@
         }
         .text-right {
             text-align: right;
+        }
+
+        .angsuran-ke {
+            display: inline;
+            float: right;
         }
     </style>
 </head>
@@ -124,11 +136,11 @@
                             <td>{{ number_format($item['iuran_wajib'], 0, ',', '.') }}</td>
                         </tr>
                         <tr>
-                            <td>Angsuran Koperasi</td>
+                            <td class="text-inline">Angsuran Koperasi <div class="angsuran-ke">Ke {{ $item['angsuran_ke_koperasi'] }}</div></td>
                             <td>{{ number_format($item['angsuran_koperasi'], 0, ',', '.') }}</td>
                         </tr>
                         <tr>
-                            <td>Angsuran Kantor</td>
+                            <td class="text-inline">Angsuran Kantor <div class="angsuran-ke">Ke {{ $item['angsuran_ke_kantor'] }}</div></td>
                             <td>{{ number_format($item['angsuran_kantor'], 0, ',', '.') }}</td>
                         </tr>
                         <tr>

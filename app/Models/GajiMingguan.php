@@ -45,8 +45,8 @@ class GajiMingguan extends BaseModel
             'bpjs_tenagakerja',
             'bpjs_orangtua',
             'iuran_wajib',
-            'angsuran_koperasi',
-            'angsuran_kantor',
+            // 'angsuran_koperasi',
+            // 'angsuran_kantor',
         ];
         foreach ($komponen as $key => $value) {
             if (in_array($key, $pemasukan)) {

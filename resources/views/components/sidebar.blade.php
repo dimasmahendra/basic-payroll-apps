@@ -43,7 +43,7 @@
             </li>
             <li>
                 <a href="javascript: void(0);" aria-expanded="false">
-                    <i data-feather="credit-card" class="align-self-center menu-icon"></i>
+                    <i data-feather="archive" class="align-self-center menu-icon"></i>
                     <span>Gaji Mingguan</span>
                     <span class="menu-arrow">
                         <i class="mdi mdi-chevron-right"></i>
@@ -64,7 +64,7 @@
             </li>
             <li>
                 <a href="javascript: void(0);" aria-expanded="false">
-                    <i data-feather="credit-card" class="align-self-center menu-icon"></i>
+                    <i data-feather="database" class="align-self-center menu-icon"></i>
                     <span>Master Data</span>
                     <span class="menu-arrow">
                         <i class="mdi mdi-chevron-right"></i>
