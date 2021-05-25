@@ -16,8 +16,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class GajiMingguanExport implements FromCollection, WithMapping, WithStyles,WithHeadings, ShouldAutoSize
 {
-    public Collection $col;
-
     public function __construct(Collection $col) {
         $this->col = $col;
     }
