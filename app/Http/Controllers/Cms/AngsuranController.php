@@ -138,6 +138,9 @@ class AngsuranController extends Controller
 
             foreach ($data as $index => $item) {
                 $angsuran = Angsuran::where('karyawan_id', $item['karyawan_id'])->first();
+                if (empty($angsuran)) {
+                    return redirect(route('angsuran.bayar.show', [$request->jenis_angsuran]))->with("error", "Simpan Gagal, Karena Karyawan tidak memiliki pinjaman.");
+                }
                 $angsuran->sisa_angsuran = $angsuran->sisa_pembayaran;
                 $angsuran->nilai_angsuran_terakhir = $item['saldo'];
                 $angsuran->mutasi_terakhir = $request->mutasi;

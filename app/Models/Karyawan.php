@@ -91,7 +91,7 @@ class Karyawan extends BaseModel
         if (!empty($jam_masuk) && !empty($jam_keluar)) {
             return "{$jam_masuk} - {$jam_keluar}";
         } else {
-            return "08:00 - 17:00";
+            return "08:00 - 16:00";
         }
     }
 }

@@ -106,6 +106,7 @@
                 format: 'DD/MM/YYYY',
             },
             singleDatePicker: true,
+            minDate:new Date()
         });
         function formatNoBa(data) {
             if (data.loading) {
