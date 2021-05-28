@@ -18,6 +18,7 @@ class CreateGajiBulananTable extends Migration
             $table->dateTime('periode_awal');
             $table->dateTime('periode_akhir');
             $table->smallInteger('karyawan_id');
+            $table->string('tipe');
             $table->string('komponen_nama');
             $table->string('komponen_nilai');
             $table->timestamps();

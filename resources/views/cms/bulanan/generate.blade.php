@@ -25,9 +25,10 @@
                 <p class="text-muted mb-0">Periode : {{ $periode }}</p>
             </div>
             <div class="col-auto">
-                <a href="{{ route('bulanan.export', ['awal' => $awal, 'akhir' => $akhir]) }}" download>
-                    <button class="btn btn-warning me-1 float-end">Export</button>
-                </a>
+                <button
+                    class="btn btn-warning me-1 float-end" data-toggle="modal"
+                    data-animation="bounce" data-target=".modal-export">Export
+                </button>
             </div>
         </div>
     </div>
@@ -64,6 +65,42 @@
         </div>
     </div>
 </div>
+
+<!--  Modal content for the above example -->
+<div class="modal fade modal-export" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0">Pilih Waktu Penggajian</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <form id="modal-waktu-penggajian" method="POST"
+                action="{{ route('bulanan.export', ['awal' => $awal, 'akhir' => $akhir]) }}">
+                <div class="modal-body">
+                    {{ csrf_field() }}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Waktu Penggajian</label>
+                                <select name="tipe" id="tipe" class="form-control">
+                                    <option value="awal">Awal</option>
+                                    <option value="tengah">Tengah</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Lanjut</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 @endsection
 
 @section('css')

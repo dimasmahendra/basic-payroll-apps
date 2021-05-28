@@ -25,6 +25,11 @@ class KaryawanBulanan extends BaseModel
         return $query->where('tipe', 'like', '%bulanan%');
     }
 
+    public function scopeJenisWaktu($query, $jenis)
+    {
+        return $query->where('waktu_penggajian', 'like', '%' . $jenis . '%');
+    }
+
     public function komponenkaryawan()
     {
         return $this->hasMany(KomponenKaryawan::class, 'karyawan_id', 'id');

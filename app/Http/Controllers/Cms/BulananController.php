@@ -48,9 +48,14 @@ class BulananController extends Controller
         }
     }
 
-    public function export($awal, $akhir)
+    public function export(Request $request, $awal, $akhir)
     {
-        $karyawan = KaryawanBulanan::bulanan()->get();
+        $karyawan = KaryawanBulanan::bulanan()->jenisWaktu($request->tipe)->get();
+        if ($karyawan->isEmpty()) {
+            return redirect(route('history-bulanan.detail', ['awal' => $awal, 'akhir' => $akhir]))
+                    ->with("error", "Tidak Ada karyawan Bulanan Pada periode yang di pilih.");
+        }
+        
         $cache_key = "@generate-gaji-bulanan-".now();
         // Cache::forget($cache_key);
         if (Cache::has($cache_key)) {
@@ -134,9 +139,14 @@ class BulananController extends Controller
         ]);
     }
 
-    public function pdf($awal, $akhir)
+    public function pdf(Request $request, $awal, $akhir)
     {
-        $karyawan = KaryawanBulanan::bulanan()->get();
+        $karyawan = KaryawanBulanan::bulanan()->jenisWaktu($request->tipe)->get();
+        if ($karyawan->isEmpty()) {
+            return redirect(route('history-bulanan.detail', ['awal' => $awal, 'akhir' => $akhir]))
+                    ->with("error", "Tidak Ada karyawan Bulanan Pada periode yang di pilih.");
+        }
+        
         foreach ($karyawan as $key => $value) {
             $karyawanbulanan = $value->karyawanbulanan()
                                     ->whereDate('periode_awal', '=', $awal)

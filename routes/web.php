@@ -50,13 +50,13 @@ Route::middleware(["auth"])->group(function(){
 
         // Gaji Bulanan
         Route::get('/gaji/bulanan', [App\Http\Controllers\Cms\BulananController::class, 'index'])->name('bulanan');
-        Route::get("/gaji/bulanan/export/{awal}/{akhir}", [App\Http\Controllers\Cms\BulananController::class, 'export'])->name("bulanan.export");
+        Route::post("/gaji/bulanan/export/{awal}/{akhir}", [App\Http\Controllers\Cms\BulananController::class, 'export'])->name("bulanan.export");
         Route::post('/gaji/bulanan/generate', [App\Http\Controllers\Cms\BulananController::class, 'generate'])->name('generate.bulanan');
 
         // History Gaji Bulanan
         Route::get('/history/bulanan', [App\Http\Controllers\Cms\BulananController::class, 'history'])->name('history-bulanan');
         Route::get('/history/bulanan/{awal}/{akhir}', [App\Http\Controllers\Cms\BulananController::class, 'detail'])->name('history-bulanan.detail');
-        Route::get("/history/bulanan/pdf/{awal}/{akhir}", [App\Http\Controllers\Cms\BulananController::class, 'pdf'])->name("history-bulanan.pdf");
+        Route::post("/history/bulanan/pdf/{awal}/{akhir}", [App\Http\Controllers\Cms\BulananController::class, 'pdf'])->name("history-bulanan.pdf");
 
         /* Master Data */
         // Jabatan

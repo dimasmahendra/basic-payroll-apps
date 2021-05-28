@@ -11,6 +11,7 @@ class GajiBulanan extends Collection
     {
         return [
             "karyawan_id" => $komponen->karyawan_id,
+            "tipe" => $komponen->tipe,
             "komponen_nama" => $komponen->komponen_nama,
             "komponen_nilai" => $komponen->komponen_nilai,
             "periode_awal" => $komponen->periode_awal,
@@ -59,14 +60,16 @@ class GajiBulanan extends Collection
                 $komponenkaryawan->komponen_nilai = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));        
             }
             
+            $komponenkaryawan->tipe = $karyawan->waktu_penggajian;
             $komponenkaryawan->periode_awal = $periode_awal;
             $komponenkaryawan->periode_akhir = $periode_akhir;
-
+            
             $data[] = $this->map($komponenkaryawan);
         }
+        
         $data[] = $this->checkAngsuran($karyawan, $periode_awal, $periode_akhir, 'koperasi');
         $data[] = $this->checkAngsuran($karyawan, $periode_awal, $periode_akhir, 'kantor');
-
+        
         foreach ($data as $i => $komponenbulanan) {
             $model = new Bulanan;
             $model->updateOrCreate(
@@ -74,7 +77,8 @@ class GajiBulanan extends Collection
                     'karyawan_id' => $komponenbulanan['karyawan_id'], 
                     'periode_awal' => $komponenbulanan['periode_awal'],
                     'periode_akhir' => $komponenbulanan['periode_akhir'],
-                    'komponen_nama' => $komponenbulanan['komponen_nama']
+                    'komponen_nama' => $komponenbulanan['komponen_nama'],
+                    'tipe' => $komponenbulanan['tipe'],
                 ],
                 [
                     'komponen_nilai' => $komponenbulanan['komponen_nilai']
@@ -131,6 +135,7 @@ class GajiBulanan extends Collection
         
         $komponenkaryawan = new \stdClass();
         $komponenkaryawan->karyawan_id = $karyawan->id;
+        $komponenkaryawan->tipe = $karyawan->waktu_penggajian;
         $komponenkaryawan->komponen_nama = "angsuran_{$jenis}";
         $komponenkaryawan->komponen_nilai = $nilai;
         $komponenkaryawan->periode_awal = $awal;

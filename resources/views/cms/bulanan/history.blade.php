@@ -26,7 +26,7 @@
         <label>Periode Penggajian Karyawan Bulanan</label> 
         <div class="col-md-12 pt-2">
             @foreach ($data as $key => $item)
-                <a href="{{ route('history-bulanan.detail', ['awal' => $item, 'akhir' => $key]) }}">
+                <a href="{{ route('history-bulanan.detail', ['awal' => date('Y-m-d', strtotime($item)), 'akhir' => date('Y-m-d', strtotime($key))]) }}">
                     <p class="text-underline">{{ date('d F Y', strtotime($item)) }} - {{ date('d F Y', strtotime($key)) }}</p>
                 </a>
             @endforeach
