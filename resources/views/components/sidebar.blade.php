@@ -64,6 +64,27 @@
             </li>
             <li>
                 <a href="javascript: void(0);" aria-expanded="false">
+                    <i data-feather="archive" class="align-self-center menu-icon"></i>
+                    <span>Gaji Bulanan</span>
+                    <span class="menu-arrow">
+                        <i class="mdi mdi-chevron-right"></i>
+                    </span>
+                </a>
+                <ul class="nav-second-level mm-collapse" aria-expanded="false">
+                    <li class="nav-item {{ (stripos($page, 'gaji/bulanan') !== false) ? 'item-active' : '' }}">
+                        <a class="nav-link" href="{{ route('bulanan') }}">
+                            <i class="ti-control-record"></i>Hitung
+                        </a>
+                    </li>
+                    <li class="nav-item {{ (stripos($page, 'history/bulanan') !== false) ? 'item-active' : '' }}">
+                        <a class="nav-link" href="{{ route('history-bulanan') }}">
+                            <i class="ti-control-record"></i>History
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript: void(0);" aria-expanded="false">
                     <i data-feather="database" class="align-self-center menu-icon"></i>
                     <span>Master Data</span>
                     <span class="menu-arrow">

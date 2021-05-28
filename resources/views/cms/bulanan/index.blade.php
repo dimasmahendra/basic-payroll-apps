@@ -1,7 +1,7 @@
 @php
-	$title = "Gaji Harian";
+	$title = "Gaji Bulanan";
     $breadcrumbs[] = [
-		"label" => "Gaji Harian", "url" => "#"
+		"label" => "Gaji Bulanan", "url" => "#"
 	];
     $breadcrumbs[] = [
 		"label" => "Daftar", "url" => "#"
@@ -18,13 +18,13 @@
     <div class="card-header">
         <div class="row align-items-center">
             <div class="col">
-                <h4 class="card-title">Gaji Harian</h4>
+                <h4 class="card-title">Gaji Bulanan</h4>
             </div>
         </div>
     </div>
     <div class="card-body">
-        <label>Periode Penggajian Karyawan Harian</label> 
-        <form method="POST" action="{{ route('generate.harian') }}">
+        <label>Periode Penggajian Karyawan Bulanan</label> 
+        <form method="POST" action="{{ route('generate.bulanan') }}">
             {{ csrf_field() }}
             <div class="row">
                 <div class="col-md-3">
@@ -57,7 +57,6 @@
         todayHighlight: true,
         autoclose: true,
         format: 'dd/mm/yyyy',
-        // startDate: moment().subtract('days', 7).format('DD/MM/YYYY'),
     }).on('changeDate', function (selected) {
         endDate = $(this).datepicker('getDate');
         var final=new Date(endDate);

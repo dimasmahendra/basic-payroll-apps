@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Cms;
 
 use PDF;
 use App\Models\Absensi;
-use App\Models\Karyawan;
+use App\Models\KaryawanBulanan;
 use App\Models\KomponenGaji;
-use App\Models\Excel\GajiMingguanExport;
-use App\Models\GajiMingguan as Mingguan;
+use App\Models\Excel\GajiBulananExport;
+use App\Models\GajiBulanan as Bulanan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -16,25 +16,23 @@ use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Collection;
 
-class HarianController extends Controller
+class BulananController extends Controller
 {
-    // public $type = "harian";
-
     public function index() {
-        return view('cms.harian.index');
+        return view('cms.bulanan.index');
     }
 
     public function generate(Request $request)
     {
         DB::beginTransaction();
         try {
-            $model = new Karyawan;
-            $karyawan = $model->mingguan()->get()->dataMingguan($request);
+            $model = new KaryawanBulanan;
+            $karyawan = $model->bulanan()->get()->dataBulanan($request);
             DB::commit();
             if (count($karyawan) > 0) {
                 $awal = date('Y-m-d', strtotime(str_replace('/', '-', $request->periode_awal)));
                 $akhir = date('Y-m-d', strtotime(str_replace('/', '-', $request->periode_akhir)));
-                return view('cms.harian.generate', [
+                return view('cms.bulanan.generate', [
                     "karyawan" => $karyawan,
                     "komponen" => KomponenGaji::orderBy('order')->get(),
                     "periode" => $request->periode_awal .' - '. $request->periode_akhir,
@@ -42,7 +40,7 @@ class HarianController extends Controller
                     "akhir" => $akhir
                 ]);
             } else {
-                return redirect(route('harian'))->with("error", "Tidak Ada karyawan Mingguan Pada periode yang di pilih.");
+                return redirect(route('bulanan'))->with("error", "Tidak Ada karyawan Bulanan Pada periode yang di pilih.");
             }
         } catch (\Throwable $th) {
             dd($th->getMessage());
@@ -52,8 +50,8 @@ class HarianController extends Controller
 
     public function export($awal, $akhir)
     {
-        $karyawan = Karyawan::mingguan()->get();
-        $cache_key = "@generate-gaji-mingguan-".now();
+        $karyawan = KaryawanBulanan::bulanan()->get();
+        $cache_key = "@generate-gaji-bulanan-".now();
         // Cache::forget($cache_key);
         if (Cache::has($cache_key)) {
             $fromCache = Cache::get($cache_key);
@@ -66,11 +64,11 @@ class HarianController extends Controller
         $data = [];
         
         foreach ($karyawan as $key => $value) {
-            $karyawanmingguan = $value->karyawanmingguan()
+            $karyawanbulanan = $value->karyawanbulanan()
                                     ->whereDate('periode_awal', '=', $awal)
                                     ->whereDate('periode_akhir', '=', $akhir)
                                     ->get();
-            foreach ($karyawanmingguan as $i => $komponen) {
+            foreach ($karyawanbulanan as $i => $komponen) {
                 $array['no'] = $key + 1;
                 $array['nik_karyawan'] = $value->nik_karyawan;
                 $array['nama_lengkap'] = $value->nama_lengkap;
@@ -80,11 +78,11 @@ class HarianController extends Controller
         }
 
         $collection = (object) collect($data);
-        $gajimingguanExport = new GajiMingguanExport($collection);
+        $gajiExport = new GajiBulananExport($collection);
         $now = date("d-m-Y H-i-s");
-        $name = 'Gaji-Mingguan-Export-'.$now.'.xlsx';
-        $path = "export-gaji-mingguan/$name";
-        $ad = Excel::store($gajimingguanExport, $path, 'public');
+        $name = 'Gaji-Bulanan-Export-'.$now.'.xlsx';
+        $path = "export-gaji-bulanan/$name";
+        $ad = Excel::store($gajiExport, $path, 'public');
         $data = [
             "file_name" => $name,
             "path" => storage_path('app/public/'. $path),
@@ -103,22 +101,22 @@ class HarianController extends Controller
 
     public function history()
     {
-        $data = Mingguan::select('periode_awal', 'periode_akhir')->distinct()->pluck('periode_awal', 'periode_akhir');
-        return view('cms.harian.history', [
+        $data = Bulanan::select('periode_awal', 'periode_akhir')->distinct()->pluck('periode_awal', 'periode_akhir');
+        return view('cms.bulanan.history', [
             "data" => $data
         ]);
     }
 
     public function detail($awal, $akhir)
     {
-        $karyawan = Karyawan::mingguan()->get();
+        $karyawan = KaryawanBulanan::bulanan()->get();
 
         foreach ($karyawan as $key => $value) {
-            $karyawanmingguan = $value->karyawanmingguan()
+            $karyawanbulanan = $value->karyawanbulanan()
                                     ->whereDate('periode_awal', '=', $awal)
                                     ->whereDate('periode_akhir', '=', $akhir)
                                     ->get();
-            foreach ($karyawanmingguan as $i => $komponen) {
+            foreach ($karyawanbulanan as $i => $komponen) {
                 $array['no'] = $key + 1;
                 $array['nik_karyawan'] = $value->nik_karyawan;
                 $array['nama_lengkap'] = $value->nama_lengkap;
@@ -127,7 +125,7 @@ class HarianController extends Controller
             $data[] = $array;
         }
 
-        return view('cms.harian.history-detail', [
+        return view('cms.bulanan.history-detail', [
             "komponen" => KomponenGaji::orderBy('order')->get(),
             "periode" => date('d F Y', strtotime($awal)) .' - '. date('d F Y', strtotime($akhir)),
             "karyawan" => $data,
@@ -138,15 +136,15 @@ class HarianController extends Controller
 
     public function pdf($awal, $akhir)
     {
-        $karyawan = Karyawan::mingguan()->get();
+        $karyawan = KaryawanBulanan::bulanan()->get();
         foreach ($karyawan as $key => $value) {
-            $karyawanmingguan = $value->karyawanmingguan()
+            $karyawanbulanan = $value->karyawanbulanan()
                                     ->whereDate('periode_awal', '=', $awal)
                                     ->whereDate('periode_akhir', '=', $akhir)
                                     ->get();
             $absen = $value->absen($awal, $akhir)->first();
             $komponengaji = array();
-            foreach ($karyawanmingguan as $i => $komponen) {
+            foreach ($karyawanbulanan as $i => $komponen) {
                 $array['no'] = $key + 1;
                 $array['nik_karyawan'] = $value->nik_karyawan;
                 $array['nama_lengkap'] = $value->nama_lengkap;
