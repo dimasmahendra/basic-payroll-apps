@@ -106,7 +106,10 @@ class BulananController extends Controller
 
     public function history()
     {
-        $data = Bulanan::select('periode_awal', 'periode_akhir')->distinct()->pluck('periode_awal', 'periode_akhir');
+        $data = Bulanan::select('periode_awal', 'periode_akhir', 'updated_by', DB::raw('DATE(created_at) as created_at'))
+                        ->distinct()
+                        ->get();
+
         return view('cms.bulanan.history', [
             "data" => $data
         ]);

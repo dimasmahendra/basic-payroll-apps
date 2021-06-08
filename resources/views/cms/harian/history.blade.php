@@ -26,8 +26,15 @@
         <label>Periode Penggajian Karyawan Harian</label> 
         <div class="col-md-12 pt-2">
             @foreach ($data as $key => $item)
-                <a href="{{ route('history-harian.detail', ['awal' => $item, 'akhir' => $key]) }}">
-                    <p class="text-underline">{{ date('d F Y', strtotime($item)) }} - {{ date('d F Y', strtotime($key)) }}</p>
+                <a href="{{ route('history-harian.detail', ['awal' => date('Y-m-d', strtotime($item->periode_awal)), 'akhir' => date('Y-m-d', strtotime($item->periode_akhir))]) }}">
+                    <div class="d-flex justify-content-between">
+                        <p class="text-underline">{{ date('d F Y', strtotime($item->periode_awal)) }} - {{ date('d F Y', strtotime($item->periode_akhir)) }}</p>
+                        Info Generate :
+                        @if (!empty($item->user))
+                             {{ $item->user->name }} / {{ $item->user->email }}, 
+                        @endif
+                        Tanggal {{ date('d F Y', strtotime($item->created_at)) }}
+                    </div>
                 </a>
             @endforeach
         </div>

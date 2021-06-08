@@ -103,7 +103,10 @@ class HarianController extends Controller
 
     public function history()
     {
-        $data = Mingguan::select('periode_awal', 'periode_akhir')->distinct()->pluck('periode_awal', 'periode_akhir');
+        $data = Mingguan::select('periode_awal', 'periode_akhir', 'updated_by', DB::raw('DATE(created_at) as created_at'))
+                            ->distinct()
+                            ->get();
+                            
         return view('cms.harian.history', [
             "data" => $data
         ]);

@@ -1,6 +1,7 @@
 <?php
 namespace App\Collections;
 
+use Auth;
 use App\Models\Angsuran;
 use App\Models\GajiMingguan as Mingguan;
 use Illuminate\Database\Eloquent\Collection;
@@ -77,7 +78,8 @@ class GajiMingguan extends Collection
                     'komponen_nama' => $komponenmingguan['komponen_nama']
                 ],
                 [
-                    'komponen_nilai' => $komponenmingguan['komponen_nilai']
+                    'komponen_nilai' => $komponenmingguan['komponen_nilai'],
+                    'updated_by' => Auth::id()
                 ]
             );
         }

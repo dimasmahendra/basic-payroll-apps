@@ -1,6 +1,7 @@
 <?php
 namespace App\Collections;
 
+use Auth;
 use App\Models\Angsuran;
 use App\Models\GajiBulanan as Bulanan;
 use Illuminate\Database\Eloquent\Collection;
@@ -81,7 +82,8 @@ class GajiBulanan extends Collection
                     'tipe' => $komponenbulanan['tipe'],
                 ],
                 [
-                    'komponen_nilai' => $komponenbulanan['komponen_nilai']
+                    'komponen_nilai' => $komponenbulanan['komponen_nilai'],
+                    'updated_by' => Auth::id()
                 ]
             );
         }
