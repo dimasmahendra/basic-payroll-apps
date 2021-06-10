@@ -27,6 +27,11 @@ class Angsuran extends BaseModel
         return $query->where('jenis_angsuran', '=', $jenis);
     }
 
+    public function scopeKredit($query)
+    {
+        return $query->where('mutasi_terakhir', '=', 'kredit');
+    }
+
     public function karyawan()
     {
         return $this->hasOne(Karyawan::class, 'id', 'karyawan_id');

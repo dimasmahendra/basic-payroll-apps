@@ -38,6 +38,7 @@ class GajiBulanan extends BaseModel
             'bpjs_tenagakerja',
             'bpjs_orangtua',
             'iuran_wajib',
+            'potongan_absen',
             // 'angsuran_koperasi',
             // 'angsuran_kantor',
         ];

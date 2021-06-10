@@ -43,7 +43,8 @@ class GajiBulananExport implements FromCollection, WithMapping, WithStyles,WithH
             "BPJS Orangtua",
             "Iuran Wajib",
             "Angsuran Koperasi",
-            "Angsuran Kantor"
+            "Angsuran Kantor",
+            "Potongan Absen",
         ];
     }
     public function map($data): array
@@ -63,7 +64,8 @@ class GajiBulananExport implements FromCollection, WithMapping, WithStyles,WithH
             $data['bpjs_orangtua'],
             $data['iuran_wajib'],
             $data['angsuran_koperasi'],
-            $data['angsuran_kantor']
+            $data['angsuran_kantor'],
+            $data['potongan_absen']
         ];
     }
 

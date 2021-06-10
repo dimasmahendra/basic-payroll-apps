@@ -22,7 +22,8 @@ class KaryawanBulanan extends BaseModel
 
     public function scopeBulanan($query)
     {
-        return $query->where('tipe', 'like', '%bulanan%');
+        return $query->where('tipe', 'like', '%bulanan%')
+                    >where('status', '=', '1');
     }
 
     public function scopeJenisWaktu($query, $jenis)

@@ -57,6 +57,9 @@ class GajiBulanan extends Collection
             else if ($komponenkaryawan->komponen_nama == 'upah_lembur') {
                 $this->checkUpahLembur($absen, $komponenkaryawan);
             }
+            else if ($komponenkaryawan->komponen_nama == 'potongan_absen') {
+                $this->checkPotongan($absen, $komponenkaryawan);
+            }
             else {
                 $komponenkaryawan->komponen_nilai = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));        
             }
@@ -90,9 +93,16 @@ class GajiBulanan extends Collection
         return $data;
     }
 
+    public function checkPotongan($absen, $komponenkaryawan)
+    {
+        $total_masuk = (!empty($absen)) ? $absen->total_masuk : 0;
+        $komponenkaryawan->komponen_nilai = (floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai)) / 25) * $total_masuk;
+        return $this->map($komponenkaryawan);
+    }
+
     public function checkUpahPokok($absen, $komponenkaryawan)
     {
-        $komponenkaryawan->komponen_nilai = ((!empty($absen)) ? $absen->total_masuk : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        $komponenkaryawan->komponen_nilai = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
         return $this->map($komponenkaryawan);
     }
 
@@ -131,7 +141,7 @@ class GajiBulanan extends Collection
 
     public function checkAngsuran($karyawan, $awal, $akhir, $jenis)
     {
-        $angsuran = $karyawan->angsuran()->jenisAngsuran($jenis)->whereBetween('tanggal_angsuran_terakhir', [$awal, $akhir])
+        $angsuran = $karyawan->angsuran()->jenisAngsuran($jenis)->kredit()->whereBetween('tanggal_angsuran_terakhir', [$awal, $akhir])
                         ->first('nilai_angsuran_terakhir');
         $nilai = ($angsuran) ? $angsuran->nilai_angsuran_terakhir : 0;
         

@@ -55,6 +55,9 @@ class KaryawanController extends Controller
             $komponentKaryawan = new KomponenKaryawan;
             $komponen = $komponentKaryawan->formatData($request->all());
             foreach ($komponen as $key => $value) {
+                if ($model->tipe == 'mingguan' && $value['komponen_nama'] == 'potongan_absen') {
+                    $value['komponen_nilai'] = 0;
+                }
                 $attr = clone $komponentKaryawan;
                 $attr->karyawan_id = $model->id;
                 $attr->komponen_id = $value['komponen_id'];
@@ -117,6 +120,9 @@ class KaryawanController extends Controller
             $komponentKaryawan = new KomponenKaryawan;
             $komponen = $komponentKaryawan->formatData($request->all());
             foreach ($komponen as $key => $value) {
+                if ($model->tipe == 'mingguan' && $value['komponen_nama'] == 'potongan_absen') {
+                    $value['komponen_nilai'] = 0;
+                }
                 $attr = clone $komponentKaryawan;
                 $attr->updateOrCreate(
                     ['karyawan_id' => $id, 'komponen_id' => $value['komponen_id'], 'komponen_nama' => $value['komponen_nama']],

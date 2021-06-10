@@ -96,7 +96,7 @@
             </div>
             <div class="row col-md-12">
                 @php
-                    $hide = ['bpjs_kesehatan', 'bpjs_tenagakerja', 'bpjs_orangtua'];
+                    $hide = ['bpjs_kesehatan', 'bpjs_tenagakerja', 'bpjs_orangtua', 'potongan_absen'];
                 @endphp
                 @foreach ($komponen as $item)
                     @if (in_array($item->nama, $hide) == true)
@@ -128,6 +128,13 @@
         $(document).ready(function() {
             let tipe = $("#tipegaji").val();
             $(".container-waktugajian").load('/partial-waktu-' + tipe);
+        });
+
+        $(document).on('change', '#tunjangan-stkr, #tunjangan-prh', function() {
+            var stkr = parseFloat($('#tunjangan-stkr').val().replace(/\./g, ""));
+            var prh = parseFloat($('#tunjangan-prh').val().replace(/\./g, ""));
+            let potongan = stkr + prh;
+            $("#potongan-absen").val(potongan);               
         });
 
         $(document).on('change', '#tipegaji', function() {

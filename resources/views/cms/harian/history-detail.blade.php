@@ -43,7 +43,13 @@
                         <th>NIK</th>
                         <th>Nama Karyawan</th>
                         @foreach ($komponen as $item)
-                            <th>{{ $item->label }}</th>
+                            @if ($item->nama == 'potongan_absen')
+                                @php
+                                    unset($item);
+                                @endphp
+                            @else
+                                <th>{{ $item->label }}</th>
+                            @endif
                         @endforeach
                         <th>Angsuran Koperasi</th>
                         <th>Angsuran Kantor</th>

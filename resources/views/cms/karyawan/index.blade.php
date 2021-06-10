@@ -30,7 +30,18 @@
                 'data' => $karyawan,
                 'headers' => [
                     'nik_karyawan' => "NIK Karyawan",
-                    'nama_lengkap' => "Nama Lengkap"
+                    'nama_lengkap' => "Nama Lengkap",
+                    'tipe' => "Tipe",
+                    'status' => "Status",
+                ],
+                "values" => [
+                    "status" => function($data){
+                        if ($data->status == '1') {
+                            echo '<p class="text-success">Aktif<p>';   
+                        } else {
+                            echo '<p class="text-danger">Tidak Aktif<p>';
+                        }
+                    },
                 ],
                 "actions" => [
                     "edit" => [
@@ -41,14 +52,14 @@
                             'icon' => 'las la-pen'
                         ]
                     ],
-                    "delete" => [
-                        "url" => "karyawan.destroy",
-                        "type" => "url",
-                        "button" => "danger",
-                        "attribute" => [
-                            'icon' => 'las la-trash-alt'
-                        ]
-                    ],
+                    // "delete" => [
+                    //     "url" => "karyawan.destroy",
+                    //     "type" => "url",
+                    //     "button" => "danger",
+                    //     "attribute" => [
+                    //         'icon' => 'las la-trash-alt'
+                    //     ]
+                    // ],
                 ]
             ])
         </div>

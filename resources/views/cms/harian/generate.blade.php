@@ -21,7 +21,7 @@
     <div class="card-header">
         <div class="row align-items-center">
             <div class="col">
-                <h4 class="card-title">Daftar Gaji Mingguan Karyawan</h4>
+                <h4 class="card-title">Perhitungan Gaji Mingguan Karyawan</h4>
                 <p class="text-muted mb-0">Periode : {{ $periode }}</p>
             </div>
             <div class="col-auto">
@@ -40,7 +40,13 @@
                         <th>NIK</th>
                         <th>Nama Karyawan</th>
                         @foreach ($komponen as $item)
-                            <th>{{ $item->label }}</th>
+                            @if ($item->nama == 'potongan_absen')
+                                @php
+                                    unset($item);
+                                @endphp
+                            @else
+                                <th>{{ $item->label }}</th>
+                            @endif
                         @endforeach
                         <th>Angsuran Koperasi</th>
                         <th>Angsuran Kantor</th>
@@ -53,9 +59,15 @@
                             <td>{{ $item['karyawan']['nik_karyawan'] }}</td>
                             <td>{{ $item['karyawan']['nama_lengkap'] }}</td>                          
                             @foreach ($item['komponen'] as $komponenkaryawan)
-                                <td>
-                                    {{ number_format($komponenkaryawan['komponen_nilai'], 0, ',', '.') }}
-                                </td>   
+                                @if ($komponenkaryawan['komponen_nama'] == 'potongan_absen')
+                                    @php
+                                        unset($komponenkaryawan);
+                                    @endphp
+                                @else
+                                    <td>
+                                        {{ number_format($komponenkaryawan['komponen_nilai'], 0, ',', '.') }}
+                                    </td>
+                                @endif
                             @endforeach
                         </tr>
                     @endforeach

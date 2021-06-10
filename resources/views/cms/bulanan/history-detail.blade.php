@@ -21,7 +21,7 @@
     <div class="card-header">
         <div class="row align-items-center">
             <div class="col">
-                <h4 class="card-title">Daftar Gaji Bulanan Karyawan</h4>
+                <h4 class="card-title">History Gaji Bulanan Karyawan</h4>
                 <p class="text-muted mb-0">Periode : {{ $periode }}</p>
             </div>
             <div class="col-auto">
@@ -67,6 +67,7 @@
                             <td>{{ number_format($item['bpjs_tenagakerja'], 0, ',', '.') }}</td>
                             <td>{{ number_format($item['bpjs_orangtua'], 0, ',', '.') }}</td>
                             <td>{{ number_format($item['iuran_wajib'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['potongan_absen'], 0, ',', '.') }}</td>
                             <td>{{ number_format($item['angsuran_koperasi'], 0, ',', '.') }}</td>
                             <td>{{ number_format($item['angsuran_kantor'], 0, ',', '.') }}</td>
                         </tr>

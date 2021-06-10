@@ -21,7 +21,7 @@
     <div class="card-header">
         <div class="row align-items-center">
             <div class="col">
-                <h4 class="card-title">Daftar Gaji Bulanan Karyawan</h4>
+                <h4 class="card-title">Perhitungan Gaji Bulanan Karyawan</h4>
                 <p class="text-muted mb-0">Periode : {{ $periode }}</p>
             </div>
             <div class="col-auto">

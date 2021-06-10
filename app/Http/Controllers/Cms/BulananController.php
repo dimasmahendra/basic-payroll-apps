@@ -178,7 +178,7 @@ class BulananController extends Controller
         //     "awal" => $awal
         // ]);
 
-        $pdf = PDF::loadView('cms.harian.pdf-gaji', [
+        $pdf = PDF::loadView('cms.bulanan.pdf-gaji', [
             "data" => $collection,
             "awal" => $awal
         ]);

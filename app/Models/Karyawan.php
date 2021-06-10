@@ -52,7 +52,8 @@ class Karyawan extends BaseModel
 
     public function scopeMingguan($query)
     {
-        return $query->where('tipe', 'like', '%mingguan%');
+        return $query->where('tipe', 'like', '%mingguan%')
+                    ->where('status', '=', '1');
     }
 
     public function komponenkaryawan()
