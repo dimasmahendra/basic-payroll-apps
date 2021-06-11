@@ -138,19 +138,38 @@
         $(document).on('change', '#tipegaji', function() {
             let tipe = $(this).val();
             $(".container-waktugajian").load('/partial-waktu-' + tipe);
+
+            if (tipe == 'mingguan') {
+                $("#tunjangan-phg").hide();
+                $("#tunjangan-phg").parent().hide();
+            } else {
+                $("#tunjangan-phg").show();
+                $("#tunjangan-phg").parent().show();
+            }
         });
 
         $(document).ready(function() {
             var stkr = parseFloat($('#tunjangan-stkr').val().replace(/\./g, ""));
             var prh = parseFloat($('#tunjangan-prh').val().replace(/\./g, ""));
-            let potongan = stkr + prh;
+            var phg = parseFloat($('#tunjangan-phg').val().replace(/\./g, ""));
+            let potongan = stkr + prh + phg;
             $("#potongan-absen").val(potongan); 
+
+            let tipe = $("#tipegaji").val();
+            if (tipe == 'mingguan') {
+                $("#tunjangan-phg").hide();
+                $("#tunjangan-phg").parent().hide();
+            } else {
+                $("#tunjangan-phg").show();
+                $("#tunjangan-phg").parent().show();
+            }
         });
 
-        $(document).on('change', '#tunjangan-stkr, #tunjangan-prh', function() {
+        $(document).on('change', '#tunjangan-stkr, #tunjangan-prh, #tunjangan-phg', function() {
             var stkr = parseFloat($('#tunjangan-stkr').val().replace(/\./g, ""));
             var prh = parseFloat($('#tunjangan-prh').val().replace(/\./g, ""));
-            let potongan = stkr + prh;
+            var phg = parseFloat($('#tunjangan-phg').val().replace(/\./g, ""));
+            let potongan = stkr + prh + phg;
             $("#potongan-absen").val(potongan);               
         });
 

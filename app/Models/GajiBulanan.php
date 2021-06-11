@@ -19,7 +19,7 @@ class GajiBulanan extends BaseModel
             'tunjangan_makan',
             'tunjangan_stkr',
             'tunjangan_prh',
-            'bonus_masuk',
+            'tunjangan_phg',
             'upah_lembur',
         ];
         foreach ($komponen as $key => $value) {

@@ -55,14 +55,17 @@ class KaryawanController extends Controller
             $komponentKaryawan = new KomponenKaryawan;
             $komponen = $komponentKaryawan->formatData($request->all());
             foreach ($komponen as $key => $value) {
-                if ($model->tipe == 'mingguan' && $value['komponen_nama'] == 'potongan_absen') {
-                    $value['komponen_nilai'] = 0;
+                if ($model->tipe == 'mingguan') {
+                    if ($value['komponen_nama'] == 'potongan_absen' || $value['komponen_nama'] == 'tunjangan_phg') {
+                        $value['komponen_nilai'] = 0;
+                    }
                 }
                 $attr = clone $komponentKaryawan;
                 $attr->karyawan_id = $model->id;
                 $attr->komponen_id = $value['komponen_id'];
                 $attr->komponen_nama = $value['komponen_nama'];
                 $attr->komponen_nilai = $value['komponen_nilai'];
+                $attr->order = $value['order'];
                 $attr->save();
             }
             
@@ -120,13 +123,22 @@ class KaryawanController extends Controller
             $komponentKaryawan = new KomponenKaryawan;
             $komponen = $komponentKaryawan->formatData($request->all());
             foreach ($komponen as $key => $value) {
-                if ($model->tipe == 'mingguan' && $value['komponen_nama'] == 'potongan_absen') {
-                    $value['komponen_nilai'] = 0;
+                if ($model->tipe == 'mingguan') {
+                    if ($value['komponen_nama'] == 'potongan_absen' || $value['komponen_nama'] == 'tunjangan_phg') {
+                        $value['komponen_nilai'] = 0;
+                    }
                 }
                 $attr = clone $komponentKaryawan;
                 $attr->updateOrCreate(
-                    ['karyawan_id' => $id, 'komponen_id' => $value['komponen_id'], 'komponen_nama' => $value['komponen_nama']],
-                    ['komponen_nilai' => $value['komponen_nilai']]
+                    [
+                        'karyawan_id' => $id,
+                        'order' => $value['order'],
+                    ],
+                    [
+                        'komponen_id' => $value['komponen_id'], 
+                        'komponen_nilai' => $value['komponen_nilai'],
+                        'komponen_nama' => $value['komponen_nama'],
+                    ]
                 );
             }
             

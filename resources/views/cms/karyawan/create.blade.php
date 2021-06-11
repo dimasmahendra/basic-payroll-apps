@@ -140,6 +140,14 @@
         $(document).on('change', '#tipegaji', function() {
             let tipe = $(this).val();
             $(".container-waktugajian").load('/partial-waktu-' + tipe);
+            
+            if (tipe == 'mingguan') {
+                $("#tunjangan-phg").hide();
+                $("#tunjangan-phg").parent().hide();
+            } else {
+                $("#tunjangan-phg").show();
+                $("#tunjangan-phg").parent().show();
+            }
         });
 
         $(document).on('change', '#switch-orangtua', function() {

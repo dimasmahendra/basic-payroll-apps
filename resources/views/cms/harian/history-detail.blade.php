@@ -43,7 +43,7 @@
                         <th>NIK</th>
                         <th>Nama Karyawan</th>
                         @foreach ($komponen as $item)
-                            @if ($item->nama == 'potongan_absen')
+                            @if ($item->nama == 'potongan_absen' || $item->nama == 'tunjangan_phg')
                                 @php
                                     unset($item);
                                 @endphp

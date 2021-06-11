@@ -52,7 +52,7 @@ class GajiBulanan extends Collection
                 $this->checkTunjanganPrh($absen, $komponenkaryawan);
             }
             else if ($komponenkaryawan->komponen_nama == 'bonus_masuk') {
-                $this->checkBonusMasuk($absen, $komponenkaryawan);
+                continue;
             }
             else if ($komponenkaryawan->komponen_nama == 'upah_lembur') {
                 $this->checkUpahLembur($absen, $komponenkaryawan);

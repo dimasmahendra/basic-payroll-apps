@@ -36,15 +36,15 @@ class GajiBulananExport implements FromCollection, WithMapping, WithStyles,WithH
             "Tunjangan Makan",
             "Tunjangan Stkr",
             "Tunjangan Prh",
-            "Bonus Masuk",
+            "Tunjangan Phg",
             "Upah Lembur",
+            "Potongan Absen",
             "BPJS Kesehatan",
             "BPJS Tenagakerja",
             "BPJS Orangtua",
             "Iuran Wajib",
             "Angsuran Koperasi",
             "Angsuran Kantor",
-            "Potongan Absen",
         ];
     }
     public function map($data): array
@@ -57,15 +57,15 @@ class GajiBulananExport implements FromCollection, WithMapping, WithStyles,WithH
             $data['tunjangan_makan'],
             $data['tunjangan_stkr'],
             $data['tunjangan_prh'],
-            $data['bonus_masuk'],
+            $data['tunjangan_phg'],
             $data['upah_lembur'],
+            $data['potongan_absen'],
             $data['bpjs_kesehatan'],
             $data['bpjs_tenagakerja'],
             $data['bpjs_orangtua'],
             $data['iuran_wajib'],
             $data['angsuran_koperasi'],
-            $data['angsuran_kantor'],
-            $data['potongan_absen']
+            $data['angsuran_kantor']            
         ];
     }
 

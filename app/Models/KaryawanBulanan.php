@@ -32,7 +32,7 @@ class KaryawanBulanan extends BaseModel
 
     public function komponenkaryawan()
     {
-        return $this->hasMany(KomponenKaryawan::class, 'karyawan_id', 'id');
+        return $this->hasMany(KomponenKaryawan::class, 'karyawan_id', 'id')->orderBy('order');
     }
 
     public function absen($awal, $akhir)

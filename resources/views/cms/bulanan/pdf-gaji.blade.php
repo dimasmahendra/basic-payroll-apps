@@ -108,8 +108,8 @@
                             <td>{{ number_format($item['tunjangan_prh'], 0, ',', '.') }}</td>
                         </tr>
                         <tr>
-                            <td>Bonus Masuk</td>
-                            <td>{{ number_format($item['bonus_masuk'], 0, ',', '.') }}</td>
+                            <td>Tunj. Phg</td>
+                            <td>{{ number_format($item['tunjangan_phg'], 0, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td>Upah Lembur</td>

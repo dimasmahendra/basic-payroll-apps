@@ -12,8 +12,9 @@ class KomponenKaryawan extends BaseModel
 
     public function formatData($data)
     {
+        $count = 0;
         $jumlah_orangtua = $data['jumlah_orangtua'];
-        foreach ($data as $key => $value) {     
+        foreach ($data as $key => $value) {
             $komponens = explode("|", $key);
             if (count($komponens) == 2) {
                 list($k, $v) = $komponens;
@@ -22,10 +23,12 @@ class KomponenKaryawan extends BaseModel
                 } else {
                     $value = floatval(str_replace('.', '' , $value));
                 }
+                $count += 1;
                 $result[] = [
                     'komponen_id' => $k,
                     'komponen_nama' => $v,
                     'komponen_nilai' => ($value == null) ? 0 : $value,
+                    'order' => $count
                 ];
             } else {
                 unset($komponens);

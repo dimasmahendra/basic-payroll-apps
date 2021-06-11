@@ -45,14 +45,20 @@
                         <th>NIK</th>
                         <th>Nama Karyawan</th>
                         @foreach ($komponen as $item)
-                            <th>{{ $item->label }}</th>
+                            @if ($item->nama == 'bonus_masuk')
+                                @php
+                                    unset($item);
+                                @endphp
+                            @else
+                                <th>{{ $item->label }}</th>
+                            @endif
                         @endforeach
                         <th>Angsuran Koperasi</th>
                         <th>Angsuran Kantor</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($karyawan as $key => $item) 
+                    @foreach ($karyawan as $key => $item)
                         <tr>
                             <td>{{ $key+1 }}</td>
                             <td>{{ $item['nik_karyawan'] }}</td>
@@ -61,13 +67,13 @@
                             <td>{{ number_format($item['tunjangan_makan'], 0, ',', '.') }}</td>
                             <td>{{ number_format($item['tunjangan_stkr'], 0, ',', '.') }}</td>
                             <td>{{ number_format($item['tunjangan_prh'], 0, ',', '.') }}</td>
-                            <td>{{ number_format($item['bonus_masuk'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['tunjangan_phg'], 0, ',', '.') }}</td>
                             <td>{{ number_format($item['upah_lembur'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['potongan_absen'], 0, ',', '.') }}</td>
                             <td>{{ number_format($item['bpjs_kesehatan'], 0, ',', '.') }}</td>
                             <td>{{ number_format($item['bpjs_tenagakerja'], 0, ',', '.') }}</td>
                             <td>{{ number_format($item['bpjs_orangtua'], 0, ',', '.') }}</td>
                             <td>{{ number_format($item['iuran_wajib'], 0, ',', '.') }}</td>
-                            <td>{{ number_format($item['potongan_absen'], 0, ',', '.') }}</td>
                             <td>{{ number_format($item['angsuran_koperasi'], 0, ',', '.') }}</td>
                             <td>{{ number_format($item['angsuran_kantor'], 0, ',', '.') }}</td>
                         </tr>
