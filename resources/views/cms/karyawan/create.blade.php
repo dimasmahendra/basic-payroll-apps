@@ -87,8 +87,8 @@
                     <div class="form-group">
                         <label>Tipe Gaji Karyawan <span class="text-warning">*</span></label> 
                         <select class="form-control" id="tipegaji" name="tipe" required>
-                            <option value="mingguan">Mingguan</option>
                             <option value="bulanan">Bulanan</option>
+                            <option value="mingguan">Mingguan</option>
                         </select>
                     </div>
                 </div>
@@ -142,11 +142,9 @@
             $(".container-waktugajian").load('/partial-waktu-' + tipe);
             
             if (tipe == 'mingguan') {
-                $("#tunjangan-phg").hide();
-                $("#tunjangan-phg").parent().hide();
+                $("#tunjangan-phg").parent().parent().hide();
             } else {
-                $("#tunjangan-phg").show();
-                $("#tunjangan-phg").parent().show();
+                $("#tunjangan-phg").parent().parent().show();
             }
         });
 

@@ -40,7 +40,7 @@
                         <th>NIK</th>
                         <th>Nama Karyawan</th>
                         @foreach ($komponen as $item)
-                            @if ($item->nama == 'potongan_absen')
+                            @if ($item->nama == 'potongan_absen' || $item->nama == 'tunjangan_phg')
                                 @php
                                     unset($item);
                                 @endphp
@@ -59,7 +59,7 @@
                             <td>{{ $item['karyawan']['nik_karyawan'] }}</td>
                             <td>{{ $item['karyawan']['nama_lengkap'] }}</td>                          
                             @foreach ($item['komponen'] as $komponenkaryawan)
-                                @if ($komponenkaryawan['komponen_nama'] == 'potongan_absen')
+                                @if ($komponenkaryawan['komponen_nama'] == 'potongan_absen' || $komponenkaryawan['komponen_nama'] == 'tunjangan_phg')
                                     @php
                                         unset($komponenkaryawan);
                                     @endphp

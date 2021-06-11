@@ -140,11 +140,9 @@
             $(".container-waktugajian").load('/partial-waktu-' + tipe);
 
             if (tipe == 'mingguan') {
-                $("#tunjangan-phg").hide();
-                $("#tunjangan-phg").parent().hide();
+                $("#tunjangan-phg").parent().parent().hide();
             } else {
-                $("#tunjangan-phg").show();
-                $("#tunjangan-phg").parent().show();
+                $("#tunjangan-phg").parent().parent().show();
             }
         });
 
@@ -157,11 +155,9 @@
 
             let tipe = $("#tipegaji").val();
             if (tipe == 'mingguan') {
-                $("#tunjangan-phg").hide();
-                $("#tunjangan-phg").parent().hide();
+                $("#tunjangan-phg").parent().parent().hide();
             } else {
-                $("#tunjangan-phg").show();
-                $("#tunjangan-phg").parent().show();
+                $("#tunjangan-phg").parent().parent().show();
             }
         });
 
