@@ -95,9 +95,13 @@ class GajiBulanan extends Collection
 
     public function checkPotongan($absen, $komponenkaryawan)
     {
-        $total_masuk = (!empty($absen)) ? $absen->total_masuk : 0;
-        $komponenkaryawan->komponen_nilai = (floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai)) / 25) * $total_masuk;
-        return $this->map($komponenkaryawan);
+        if (!empty($absen)) {
+            $total_masuk = $absen->total_masuk;
+            $komponenkaryawan->komponen_nilai = (floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai)) / 25) * $total_masuk;
+            return $this->map($komponenkaryawan);
+        } else {
+            return $komponenkaryawan->komponen_nilai;
+        }        
     }
 
     public function checkUpahPokok($absen, $komponenkaryawan)
