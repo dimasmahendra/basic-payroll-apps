@@ -19,8 +19,8 @@
                         <label class="custom-control-label" for="customSwitches{{ $key+1 }}"></label>
                     </div>
                 </td>
-                <td style="width: 25%">{{ $item->nama_lengkap }}</td>
-                <td style="width: 5%">
+                <td style="width: 20%">{{ $item->nama_lengkap }}</td>
+                <td style="width: 10%">
                     <select class="form-control nilai" name="hitungan_hari[{{ $item->id }}]" {{ isset($item->hitungan_hari) ? '' : 'disabled' }}>
                         <option value="1" {{ (!empty($item->hitungan_hari) && $item->hitungan_hari == 1.0) ? 'selected' : '' }}>1</option>
                         <option value="0.5" {{ (!empty($item->hitungan_hari) && $item->hitungan_hari == 0.5) ? 'selected' : '' }}>0.5</option>
