@@ -94,19 +94,19 @@ class GajiMingguan extends Collection
 
     public function checkTunjanganMakan($absen, $komponenkaryawan)
     {
-        $komponenkaryawan->komponen_nilai = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        $komponenkaryawan->komponen_nilai = ((!empty($absen)) ? $absen->total_masuk : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
         return $this->map($komponenkaryawan);
     }
 
     public function checkTunjanganStkr($absen, $komponenkaryawan)
     {
-        $komponenkaryawan->komponen_nilai = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        $komponenkaryawan->komponen_nilai = ((!empty($absen)) ? $absen->total_masuk : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
         return $this->map($komponenkaryawan);
     }
 
     public function checkTunjanganPrh($absen, $komponenkaryawan)
     {
-        $komponenkaryawan->komponen_nilai = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        $komponenkaryawan->komponen_nilai = ((!empty($absen)) ? $absen->total_masuk : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
         return $this->map($komponenkaryawan);
     }
 
