@@ -43,7 +43,7 @@
                     <tr>
                         <th>No</th>
                         <th>NIK</th>
-                        <th>Nama Karyawan</th>
+                        <th>Nama</th>
                         @foreach ($komponen as $item)
                             @if ($item->nama == 'bonus_masuk')
                                 @php
@@ -53,8 +53,10 @@
                                 <th>{{ $item->label }}</th>
                             @endif
                         @endforeach
-                        <th>Angsuran Koperasi</th>
-                        <th>Angsuran Kantor</th>
+                        <th>Ang. Kop</th>
+                        <th>Ang. Kntr</th>
+                        <th>T. Gaji</th>
+                        <th>T. Ptngn</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,6 +78,8 @@
                             <td>{{ number_format($item['iuran_wajib'], 0, ',', '.') }}</td>
                             <td>{{ number_format($item['angsuran_koperasi'], 0, ',', '.') }}</td>
                             <td>{{ number_format($item['angsuran_kantor'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['total_gaji'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['total_potongan'], 0, ',', '.') }}</td>
                         </tr>
                     @endforeach
                 </tbody>

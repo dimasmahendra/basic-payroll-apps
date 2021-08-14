@@ -60,6 +60,15 @@ class GajiBulanan extends Collection
             else if ($komponenkaryawan->komponen_nama == 'potongan_absen') {
                 $this->checkPotongan($absen, $komponenkaryawan);
             }
+            else if ($komponenkaryawan->komponen_nama == 'bpjs_kesehatan') {
+                $this->checkBpjsKesehatan($absen, $komponenkaryawan);
+            }
+            else if ($komponenkaryawan->komponen_nama == 'bpjs_tenagakerja') {
+                $this->checkBpjsTenagaKerja($absen, $komponenkaryawan);
+            }
+            else if ($komponenkaryawan->komponen_nama == 'iuran_wajib') {
+                $this->checkIuranWajib($absen, $komponenkaryawan);
+            }
             else {
                 $komponenkaryawan->komponen_nilai = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));        
             }
@@ -91,6 +100,46 @@ class GajiBulanan extends Collection
             );
         }
         return $data;
+    }
+
+    public function checkBpjsKesehatan($absen, $komponenkaryawan)
+    {
+        $totalMasuk = !empty($absen) ? $absen->total_masuk : 0;
+        if ($totalMasuk > 1) {
+            $nilai = 1;
+        } else {
+            $nilai = 0;
+        }
+        $nilaiPotBPJS = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        $komponenkaryawan->komponen_nilai = $nilai  * $nilaiPotBPJS;
+
+        return $this->map($komponenkaryawan);
+    }
+
+    public function checkBpjsTenagaKerja($absen, $komponenkaryawan)
+    {
+        $totalMasuk = !empty($absen) ? $absen->total_masuk : 0;
+        if ($totalMasuk > 1) {
+            $nilai = 1;
+        } else {
+            $nilai = 0;
+        }
+        $nilaiPotBPJS = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        $komponenkaryawan->komponen_nilai = $nilai  * $nilaiPotBPJS;
+
+        return $this->map($komponenkaryawan);
+    }
+
+    public function checkIuranWajib($absen, $komponenkaryawan)
+    {
+        $totalMasuk = !empty($absen) ? $absen->total_masuk : 0;
+        if ($totalMasuk > 1) {
+            $nilai = 1;
+        } else {
+            $nilai = 0;
+        }
+        $komponenkaryawan->komponen_nilai = $nilai  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        return $this->map($komponenkaryawan);
     }
 
     public function checkPotongan($absen, $komponenkaryawan)

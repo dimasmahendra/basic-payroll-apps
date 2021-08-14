@@ -1,7 +1,7 @@
 @php
-	$title = "Gaji Harian";
+	$title = "Gaji Mingguan";
     $breadcrumbs[] = [
-		"label" => "Gaji Harian", "url" => "#"
+		"label" => "Gaji Mingguan", "url" => "#"
 	];
     $breadcrumbs[] = [
 		"label" => "Daftar", "url" => "#"
@@ -18,14 +18,23 @@
     <div class="card-header">
         <div class="row align-items-center">
             <div class="col">
-                <h4 class="card-title">Gaji Harian</h4>
+                <h4 class="card-title">Gaji Mingguan</h4>
             </div>
         </div>
     </div>
     <div class="card-body">
         <label>Periode Penggajian Karyawan Harian</label> 
-        <form method="POST" action="{{ route('generate.harian') }}">
+        <form method="POST" action="{{ route('generate.harian') }}" id="form-generate-mingguan">
             {{ csrf_field() }}
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="custom-control custom-switch switch-success">
+                        <input type="hidden" value="off" name="potong_bpjsortu">
+                        <input type="checkbox" value="on" class="custom-control-input" id="customSwitchSuccess" name="potong_bpjsortu"> 
+                        <label class="custom-control-label" for="customSwitchSuccess">BPJS Orang Tua</label>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
@@ -64,5 +73,9 @@
 	    final.setDate(endDate.getDate() + 5);
         $('#tanggal-end').val(moment(final).format("DD/MM/YYYY"));
     }).datepicker('setDate', 'now');
+
+    $("#form-generate-mingguan").submit(function() {
+        alert("Apakah anda yakin akan melanjutkan proses ? ");
+    }); 
 </script>
 @endpush

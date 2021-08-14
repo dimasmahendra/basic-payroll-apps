@@ -42,6 +42,9 @@ class GajiMingguanExport implements FromCollection, WithMapping, WithStyles, Wit
         // $sheet->setCellValue("N{$totalRow}", "=SUM(N2:N{$numOfRows})"),
         // $sheet->setCellValue("O{$totalRow}", "=SUM(O2:O{$numOfRows})")
 
+        $sheet->getStyle("A{$totalRow}:O{$totalRow}")->getFont()->setBold(true);
+        $sheet->setCellValue("C{$totalRow}", "TOTAL");
+
         return [
             1 => ['font' => ['bold' => true]],
             2 => [
@@ -114,7 +117,9 @@ class GajiMingguanExport implements FromCollection, WithMapping, WithStyles, Wit
             "BPJS Ortu",
             "Iuran Wjb",
             "Ang. Kop",
-            "Ang. Kntr"
+            "Ang. Kntr",
+            "T. Gaji",
+            "T. Ptngn",
         ];
     }
     public function map($datamingguan): array
@@ -134,7 +139,9 @@ class GajiMingguanExport implements FromCollection, WithMapping, WithStyles, Wit
             $datamingguan['bpjs_orangtua'],
             $datamingguan['iuran_wajib'],
             $datamingguan['angsuran_koperasi'],
-            $datamingguan['angsuran_kantor']
+            $datamingguan['angsuran_kantor'],
+            $datamingguan['total_gaji'],
+            $datamingguan['total_potongan'],
         ];
     }
 

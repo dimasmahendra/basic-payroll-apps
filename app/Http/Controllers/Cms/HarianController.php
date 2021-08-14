@@ -76,6 +76,8 @@ class HarianController extends Controller
                 $array['nama_lengkap'] = $value->nama_lengkap;
                 $array[$komponen->komponen_nama] = $komponen->komponen_nilai;
             }
+            $array['total_gaji'] = $komponen->hitungTotal($array);
+            $array['total_potongan'] = $komponen->hitungPotongan($array);
             $data[] = $array;
         }
 
@@ -127,6 +129,8 @@ class HarianController extends Controller
                 $array['nama_lengkap'] = $value->nama_lengkap;
                 $array[$komponen->komponen_nama] = $komponen->komponen_nilai;
             }
+            $array['total_gaji'] = $komponen->hitungTotal($array);
+            $array['total_potongan'] = $komponen->hitungPotongan($array);
             $data[] = $array;
         }
 

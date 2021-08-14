@@ -2,6 +2,7 @@
 namespace App\Collections;
 
 use Auth;
+use App\Models\History;
 use App\Models\Angsuran;
 use App\Models\GajiMingguan as Mingguan;
 use Illuminate\Database\Eloquent\Collection;
@@ -24,9 +25,18 @@ class GajiMingguan extends Collection
         $periode_awal = date('Y-m-d', strtotime(str_replace('/', '-', $req->periode_awal)));
         $periode_akhir = date('Y-m-d', strtotime(str_replace('/', '-', $req->periode_akhir)));
 
+        $keterangan = "Generate Gaji Mingguan periode " . $periode_awal . " - " . $periode_akhir;
+        History::create([
+            'name' => 'Checkbox BPJS Ortu',
+            'nilai' => $req->potong_bpjsortu,
+            'tipe' => 'mingguan',
+            'keterangan' => $keterangan,
+            'updated_by' => Auth::id(),
+        ]);
+
         $komponen = array();
         foreach ($this as $key => $karyawan) {
-            $data['komponen'] = $this->dataKomponen($karyawan, $periode_awal, $periode_akhir);
+            $data['komponen'] = $this->dataKomponen($karyawan, $periode_awal, $periode_akhir, $req->potong_bpjsortu);
             $data['karyawan'] = $karyawan->toArray();
             $komponen[] = $data;
         }
@@ -34,7 +44,7 @@ class GajiMingguan extends Collection
         return $komponen;
     }
 
-    public function dataKomponen($karyawan, $periode_awal, $periode_akhir)
+    public function dataKomponen($karyawan, $periode_awal, $periode_akhir, $potongBpjsOrtu)
     {
         $absen = $karyawan->absen($periode_awal, $periode_akhir)->first();
         foreach ($karyawan->komponenkaryawan as $k => $komponenkaryawan) {
@@ -55,6 +65,18 @@ class GajiMingguan extends Collection
             }
             else if ($komponenkaryawan->komponen_nama == 'upah_lembur') {
                 $this->checkUpahLembur($absen, $komponenkaryawan);
+            }
+            else if ($komponenkaryawan->komponen_nama == 'bpjs_kesehatan') {
+                $this->checkBpjsKesehatan($absen, $komponenkaryawan);
+            }
+            else if ($komponenkaryawan->komponen_nama == 'bpjs_tenagakerja') {
+                $this->checkBpjsTenagaKerja($absen, $komponenkaryawan);
+            }
+            else if ($komponenkaryawan->komponen_nama == 'bpjs_orangtua') {
+                $this->checkBpjsOrtu($absen, $komponenkaryawan, $potongBpjsOrtu);
+            }
+            else if ($komponenkaryawan->komponen_nama == 'iuran_wajib') {
+                $this->checkIuranWajib($absen, $komponenkaryawan);
             }
             else {
                 $komponenkaryawan->komponen_nilai = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));        
@@ -84,6 +106,64 @@ class GajiMingguan extends Collection
             );
         }
         return $data;
+    }
+
+    public function checkBpjsOrtu($absen, $komponenkaryawan, $potongBpjsOrtu)
+    {
+        if ($potongBpjsOrtu == 'off') {
+            $komponenkaryawan->komponen_nilai = 0;
+        } else {
+            $totalMasuk = !empty($absen) ? $absen->total_masuk : 0;
+            if ($totalMasuk > 1) {
+                $nilai = 1;
+            } else {
+                $nilai = 0;
+            }
+            
+            $komponenkaryawan->komponen_nilai = $nilai * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        }
+
+        return $this->map($komponenkaryawan);
+    }
+
+    public function checkBpjsKesehatan($absen, $komponenkaryawan)
+    {
+        $totalMasuk = !empty($absen) ? $absen->total_masuk : 0;
+        if ($totalMasuk > 1) {
+            $nilai = 1;
+        } else {
+            $nilai = 0;
+        }
+        $nilaiPotBPJS = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai)) / 4;
+        $komponenkaryawan->komponen_nilai = $nilai  * $nilaiPotBPJS;
+
+        return $this->map($komponenkaryawan);
+    }
+
+    public function checkBpjsTenagaKerja($absen, $komponenkaryawan)
+    {
+        $totalMasuk = !empty($absen) ? $absen->total_masuk : 0;
+        if ($totalMasuk > 1) {
+            $nilai = 1;
+        } else {
+            $nilai = 0;
+        }
+        $nilaiPotBPJS = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai)) / 4;
+        $komponenkaryawan->komponen_nilai = $nilai  * $nilaiPotBPJS;
+
+        return $this->map($komponenkaryawan);
+    }
+
+    public function checkIuranWajib($absen, $komponenkaryawan)
+    {
+        $totalMasuk = !empty($absen) ? $absen->total_masuk : 0;
+        if ($totalMasuk > 1) {
+            $nilai = 1;
+        } else {
+            $nilai = 0;
+        }
+        $komponenkaryawan->komponen_nilai = $nilai  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        return $this->map($komponenkaryawan);
     }
 
     public function checkUpahPokok($absen, $komponenkaryawan)

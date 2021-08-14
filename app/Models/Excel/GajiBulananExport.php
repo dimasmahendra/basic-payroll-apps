@@ -24,6 +24,9 @@ class GajiBulananExport implements FromCollection, WithMapping, WithStyles,WithH
         $numOfRows = count($this->col);
         $totalRow = $numOfRows + 2;
 
+        $sheet->getStyle("A{$totalRow}:O{$totalRow}")->getFont()->setBold(true);
+        $sheet->setCellValue("C{$totalRow}", "TOTAL");
+
         return [
             1 => ['font' => ['bold' => true]],
             2 => [
@@ -75,6 +78,10 @@ class GajiBulananExport implements FromCollection, WithMapping, WithStyles,WithH
                     $sheet->setCellValue("O{$totalRow}", "=SUM(O2:O{$numOfRows})"),
                     $sheet->setCellValue("O{$totalRow}", $sheet->getCell("O{$totalRow}")->getCalculatedValue())
                 ],
+                [
+                    $sheet->setCellValue("P{$totalRow}", "=SUM(P2:P{$numOfRows})"),
+                    $sheet->setCellValue("P{$totalRow}", $sheet->getCell("P{$totalRow}")->getCalculatedValue())
+                ],
             ],
         ];
     }
@@ -97,7 +104,9 @@ class GajiBulananExport implements FromCollection, WithMapping, WithStyles,WithH
             "BPJS Ortu",
             "Iuran Wjb",
             "Ang. Kop",
-            "Ang. Kntr"
+            "Ang. Kntr",
+            "T. Gaji",
+            "T. Ptngn",
         ];
     }
     public function map($data): array
@@ -118,7 +127,9 @@ class GajiBulananExport implements FromCollection, WithMapping, WithStyles,WithH
             $data['bpjs_orangtua'],
             $data['iuran_wajib'],
             $data['angsuran_koperasi'],
-            $data['angsuran_kantor']            
+            $data['angsuran_kantor'],
+            $data['total_gaji'],
+            $data['total_potongan']
         ];
     }
 

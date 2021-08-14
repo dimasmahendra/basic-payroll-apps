@@ -63,3 +63,7 @@ table.table-bordered.dataTable td {
 .text-underline {
     text-decoration: underline
 }
+
+form#form-generate-mingguan {
+    margin-top: 20px;
+}
