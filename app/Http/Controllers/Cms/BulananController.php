@@ -119,7 +119,10 @@ class BulananController extends Controller
 
     public function detail($awal, $akhir)
     {
-        $karyawan = KaryawanBulanan::bulanan()->get();
+        $karyawan = Karyawan::select('karyawan.*')->bulanan()
+                    ->join('jabatan', 'jabatan.id', '=', 'karyawan.jabatan_id')
+                    ->orderBy('jabatan.order')
+                    ->get();
 
         foreach ($karyawan as $key => $value) {
             $karyawanbulanan = $value->karyawanbulanan()

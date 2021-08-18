@@ -116,7 +116,10 @@ class HarianController extends Controller
 
     public function detail($awal, $akhir)
     {
-        $karyawan = Karyawan::mingguan()->get();
+        $karyawan = Karyawan::select('karyawan.*')->mingguan()
+                    ->join('jabatan', 'jabatan.id', '=', 'karyawan.jabatan_id')
+                    ->orderBy('jabatan.order')
+                    ->get();
 
         foreach ($karyawan as $key => $value) {
             $karyawanmingguan = $value->karyawanmingguan()

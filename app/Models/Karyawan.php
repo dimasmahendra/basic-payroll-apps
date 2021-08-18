@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Jabatan;
 use App\Models\Angsuran;
 use App\Models\KomponenKaryawan;
 use App\Models\GajiMingguan as Mingguan;
@@ -69,6 +70,11 @@ class Karyawan extends BaseModel
     public function angsuran()
     {
         return $this->hasOne(Angsuran::class, 'karyawan_id', 'id');
+    }
+
+    public function jabatan()
+    {
+        return $this->hasOne(Jabatan::class, 'id', 'jabatan_id');
     }
 
     public function angsuranKeKantor()
