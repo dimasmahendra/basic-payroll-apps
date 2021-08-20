@@ -119,7 +119,7 @@ class BulananController extends Controller
 
     public function detail($awal, $akhir)
     {
-        $karyawan = Karyawan::select('karyawan.*')->bulanan()
+        $karyawan = KaryawanBulanan::select('karyawan.*')->bulanan()
                     ->join('jabatan', 'jabatan.id', '=', 'karyawan.jabatan_id')
                     ->orderBy('jabatan.order')
                     ->get();
