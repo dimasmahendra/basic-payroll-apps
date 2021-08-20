@@ -106,7 +106,7 @@ class GajiBulananExport implements FromCollection, WithMapping, WithStyles,WithH
             "Ang. Kop",
             "Ang. Kntr",
             "T. Gaji",
-            "T. Ptngn",
+            "Sisa Gj.",
         ];
     }
     public function map($data): array
@@ -129,7 +129,7 @@ class GajiBulananExport implements FromCollection, WithMapping, WithStyles,WithH
             $data['angsuran_koperasi'],
             $data['angsuran_kantor'],
             $data['total_gaji'],
-            $data['total_potongan']
+            $data['total_gaji'] - $data['total_potongan']
         ];
     }
 

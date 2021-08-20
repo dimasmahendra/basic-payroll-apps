@@ -12,7 +12,8 @@
     transition: .3s;
     position: fixed;
     bottom: 0;
-    top: 0
+    top: 0;
+    z-index: 1;
 }
 
 .left-sidenav .brand {
@@ -1264,7 +1265,7 @@ html {
 
 body {
     margin: 0;
-    overflow-x: hidden !important;
+    /* overflow-x: hidden !important; */
     font-size: .8125rem;
     background-color: #f5f8fb;
     color: #303e67;

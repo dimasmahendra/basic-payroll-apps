@@ -78,6 +78,7 @@ class HarianController extends Controller
             }
             $array['total_gaji'] = $komponen->hitungTotal($array);
             $array['total_potongan'] = $komponen->hitungPotongan($array);
+            $array['periode'] = $awal . "-" . $akhir;
             $data[] = $array;
         }
 

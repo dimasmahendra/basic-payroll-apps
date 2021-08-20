@@ -23,7 +23,7 @@ class GajiMingguanExport implements FromCollection, WithMapping, WithStyles, Wit
     public function styles(Worksheet $sheet)
     {
         $numOfRows = count($this->col);
-        $totalRow = $numOfRows + 2;
+        $totalRow = $numOfRows + 4;
 
         // $sheet->setCellValue("D{$totalRow}", '=SUM(D2:D9)');
         // $sheet->setCellValue('D11', '=SUM(D2:D9)');
@@ -41,6 +41,10 @@ class GajiMingguanExport implements FromCollection, WithMapping, WithStyles, Wit
         // $sheet->setCellValue("M{$totalRow}", "=SUM(M2:M{$numOfRows})"),
         // $sheet->setCellValue("N{$totalRow}", "=SUM(N2:N{$numOfRows})"),
         // $sheet->setCellValue("O{$totalRow}", "=SUM(O2:O{$numOfRows})")
+
+        $sheet->insertNewRowBefore(1);
+        $sheet->insertNewRowBefore(2);
+        $sheet->setCellValue("A1", "Periode : " . $this->col[0]['periode'])->mergeCells('A1:E1');
 
         $sheet->getStyle("A{$totalRow}:O{$totalRow}")->getFont()->setBold(true);
         $sheet->setCellValue("C{$totalRow}", "TOTAL");
@@ -119,7 +123,7 @@ class GajiMingguanExport implements FromCollection, WithMapping, WithStyles, Wit
             "Ang. Kop",
             "Ang. Kntr",
             "T. Gaji",
-            "T. Ptngn",
+            "Sisa Gaji",
         ];
     }
     public function map($datamingguan): array
@@ -141,7 +145,7 @@ class GajiMingguanExport implements FromCollection, WithMapping, WithStyles, Wit
             $datamingguan['angsuran_koperasi'],
             $datamingguan['angsuran_kantor'],
             $datamingguan['total_gaji'],
-            $datamingguan['total_potongan'],
+            $datamingguan['total_gaji'] - $datamingguan['total_potongan'],
         ];
     }
 
