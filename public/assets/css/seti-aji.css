@@ -39,10 +39,10 @@ table.table-bordered.dataTable td {
 }
 
 .item-active {
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
     border-radius: 5%;
-    border-right: 7px solid;
-    border-right-color: #ffb822;
+    border-left: 4px solid;
+    border-left-color: #ffb822;
 }
 
 .custom-switch label{

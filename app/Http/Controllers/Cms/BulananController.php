@@ -81,6 +81,7 @@ class BulananController extends Controller
             }
             $array['total_gaji'] = $komponen->hitungTotal($array);
             $array['total_potongan'] = $komponen->hitungPotongan($array);
+            $array['periode'] = date("d F Y", strtotime($awal)) . " - " . date("d F Y", strtotime($akhir));
             $data[] = $array;
         }
 

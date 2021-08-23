@@ -70,7 +70,7 @@
     }).on('changeDate', function (selected) {
         endDate = $(this).datepicker('getDate');
         var final=new Date(endDate);
-	    final.setDate(endDate.getDate() + 5);
+	    final.setDate(endDate.getDate() + 6);
         $('#tanggal-end').val(moment(final).format("DD/MM/YYYY"));
     }).datepicker('setDate', 'now');
 

@@ -22,8 +22,9 @@
                 <td style="width: 20%">{{ $item->nama_lengkap }}</td>
                 <td style="width: 10%">
                     <select class="form-control nilai" name="hitungan_hari[{{ $item->id }}]" {{ isset($item->hitungan_hari) ? '' : 'disabled' }}>
-                        <option value="1" {{ (!empty($item->hitungan_hari) && $item->hitungan_hari == 1.0) ? 'selected' : '' }}>1</option>
                         <option value="0.5" {{ (!empty($item->hitungan_hari) && $item->hitungan_hari == 0.5) ? 'selected' : '' }}>0.5</option>
+                        <option value="1" {{ (!empty($item->hitungan_hari) && $item->hitungan_hari == 1.0) ? 'selected' : '' }}>1</option>
+                        <option value="2" {{ (!empty($item->hitungan_hari) && $item->hitungan_hari == 2) ? 'selected' : '' }}>2</option>
                     </select>
                 </td>
                 <td style="width: 15%">

@@ -18,7 +18,7 @@
 
 .left-sidenav .brand {
     text-align: center;
-    height: 74px
+    height: 67px
 }
 
 .left-sidenav .brand .logo {
@@ -45,7 +45,8 @@
 
 .left-sidenav .menu-content {
     height: 100%;
-    padding-bottom: 70px
+    padding-bottom: 70px;
+    background-color: #1176BC;
 }
 
 .page-wrapper {
@@ -61,23 +62,24 @@
     width: 100%;
     position: relative;
     min-height: 100vh;
-    padding: 0 15px 60px 15px;
+    padding: 0 0 60px 0;
     display: inline-block
 }
 
 .left-sidenav-menu {
     padding-left: 0;
     margin-bottom: 0;
-    padding: 24px
+    padding: 20px
 }
 
 .left-sidenav-menu .menu-label {
     text-transform: uppercase;
-    font-size: 10px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 800;
     letter-spacing: .5px;
-    color: #c2cbe2;
-    padding: 8px 0
+    color: #ffb822;
+    padding: 8px 0;
+    line-height: 32px;
 }
 
 .left-sidenav-menu li {
@@ -95,31 +97,36 @@
     -ms-flex-align: center;
     align-items: center;
     padding: 6px 0px;
-    color: #68728c;
+    color: #fff;
     -webkit-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
-    font-weight: 300
+    font-weight: 600;
+}
+
+.left-sidenav-menu li>a.active {
+    color: #ffb822;
 }
 
 .left-sidenav-menu li>a .menu-icon {
     width: 18px;
     height: 18px;
-    color: #7081b9;
+    color: #fff;
     fill: rgba(112, 129, 185, 0.12);
     margin-right: 6px
 }
 
 .left-sidenav-menu li>a.active .menu-icon {
-    color: #1761fd;
-    fill: rgba(23, 97, 253, 0.12)
+    color: #fff;
+    fill: rgba(23, 97, 253, 0.12);
+    margin-left: 10px;
 }
 
 .left-sidenav-menu li>a:hover {
-    color: #2f6bf9
+    color: #ffb822
 }
 
 .left-sidenav-menu li>a:hover i {
-    color: #2f6bf9
+    color: #ffb822
 }
 
 .left-sidenav-menu li>a i {
@@ -137,7 +144,7 @@
 }
 
 .left-sidenav-menu li>a span i {
-    color: #303e67
+    color: #fff;
 }
 
 .left-sidenav-menu li ul {
@@ -146,13 +153,13 @@
 
 .left-sidenav-menu li ul li>a {
     padding: 6px 0;
-    color: #68728c;
+    color: #fff;
     font-size: 13px;
     border-left: none
 }
 
 .left-sidenav-menu li ul li>a:hover {
-    color: #2f6bf9
+    color: #ffb822;
 }
 
 .left-sidenav-menu li ul li>a:hover i {
@@ -199,7 +206,7 @@
 }
 
 .left-sidenav-menu li.mm-active>a {
-    color: #6374ff;
+    color: #ffb822;
     border-radius: 4px
 }
 
@@ -209,7 +216,7 @@
 
 .left-sidenav-menu li.mm-active .nav-item.active a.nav-link.active {
     background-color: transparent;
-    color: #1761fd
+    color: #ffb822;
 }
 
 .left-sidenav-menu li.mm-active .nav-item.active a.nav-link.active i {
@@ -240,7 +247,7 @@
 
     .left-sidenav .brand {
         display: none;
-        width: 70px
+        width: 67px
     }
 
     .left-sidenav .brand .logo-lg {
