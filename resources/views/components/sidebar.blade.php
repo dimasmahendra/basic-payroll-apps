@@ -15,10 +15,10 @@
                 <a href="{{ route('dashboard') }}"><i data-feather="home" class="align-self-center menu-icon"></i><span>Dashboard</span></a>
             </li>
             <li class="nav-item {{ (strpos($page, 'karyawan') !== false) ? 'item-active' : '' }}">
-                <a href="{{ route('karyawan') }}"><i data-feather="users" class="align-self-center menu-icon"></i><span>Karyawan</span></a>
+                <a href="{{ route('karyawan') }}" class="{{ (strpos($page, 'karyawan') !== false) ? 'active' : '' }}"><i data-feather="users" class="align-self-center menu-icon"></i><span>Karyawan</span></a>
             </li>
             <li class="nav-item {{ (strpos($page, 'absensi') !== false) ? 'item-active' : '' }}">
-                <a href="{{ route('absensi') }}"><i data-feather="calendar" class="align-self-center menu-icon"></i><span>Absensi</span></a>
+                <a href="{{ route('absensi') }}" class="{{ (strpos($page, 'absensi') !== false) ? 'active' : '' }}"><i data-feather="calendar" class="align-self-center menu-icon"></i><span>Absensi</span></a>
             </li>
             <li class="">
                 <a href="javascript: void(0);" aria-expanded="false">
