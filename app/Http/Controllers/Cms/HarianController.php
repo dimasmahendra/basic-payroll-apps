@@ -52,7 +52,11 @@ class HarianController extends Controller
 
     public function export($awal, $akhir)
     {
-        $karyawan = Karyawan::mingguan()->get();
+        $karyawan = Karyawan::select('karyawan.*')->mingguan()
+                    ->join('jabatan', 'jabatan.id', '=', 'karyawan.jabatan_id')
+                    ->orderBy('jabatan.order')
+                    ->get();
+
         $cache_key = "@generate-gaji-mingguan-".now();
         // Cache::forget($cache_key);
         if (Cache::has($cache_key)) {

@@ -67,3 +67,8 @@ table.table-bordered.dataTable td {
 form#form-generate-mingguan {
     margin-top: 20px;
 }
+
+.page-title-box {
+    padding-left: 20px;
+    padding-right: 20px;
+}

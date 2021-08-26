@@ -50,7 +50,13 @@ class BulananController extends Controller
 
     public function export(Request $request, $awal, $akhir)
     {
-        $karyawan = KaryawanBulanan::bulanan()->jenisWaktu($request->tipe)->get();
+        $karyawan = KaryawanBulanan::select('karyawan.*')->bulanan()
+                    ->jenisWaktu($request->tipe)
+                    ->join('jabatan', 'jabatan.id', '=', 'karyawan.jabatan_id')
+                    ->orderBy('jabatan.order')
+                    ->get();
+
+
         if ($karyawan->isEmpty()) {
             return redirect(route('history-bulanan.detail', ['awal' => $awal, 'akhir' => $akhir]))
                     ->with("error", "Tidak Ada karyawan Bulanan Pada periode yang di pilih.");
