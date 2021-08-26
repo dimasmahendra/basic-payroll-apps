@@ -114,7 +114,7 @@ class GajiMingguan extends Collection
             $komponenkaryawan->komponen_nilai = 0;
         } else {
             $totalMasuk = !empty($absen) ? $absen->total_masuk : 0;
-            if ($totalMasuk > 1) {
+            if ($totalMasuk > 0) {
                 $nilai = 1;
             } else {
                 $nilai = 0;
@@ -129,7 +129,7 @@ class GajiMingguan extends Collection
     public function checkBpjsKesehatan($absen, $komponenkaryawan)
     {
         $totalMasuk = !empty($absen) ? $absen->total_masuk : 0;
-        if ($totalMasuk > 1) {
+        if ($totalMasuk > 0) {
             $nilai = 1;
         } else {
             $nilai = 0;
@@ -143,7 +143,7 @@ class GajiMingguan extends Collection
     public function checkBpjsTenagaKerja($absen, $komponenkaryawan)
     {
         $totalMasuk = !empty($absen) ? $absen->total_masuk : 0;
-        if ($totalMasuk > 1) {
+        if ($totalMasuk > 0) {
             $nilai = 1;
         } else {
             $nilai = 0;
@@ -157,7 +157,7 @@ class GajiMingguan extends Collection
     public function checkIuranWajib($absen, $komponenkaryawan)
     {
         $totalMasuk = !empty($absen) ? $absen->total_masuk : 0;
-        if ($totalMasuk > 1) {
+        if ($totalMasuk > 0) {
             $nilai = 1;
         } else {
             $nilai = 0;

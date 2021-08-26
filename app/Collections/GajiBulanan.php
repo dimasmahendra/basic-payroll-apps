@@ -66,6 +66,9 @@ class GajiBulanan extends Collection
             else if ($komponenkaryawan->komponen_nama == 'bpjs_tenagakerja') {
                 $this->checkBpjsTenagaKerja($absen, $komponenkaryawan);
             }
+            else if ($komponenkaryawan->komponen_nama == 'bpjs_orangtua') {
+                $this->checkBpjsOrtu($absen, $komponenkaryawan);
+            }
             else if ($komponenkaryawan->komponen_nama == 'iuran_wajib') {
                 $this->checkIuranWajib($absen, $komponenkaryawan);
             }
@@ -102,10 +105,24 @@ class GajiBulanan extends Collection
         return $data;
     }
 
+    public function checkBpjsOrtu($absen, $komponenkaryawan)
+    {
+        $totalMasuk = !empty($absen) ? $absen->total_masuk : 0;
+        if ($totalMasuk > 0) {
+            $nilai = 1;
+        } else {
+            $nilai = 0;
+        }
+        $nilaiPotBPJS = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        $komponenkaryawan->komponen_nilai = $nilai  * $nilaiPotBPJS;
+
+        return $this->map($komponenkaryawan);
+    }
+
     public function checkBpjsKesehatan($absen, $komponenkaryawan)
     {
         $totalMasuk = !empty($absen) ? $absen->total_masuk : 0;
-        if ($totalMasuk > 1) {
+        if ($totalMasuk > 0) {
             $nilai = 1;
         } else {
             $nilai = 0;
@@ -119,7 +136,7 @@ class GajiBulanan extends Collection
     public function checkBpjsTenagaKerja($absen, $komponenkaryawan)
     {
         $totalMasuk = !empty($absen) ? $absen->total_masuk : 0;
-        if ($totalMasuk > 1) {
+        if ($totalMasuk > 0) {
             $nilai = 1;
         } else {
             $nilai = 0;
@@ -133,7 +150,7 @@ class GajiBulanan extends Collection
     public function checkIuranWajib($absen, $komponenkaryawan)
     {
         $totalMasuk = !empty($absen) ? $absen->total_masuk : 0;
-        if ($totalMasuk > 1) {
+        if ($totalMasuk > 0) {
             $nilai = 1;
         } else {
             $nilai = 0;
