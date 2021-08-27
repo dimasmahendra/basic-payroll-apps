@@ -24,6 +24,7 @@
 </head>
 
 <body class="">
+    <div class="overlay"></div>
     @include('components.sidebar')
     <div class="page-wrapper">
         @include('components.topbar')

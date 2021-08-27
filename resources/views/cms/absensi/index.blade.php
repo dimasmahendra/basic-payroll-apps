@@ -153,11 +153,15 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
+                beforeSend: function() {
+                    $("body").addClass("loading"); 
+                },
                 success: function (data) {
                     console.log(data);
                     $('#section-absensi').empty();
                     $('#section-absensi').html(data);
                     init();
+                    $("body").removeClass("loading"); 
                 }
             });
         });
