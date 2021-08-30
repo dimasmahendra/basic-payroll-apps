@@ -31,7 +31,7 @@ class GajiMingguanExport implements FromCollection, WithMapping, WithStyles, Wit
         $sheet->setCellValue("A1", "Gaji Mingguan Periode " . $this->col[0]['periode'])->mergeCells('A1:G1');
         $sheet->setCellValue("A2", "Periode : " . $this->col[0]['periode'])->mergeCells('A2:E2');
 
-        $sheet->getStyle("A{$totalRow}:Q{$totalRow}")->getFont()->setBold(true);
+        $sheet->getStyle("A{$totalRow}:T{$totalRow}")->getFont()->setBold(true);
         $sheet->setCellValue("C{$totalRow}", "TOTAL");
 
         return [
@@ -108,6 +108,21 @@ class GajiMingguanExport implements FromCollection, WithMapping, WithStyles, Wit
                         $sheet->setCellValue("Q{$totalRow}", $sheet->getCell("Q{$totalRow}")->getCalculatedValue()),
                         $sheet->getStyle("Q4:Q{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
                     ],
+                    [
+                        $sheet->setCellValue("R{$totalRow}", "=SUM(R4:R{$totalRow})"),
+                        $sheet->setCellValue("R{$totalRow}", $sheet->getCell("R{$totalRow}")->getCalculatedValue()),
+                        $sheet->getStyle("R4:R{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                    ],
+                    [
+                        $sheet->setCellValue("S{$totalRow}", "=SUM(S4:S{$totalRow})"),
+                        $sheet->setCellValue("S{$totalRow}", $sheet->getCell("S{$totalRow}")->getCalculatedValue()),
+                        $sheet->getStyle("S4:S{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                    ],
+                    [
+                        $sheet->setCellValue("T{$totalRow}", "=SUM(T4:T{$totalRow})"),
+                        $sheet->setCellValue("T{$totalRow}", $sheet->getCell("T{$totalRow}")->getCalculatedValue()),
+                        $sheet->getStyle("T4:T{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                    ],
                 ],
         ];
     }
@@ -130,6 +145,9 @@ class GajiMingguanExport implements FromCollection, WithMapping, WithStyles, Wit
             "Iuran Wjb",
             "Ang. Kop",
             "Ang. Kntr",
+            "Msk. Kerja",
+            "Lmbr 1",
+            "Lmbr 2",
             "T. Gaji",
             "Sisa Gaji",
         ];
@@ -152,6 +170,9 @@ class GajiMingguanExport implements FromCollection, WithMapping, WithStyles, Wit
             $datamingguan['iuran_wajib'],
             $datamingguan['angsuran_koperasi'],
             $datamingguan['angsuran_kantor'],
+            $datamingguan['masuk_kerja'],
+            $datamingguan['total_lembur_1'],
+            $datamingguan['total_lembur_2'],
             $datamingguan['total_gaji'],
             $datamingguan['total_gaji'] - $datamingguan['total_potongan'],
         ];

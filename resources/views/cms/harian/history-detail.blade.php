@@ -53,6 +53,9 @@
                         @endforeach
                         <th>Ang. Kop</th>
                         <th>Ang. Kntr</th>
+                        <th>Msk Kerja</th>
+                        <th>T. Lmbr 1</th>
+                        <th>T. Lmbr 2</th>
                         <th>T. Gaji</th>
                         <th>T. Ptngn</th>
                     </tr>
@@ -75,6 +78,9 @@
                             <td>{{ number_format($item['iuran_wajib'], 0, ',', '.') }}</td>
                             <td>{{ number_format($item['angsuran_koperasi'], 0, ',', '.') }}</td>
                             <td>{{ number_format($item['angsuran_kantor'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['masuk_kerja'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['total_lembur_1'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['total_lembur_2'], 0, ',', '.') }}</td>
                             <td>{{ number_format($item['total_gaji'], 0, ',', '.') }}</td>
                             <td>{{ number_format($item['total_potongan'], 0, ',', '.') }}</td>
                         </tr>
