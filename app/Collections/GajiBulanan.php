@@ -85,6 +85,9 @@ class GajiBulanan extends Collection
         
         $data[] = $this->checkAngsuran($karyawan, $periode_awal, $periode_akhir, 'koperasi');
         $data[] = $this->checkAngsuran($karyawan, $periode_awal, $periode_akhir, 'kantor');
+        $data[] = $this->checkMasukKerja($absen, $karyawan, $periode_awal, $periode_akhir);
+        $data[] = $this->checkLemburSatu($absen, $karyawan, $periode_awal, $periode_akhir);
+        $data[] = $this->checkLemburDua($absen, $karyawan, $periode_awal, $periode_akhir);
         
         foreach ($data as $i => $komponenbulanan) {
             $model = new Bulanan;
@@ -103,6 +106,42 @@ class GajiBulanan extends Collection
             );
         }
         return $data;
+    }
+
+    public function checkLemburSatu($absen, $karyawan, $awal, $akhir)
+    {   
+        $komponenkaryawan = new \stdClass();
+        $komponenkaryawan->karyawan_id = $karyawan->id;
+        $komponenkaryawan->tipe = $karyawan->waktu_penggajian;
+        $komponenkaryawan->komponen_nama = "total_lembur_1";
+        $komponenkaryawan->komponen_nilai = empty($absen->total_lembur_1) ? 0 : $absen->total_lembur_1;
+        $komponenkaryawan->periode_awal = $awal;
+        $komponenkaryawan->periode_akhir = $akhir;
+        return $this->map($komponenkaryawan);
+    }
+
+    public function checkLemburDua($absen, $karyawan, $awal, $akhir)
+    {   
+        $komponenkaryawan = new \stdClass();
+        $komponenkaryawan->karyawan_id = $karyawan->id;
+        $komponenkaryawan->tipe = $karyawan->waktu_penggajian;
+        $komponenkaryawan->komponen_nama = "total_lembur_2";
+        $komponenkaryawan->komponen_nilai = empty($absen->total_lembur_2) ? 0 : $absen->total_lembur_2;
+        $komponenkaryawan->periode_awal = $awal;
+        $komponenkaryawan->periode_akhir = $akhir;
+        return $this->map($komponenkaryawan);
+    }
+
+    public function checkMasukKerja($absen, $karyawan, $awal, $akhir)
+    {   
+        $komponenkaryawan = new \stdClass();
+        $komponenkaryawan->karyawan_id = $karyawan->id;
+        $komponenkaryawan->tipe = $karyawan->waktu_penggajian;
+        $komponenkaryawan->komponen_nama = "masuk_kerja";
+        $komponenkaryawan->komponen_nilai = empty($absen->total_masuk) ? 0 : $absen->total_masuk;
+        $komponenkaryawan->periode_awal = $awal;
+        $komponenkaryawan->periode_akhir = $akhir;
+        return $this->map($komponenkaryawan);
     }
 
     public function checkBpjsOrtu($absen, $komponenkaryawan)

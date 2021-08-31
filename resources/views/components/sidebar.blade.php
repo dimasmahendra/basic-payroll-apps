@@ -102,6 +102,11 @@
                             <i class="ti-control-record"></i>BPJS
                         </a>
                     </li>
+                    <li class="nav-item {{ (strpos($page, 'history') !== false) ? 'item-active' : '' }}">
+                        <a class="nav-link" href="{{ route('history') }}">
+                            <i class="ti-control-record"></i>History
+                        </a>
+                    </li>
                 </ul>
             </li>        
       </ul>

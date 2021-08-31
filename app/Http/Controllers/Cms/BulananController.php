@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Cms;
 
+use Auth;
 use PDF;
 use App\Models\Absensi;
+use App\Models\History;
 use App\Models\KaryawanBulanan;
 use App\Models\KomponenGaji;
 use App\Models\Excel\GajiBulananExport;
@@ -187,16 +189,29 @@ class BulananController extends Controller
             $data[] = $array;
         }
         $collection = collect($data);
-        // return view('cms.harian.pdf-gaji', [
-        //     "data" => $collection,
-        //     "awal" => $awal
-        // ]);
-
         $pdf = PDF::loadView('cms.bulanan.pdf-gaji', [
             "data" => $collection,
             "awal" => $awal
         ]);
         $pdf->setPaper('A4', 'landscape');
         return $pdf->stream();
+    }
+
+    public function remove($awal, $akhir)
+    {
+        $keterangan = "Hapus Gaji Bulanan periode " . $awal . " - " . $akhir;
+        History::create([
+            'name' => 'Gaji Bulanan',
+            'nilai' => 'delete',
+            'tipe' => 'bulanan',
+            'keterangan' => $keterangan,
+            'updated_by' => Auth::id(),
+        ]);
+
+        Bulanan::whereDate('periode_awal', '=', $awal)
+                                    ->whereDate('periode_akhir', '=', $akhir)
+                                    ->forceDelete();
+
+        return redirect()->back();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\History;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
 
@@ -24,5 +25,13 @@ class InternalDataController extends Controller
                         'nama_lengkap'
                     ]);
         return $karyawan;
+    }
+
+    public function history()
+    {
+        $data = History::get();
+        return view('cms.history.index', [
+            "data" => $data
+        ]);
     }
 }

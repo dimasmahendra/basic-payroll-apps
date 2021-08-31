@@ -26,16 +26,27 @@
         <label>Periode Penggajian Karyawan Bulanan</label> 
         <div class="col-md-12 pt-2">
             @foreach ($data as $key => $item)
-                <a href="{{ route('history-bulanan.detail', ['awal' => date('Y-m-d', strtotime($item->periode_awal)), 'akhir' => date('Y-m-d', strtotime($item->periode_akhir))]) }}">
-                    <div class="d-flex justify-content-between">
-                        <p class="text-underline">{{ date('d F Y', strtotime($item->periode_awal)) }} - {{ date('d F Y', strtotime($item->periode_akhir)) }}</p>
-                        Info Generate :
-                        @if (!empty($item->user))
-                             {{ $item->user->name }} / {{ $item->user->email }}, 
-                        @endif
-                        Tanggal {{ date('d F Y', strtotime($item->created_at)) }}
+                <div class="row">
+                    <div class="col-md-11">
+                        <a href="{{ route('history-bulanan.detail', ['awal' => date('Y-m-d', strtotime($item->periode_awal)), 'akhir' => date('Y-m-d', strtotime($item->periode_akhir))]) }}">
+                            <div class="d-flex justify-content-between">
+                                <p class="text-underline">{{ date('d F Y', strtotime($item->periode_awal)) }} - {{ date('d F Y', strtotime($item->periode_akhir)) }}</p>
+                                Info Generate :
+                                @if (!empty($item->user))
+                                    {{ $item->user->name }} / {{ $item->user->email }}, 
+                                @endif
+                                Tanggal {{ date('d F Y', strtotime($item->created_at)) }}
+                            </div>
+                        </a>
                     </div>
-                </a>
+                    <div class="col-md-1">
+                        <a href="{{ route('history-bulanan.remove', ['awal' => date('Y-m-d', strtotime($item->periode_awal)), 'akhir' => date('Y-m-d', strtotime($item->periode_akhir))]) }}">
+                            <button type="button" class="btn btn-sm btn-primary">
+                                Hapus
+                            </button>
+                        </a>
+                    </div>
+                </div>
             @endforeach
         </div>
     </div>

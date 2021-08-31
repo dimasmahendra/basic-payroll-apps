@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Cms;
 
+use Auth;
 use PDF;
 use App\Models\Absensi;
+use App\Models\History;
 use App\Models\Karyawan;
 use App\Models\KomponenGaji;
 use App\Models\Excel\GajiMingguanExport;
@@ -188,5 +190,23 @@ class HarianController extends Controller
         ]);
         $pdf->setPaper('A4', 'landscape');
         return $pdf->stream();
+    }
+
+    public function remove($awal, $akhir)
+    {
+        $keterangan = "Hapus Gaji Mingguan periode " . $awal . " - " . $akhir;
+        History::create([
+            'name' => 'Gaji Mingguan',
+            'nilai' => 'delete',
+            'tipe' => 'mingguan',
+            'keterangan' => $keterangan,
+            'updated_by' => Auth::id(),
+        ]);
+
+        Mingguan::whereDate('periode_awal', '=', $awal)
+                                    ->whereDate('periode_akhir', '=', $akhir)
+                                    ->forceDelete();
+
+        return redirect()->back();
     }
 }

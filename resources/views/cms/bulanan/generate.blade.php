@@ -39,7 +39,7 @@
                     <tr>
                         <th>No</th>
                         <th>NIK</th>
-                        <th>Nama Karyawan</th>
+                        <th>Nama</th>
                         @foreach ($komponen as $item)
                             @if ($item->nama == 'bonus_masuk')
                                 @php
@@ -49,8 +49,11 @@
                                 <th>{{ $item->label }}</th>
                             @endif
                         @endforeach
-                        <th>Angsuran Koperasi</th>
-                        <th>Angsuran Kantor</th>
+                        <th>Ang. Koperasi</th>
+                        <th>Ang. Kantor</th>
+                        <th>Msk Kerja</th>
+                        <th>Lembur 1</th>
+                        <th>Lembur 2</th>
                     </tr>
                 </thead>
                 <tbody>

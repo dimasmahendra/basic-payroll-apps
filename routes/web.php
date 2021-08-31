@@ -47,6 +47,7 @@ Route::middleware(["auth"])->group(function(){
         Route::get('/history/harian', [App\Http\Controllers\Cms\HarianController::class, 'history'])->name('history-harian');
         Route::get('/history/harian/{awal}/{akhir}', [App\Http\Controllers\Cms\HarianController::class, 'detail'])->name('history-harian.detail');
         Route::get("/history/harian/pdf/{awal}/{akhir}", [App\Http\Controllers\Cms\HarianController::class, 'pdf'])->name("history-harian.pdf");
+        Route::get("/history/harian/remove/{awal}/{akhir}", [App\Http\Controllers\Cms\HarianController::class, 'remove'])->name("history-harian.remove");
 
         // Gaji Bulanan
         Route::get('/gaji/bulanan', [App\Http\Controllers\Cms\BulananController::class, 'index'])->name('bulanan');
@@ -57,6 +58,7 @@ Route::middleware(["auth"])->group(function(){
         Route::get('/history/bulanan', [App\Http\Controllers\Cms\BulananController::class, 'history'])->name('history-bulanan');
         Route::get('/history/bulanan/{awal}/{akhir}', [App\Http\Controllers\Cms\BulananController::class, 'detail'])->name('history-bulanan.detail');
         Route::post("/history/bulanan/pdf/{awal}/{akhir}", [App\Http\Controllers\Cms\BulananController::class, 'pdf'])->name("history-bulanan.pdf");
+        Route::get("/history/bulanan/remove/{awal}/{akhir}", [App\Http\Controllers\Cms\BulananController::class, 'remove'])->name("history-bulanan.remove");
 
         /* Master Data */
         // Jabatan
@@ -72,7 +74,7 @@ Route::middleware(["auth"])->group(function(){
         Route::post('/bpjs/store', [App\Http\Controllers\Cms\BPJSController::class, 'store'])->name('bpjs.store');
 
         // History
-        Route::get('/bpjs', [App\Http\Controllers\Cms\BPJSController::class, 'index'])->name('bpjs');
+        Route::get('/history', [App\Http\Controllers\InternalDataController::class, 'history'])->name('history');
     });
 
     Route::prefix("internal-api")->group(function(){
