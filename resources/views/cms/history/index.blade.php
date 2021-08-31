@@ -29,6 +29,7 @@
                     'tipe' => "Tipe",
                     'keterangan' => "Keterangan",
                     'updated_by' => "PIC",
+                    'created_at' => "Tanggal",
                 ],
                 "values" => [
                     "updated_by" => function($data){

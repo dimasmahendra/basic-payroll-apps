@@ -29,7 +29,7 @@ class InternalDataController extends Controller
 
     public function history()
     {
-        $data = History::get();
+        $data = History::orderBy('created_at', 'DESC')->get();
         return view('cms.history.index', [
             "data" => $data
         ]);
