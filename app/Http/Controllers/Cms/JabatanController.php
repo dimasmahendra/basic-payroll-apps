@@ -24,6 +24,7 @@ class JabatanController extends Controller
     {
         $model = new Jabatan;
         $model->nama = $request->nama;
+        $model->order = $request->urutan;
         $model->save();
         return redirect(route('jabatan'))->with("message", "Berhasil Simpan");
     }
@@ -41,6 +42,7 @@ class JabatanController extends Controller
     {
         $model = Jabatan::find($id);
         $model->nama = $request->nama;
+        $model->order = $request->urutan;
         $model->save();
         return redirect(route('jabatan'))->with("message", "Berhasil Update");
     }

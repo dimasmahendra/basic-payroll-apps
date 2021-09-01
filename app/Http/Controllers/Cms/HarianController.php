@@ -55,7 +55,7 @@ class HarianController extends Controller
     public function export($awal, $akhir)
     {
         $karyawan = Karyawan::select('karyawan.*')->mingguan()
-                    ->join('jabatan', 'jabatan.id', '=', 'karyawan.jabatan_id')
+                    ->leftJoin('jabatan', 'jabatan.id', '=', 'karyawan.jabatan_id')
                     ->orderBy('jabatan.order')
                     ->get();
 
@@ -124,7 +124,7 @@ class HarianController extends Controller
     public function detail($awal, $akhir)
     {
         $karyawan = Karyawan::select('karyawan.*')->mingguan()
-                    ->join('jabatan', 'jabatan.id', '=', 'karyawan.jabatan_id')
+                    ->leftJoin('jabatan', 'jabatan.id', '=', 'karyawan.jabatan_id')
                     ->orderBy('jabatan.order')
                     ->get();
 

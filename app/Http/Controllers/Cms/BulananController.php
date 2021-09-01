@@ -54,7 +54,7 @@ class BulananController extends Controller
     {
         $karyawan = KaryawanBulanan::select('karyawan.*')->bulanan()
                     ->jenisWaktu($request->tipe)
-                    ->join('jabatan', 'jabatan.id', '=', 'karyawan.jabatan_id')
+                    ->leftJoin('jabatan', 'jabatan.id', '=', 'karyawan.jabatan_id')
                     ->orderBy('jabatan.order')
                     ->get();
 
@@ -129,7 +129,7 @@ class BulananController extends Controller
     public function detail($awal, $akhir)
     {
         $karyawan = KaryawanBulanan::select('karyawan.*')->bulanan()
-                    ->join('jabatan', 'jabatan.id', '=', 'karyawan.jabatan_id')
+                    ->leftJoin('jabatan', 'jabatan.id', '=', 'karyawan.jabatan_id')
                     ->orderBy('jabatan.order')
                     ->get();
 

@@ -32,7 +32,8 @@
             @include('components/table', [
                 'data' => $jabatan,
                 'headers' => [
-                    'nama' => "Nama Jabatan"
+                    'nama' => "Nama Jabatan",
+                    'order' => "Urutan"
                 ],
                 "actions" => [
                     "edit" => [

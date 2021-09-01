@@ -30,6 +30,12 @@
                     <input type="text" class="form-control" id="nama-jabatan" name="nama" required/>
                 </div>
             </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Urutan <span class="text-warning">*</span></label> 
+                    <input type="text" class="form-control" id="urutan-jabatan" name="urutan" required/>
+                </div>
+            </div>
             <div class="text-right">
                 <button type="submit" class="btn btn-success">Simpan</button>
             </div>
