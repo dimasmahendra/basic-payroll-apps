@@ -29,7 +29,11 @@ class BulananController extends Controller
         DB::beginTransaction();
         try {
             $model = new KaryawanBulanan;
-            $karyawan = $model->bulanan()->get()->dataBulanan($request);
+            $karyawan = $model->select('karyawan.*')->bulanan()
+                        ->leftJoin('jabatan', 'jabatan.id', '=', 'karyawan.jabatan_id')
+                        ->orderBy('jabatan.order')
+                        ->get()->dataBulanan($request);
+
             DB::commit();
             if (count($karyawan) > 0) {
                 $awal = date('Y-m-d', strtotime(str_replace('/', '-', $request->periode_awal)));

@@ -202,6 +202,9 @@ class GajiBulanan extends Collection
     {
         if (!empty($absen)) {
             $total_tidak_masuk = 25 - $absen->total_masuk;
+            if ($total_tidak_masuk < 0) {
+                $total_tidak_masuk = 0;
+            }
             $komponenkaryawan->komponen_nilai = (floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai)) / 25) * $total_tidak_masuk;
             return $this->map($komponenkaryawan);
         } else {
@@ -230,13 +233,6 @@ class GajiBulanan extends Collection
     public function checkTunjanganPrh($absen, $komponenkaryawan)
     {
         $komponenkaryawan->komponen_nilai = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
-        return $this->map($komponenkaryawan);
-    }
-
-    public function checkBonusMasuk($absen, $komponenkaryawan)
-    {
-        $total_masuk = (!empty($absen)) ? $absen->total_masuk : 0;
-        $komponenkaryawan->komponen_nilai = (($total_masuk == 6) ? $total_masuk : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
         return $this->map($komponenkaryawan);
     }
 
