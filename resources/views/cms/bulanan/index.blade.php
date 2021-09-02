@@ -66,9 +66,14 @@
         autoclose: true,
         format: 'dd/mm/yyyy',
     }).on('changeDate', function (selected) {
-        endDate = $(this).datepicker('getDate');
-        var final=new Date(endDate);
-	    final.setDate(endDate.getDate() + 29);
+        var endDate = $(this).datepicker('getDate');
+        var selectedMonth = endDate.getMonth();
+        var selectedYear = endDate.getFullYear();
+        var lastDate = new Date(selectedYear, selectedMonth + 1, 0);
+
+        var final = new Date(endDate);
+	    final.setDate(lastDate.getDate());
+        
         $('#tanggal-end').val(moment(final).format("DD/MM/YYYY"));
     }).datepicker('setDate', 'now');
 </script>
