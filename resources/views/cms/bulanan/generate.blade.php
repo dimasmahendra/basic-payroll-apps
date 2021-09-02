@@ -51,7 +51,6 @@
                         @endforeach
                         <th>Ang. Koperasi</th>
                         <th>Ang. Kantor</th>
-                        <th>Msk Kerja</th>
                         <th>Lembur 1</th>
                         <th>Lembur 2</th>
                     </tr>
@@ -63,9 +62,15 @@
                             <td>{{ $item['karyawan']['nik_karyawan'] }}</td>
                             <td>{{ $item['karyawan']['nama_lengkap'] }}</td>                          
                             @foreach ($item['komponen'] as $komponenkaryawan)
-                                <td>
-                                    {{ number_format($komponenkaryawan['komponen_nilai'], 0, ',', '.') }}
-                                </td>   
+                                @if ($komponenkaryawan['komponen_nama'] == 'masuk_kerja')
+                                    @php
+                                        unset($komponenkaryawan);
+                                    @endphp
+                                @else
+                                    <td>
+                                        {{ number_format($komponenkaryawan['komponen_nilai'], 0, ',', '.') }}
+                                    </td>
+                                @endif
                             @endforeach
                         </tr>
                     @endforeach

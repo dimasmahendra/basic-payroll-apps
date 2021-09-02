@@ -30,7 +30,7 @@ class GajiBulananExport implements FromCollection, WithMapping, WithStyles,WithH
         $sheet->setCellValue("A1", "Gaji Bulanan Periode " . $this->col[0]['periode'])->mergeCells('A1:E1');
         $sheet->setCellValue("A2", "Periode : " . $this->col[0]['periode'])->mergeCells('A2:E2');
 
-        $sheet->getStyle("A{$totalRow}:U{$totalRow}")->getFont()->setBold(true);
+        $sheet->getStyle("A{$totalRow}:T{$totalRow}")->getFont()->setBold(true);
         $sheet->setCellValue("C{$totalRow}", "TOTAL");
 
         return [
@@ -122,11 +122,6 @@ class GajiBulananExport implements FromCollection, WithMapping, WithStyles,WithH
                     $sheet->setCellValue("T{$totalRow}", $sheet->getCell("T{$totalRow}")->getCalculatedValue()),
                     $sheet->getStyle("T4:T{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
                 ],
-                [
-                    $sheet->setCellValue("U{$totalRow}", "=SUM(U4:U{$totalRow})"),
-                    $sheet->setCellValue("U{$totalRow}", $sheet->getCell("U{$totalRow}")->getCalculatedValue()),
-                    $sheet->getStyle("U4:U{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
-                ],
             ],
         ];
     }
@@ -150,7 +145,6 @@ class GajiBulananExport implements FromCollection, WithMapping, WithStyles,WithH
             "Iuran Wjb",
             "Ang. Kop",
             "Ang. Kntr",
-            "Msk. Kerja",
             "Lmbr 1",
             "Lmbr 2",
             "T. Gaji",
@@ -176,7 +170,6 @@ class GajiBulananExport implements FromCollection, WithMapping, WithStyles,WithH
             $data['iuran_wajib'],
             $data['angsuran_koperasi'],
             $data['angsuran_kantor'],
-            $data['masuk_kerja'],
             $data['total_lembur_1'],
             $data['total_lembur_2'],
             $data['total_gaji'],
