@@ -72,7 +72,12 @@
         var lastDate = new Date(selectedYear, selectedMonth + 1, 0);
 
         var final = new Date(endDate);
-	    final.setDate(lastDate.getDate());
+        if ($("#wkt-penggajian").val() == "awal") {
+	        final.setDate(lastDate.getDate());
+        }
+        if ($("#wkt-penggajian").val() == "tengah") {
+	        final.setDate(endDate.getDate() + 30);
+        }
         
         $('#tanggal-end').val(moment(final).format("DD/MM/YYYY"));
     }).datepicker('setDate', 'now');
