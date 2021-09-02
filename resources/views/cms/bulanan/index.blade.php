@@ -37,6 +37,14 @@
                         <input type="text" class="form-control" id="tanggal-end" name="periode_akhir" readonly />
                     </div>
                 </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <select name="waktu_penggajian" id="wkt-penggajian" class="form-control">
+                            <option value="awal">Awal</option>
+                            <option value="tengah">Tengah</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="col-md-2">
                     <button class="btn btn-success waves-effect waves-light d-inline-block">Generate</button>
                 </div>

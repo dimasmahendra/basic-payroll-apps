@@ -30,6 +30,7 @@ class BulananController extends Controller
         try {
             $model = new KaryawanBulanan;
             $karyawan = $model->select('karyawan.*')->bulanan()
+                        ->jenisWaktu($request->waktu_penggajian)
                         ->leftJoin('jabatan', 'jabatan.id', '=', 'karyawan.jabatan_id')
                         ->orderBy('jabatan.order')
                         ->get()->dataBulanan($request);
