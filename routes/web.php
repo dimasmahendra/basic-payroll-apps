@@ -56,7 +56,7 @@ Route::middleware(["auth"])->group(function(){
 
         // History Gaji Bulanan
         Route::get('/history/bulanan', [App\Http\Controllers\Cms\BulananController::class, 'history'])->name('history-bulanan');
-        Route::get('/history/bulanan/{awal}/{akhir}', [App\Http\Controllers\Cms\BulananController::class, 'detail'])->name('history-bulanan.detail');
+        Route::get('/history/bulanan/{awal}/{akhir}/{tipe}', [App\Http\Controllers\Cms\BulananController::class, 'detail'])->name('history-bulanan.detail');
         Route::post("/history/bulanan/pdf/{awal}/{akhir}", [App\Http\Controllers\Cms\BulananController::class, 'pdf'])->name("history-bulanan.pdf");
         Route::get("/history/bulanan/remove/{awal}/{akhir}", [App\Http\Controllers\Cms\BulananController::class, 'remove'])->name("history-bulanan.remove");
 

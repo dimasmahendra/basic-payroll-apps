@@ -122,7 +122,7 @@ class BulananController extends Controller
 
     public function history()
     {
-        $data = Bulanan::select('periode_awal', 'periode_akhir', 'updated_by', DB::raw('DATE(created_at) as created_at'))
+        $data = Bulanan::select('periode_awal', 'tipe','periode_akhir', 'updated_by', DB::raw('DATE(created_at) as created_at'))
                         ->distinct()
                         ->get();
 
@@ -131,9 +131,10 @@ class BulananController extends Controller
         ]);
     }
 
-    public function detail($awal, $akhir)
+    public function detail($awal, $akhir, $tipe)
     {
         $karyawan = KaryawanBulanan::select('karyawan.*')->bulanan()
+                    ->jenisWaktu($tipe)
                     ->leftJoin('jabatan', 'jabatan.id', '=', 'karyawan.jabatan_id')
                     ->orderBy('jabatan.order')
                     ->get();

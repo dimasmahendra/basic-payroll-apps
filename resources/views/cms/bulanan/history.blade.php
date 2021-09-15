@@ -28,7 +28,11 @@
             @foreach ($data as $key => $item)
                 <div class="row">
                     <div class="col-md-11">
-                        <a href="{{ route('history-bulanan.detail', ['awal' => date('Y-m-d', strtotime($item->periode_awal)), 'akhir' => date('Y-m-d', strtotime($item->periode_akhir))]) }}">
+                        <a href="{{ route('history-bulanan.detail', [
+                                'awal' => date('Y-m-d', strtotime($item->periode_awal)), 
+                                'akhir' => date('Y-m-d', strtotime($item->periode_akhir)),
+                                'tipe' => $item->tipe
+                            ]) }}">
                             <div class="d-flex justify-content-between">
                                 <p class="text-underline">{{ date('d F Y', strtotime($item->periode_awal)) }} - {{ date('d F Y', strtotime($item->periode_akhir)) }}</p>
                                 Info Generate :
