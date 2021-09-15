@@ -51,14 +51,14 @@ Route::middleware(["auth"])->group(function(){
 
         // Gaji Bulanan
         Route::get('/gaji/bulanan', [App\Http\Controllers\Cms\BulananController::class, 'index'])->name('bulanan');
-        Route::post("/gaji/bulanan/export/{awal}/{akhir}", [App\Http\Controllers\Cms\BulananController::class, 'export'])->name("bulanan.export");
+        Route::get("/gaji/bulanan/export/{awal}/{akhir}/{tipe}", [App\Http\Controllers\Cms\BulananController::class, 'export'])->name("bulanan.export");
         Route::post('/gaji/bulanan/generate', [App\Http\Controllers\Cms\BulananController::class, 'generate'])->name('generate.bulanan');
 
         // History Gaji Bulanan
         Route::get('/history/bulanan', [App\Http\Controllers\Cms\BulananController::class, 'history'])->name('history-bulanan');
+        Route::get("/history/bulanan/hapus/{awal}/{akhir}", [App\Http\Controllers\Cms\BulananController::class, 'remove'])->name("history-bulanan.remove");
         Route::get('/history/bulanan/{awal}/{akhir}/{tipe}', [App\Http\Controllers\Cms\BulananController::class, 'detail'])->name('history-bulanan.detail');
-        Route::post("/history/bulanan/pdf/{awal}/{akhir}", [App\Http\Controllers\Cms\BulananController::class, 'pdf'])->name("history-bulanan.pdf");
-        Route::get("/history/bulanan/remove/{awal}/{akhir}", [App\Http\Controllers\Cms\BulananController::class, 'remove'])->name("history-bulanan.remove");
+        Route::get("/history/bulanan/pdf/{awal}/{akhir}/{tipe}", [App\Http\Controllers\Cms\BulananController::class, 'pdf'])->name("history-bulanan.pdf");
 
         /* Master Data */
         // Jabatan

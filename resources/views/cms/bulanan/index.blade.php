@@ -37,7 +37,7 @@
                         <input type="text" class="form-control" id="tanggal-end" name="periode_akhir" readonly />
                     </div>
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <div class="form-group">
                         <select name="waktu_penggajian" id="wkt-penggajian" class="form-control">
                             <option value="awal">Awal</option>
@@ -61,25 +61,33 @@
 @push('js-plugins')
 <script src="/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script>
-    $("#tanggal-harian").datepicker({
-        todayHighlight: true,
-        autoclose: true,
-        format: 'dd/mm/yyyy',
-    }).on('changeDate', function (selected) {
-        var endDate = $(this).datepicker('getDate');
-        var selectedMonth = endDate.getMonth();
-        var selectedYear = endDate.getFullYear();
-        var lastDate = new Date(selectedYear, selectedMonth + 1, 0);
+    initDate();
 
-        var final = new Date(endDate);
-        if ($("#wkt-penggajian").val() == "awal") {
-	        final.setDate(lastDate.getDate());
-        }
-        if ($("#wkt-penggajian").val() == "tengah") {
-	        final.setDate(endDate.getDate() + 30);
-        }
-        
-        $('#tanggal-end').val(moment(final).format("DD/MM/YYYY"));
-    }).datepicker('setDate', 'now');
+    $(document).on('change', '#wkt-penggajian', function() {
+        initDate();
+    });
+
+    function initDate() {
+        $("#tanggal-harian").datepicker({
+            todayHighlight: true,
+            autoclose: true,
+            format: 'dd/mm/yyyy',
+        }).on('changeDate', function (selected) {
+            var endDate = $(this).datepicker('getDate');
+            var selectedMonth = endDate.getMonth();
+            var selectedYear = endDate.getFullYear();
+            var lastDate = new Date(selectedYear, selectedMonth + 1, 0);
+
+            var final = new Date(endDate);
+            if ($("#wkt-penggajian").val() == "awal") {
+                final.setDate(lastDate.getDate());
+            }
+            if ($("#wkt-penggajian").val() == "tengah") {
+                final.setDate(endDate.getDate() + 30);
+            }
+            
+            $('#tanggal-end').val(moment(final).format("DD/MM/YYYY"));
+        }).datepicker('setDate', 'now');
+    }
 </script>
 @endpush

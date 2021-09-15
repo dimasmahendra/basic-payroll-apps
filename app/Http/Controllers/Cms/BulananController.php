@@ -44,7 +44,8 @@ class BulananController extends Controller
                     "komponen" => KomponenGaji::orderBy('order')->get(),
                     "periode" => $request->periode_awal .' - '. $request->periode_akhir,
                     "awal" => $awal,
-                    "akhir" => $akhir
+                    "akhir" => $akhir,
+                    "tipe" => $request->waktu_penggajian
                 ]);
             } else {
                 return redirect(route('bulanan'))->with("error", "Tidak Ada karyawan Bulanan Pada periode yang di pilih.");
@@ -55,10 +56,10 @@ class BulananController extends Controller
         }
     }
 
-    public function export(Request $request, $awal, $akhir)
+    public function export($awal, $akhir, $tipe)
     {
         $karyawan = KaryawanBulanan::select('karyawan.*')->bulanan()
-                    ->jenisWaktu($request->tipe)
+                    ->jenisWaktu($tipe)
                     ->leftJoin('jabatan', 'jabatan.id', '=', 'karyawan.jabatan_id')
                     ->orderBy('jabatan.order')
                     ->get();
@@ -160,13 +161,19 @@ class BulananController extends Controller
             "periode" => date('d F Y', strtotime($awal)) .' - '. date('d F Y', strtotime($akhir)),
             "karyawan" => $data,
             "awal" => $awal,
-            "akhir" => $akhir
+            "akhir" => $akhir,
+            "tipe" => $tipe
         ]);
     }
 
-    public function pdf(Request $request, $awal, $akhir)
+    public function pdf($awal, $akhir, $tipe)
     {
-        $karyawan = KaryawanBulanan::bulanan()->jenisWaktu($request->tipe)->get();
+        $karyawan = KaryawanBulanan::select('karyawan.*')->bulanan()
+                    ->jenisWaktu($tipe)
+                    ->leftJoin('jabatan', 'jabatan.id', '=', 'karyawan.jabatan_id')
+                    ->orderBy('jabatan.order')
+                    ->get();
+
         if ($karyawan->isEmpty()) {
             return redirect(route('history-bulanan.detail', ['awal' => $awal, 'akhir' => $akhir]))
                     ->with("error", "Tidak Ada karyawan Bulanan Pada periode yang di pilih.");
@@ -215,8 +222,8 @@ class BulananController extends Controller
         ]);
 
         Bulanan::whereDate('periode_awal', '=', $awal)
-                                    ->whereDate('periode_akhir', '=', $akhir)
-                                    ->forceDelete();
+                ->whereDate('periode_akhir', '=', $akhir)
+                ->forceDelete();
 
         return redirect()->back();
     }
