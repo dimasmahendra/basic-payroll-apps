@@ -39,6 +39,8 @@ class Absensi extends BaseModel
                 'jam_lembur_2' => floatval($value)
             ]; 
         }
+
+        // dd(array_replace_recursive($hitungan_hari, $jam_hadir, $jam_lembur_1, $jam_lembur_2));
         return array_replace_recursive($hitungan_hari, $jam_hadir, $jam_lembur_1, $jam_lembur_2);
     }  
     

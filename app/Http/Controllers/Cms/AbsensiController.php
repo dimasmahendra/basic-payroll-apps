@@ -47,18 +47,25 @@ class AbsensiController extends Controller
             $model = new Absensi;
             $tanggal_kehadiran = date('Y-m-d', strtotime(str_replace('/', '-', $request->tanggal_kehadiran)));
             $data = $model->groupDataByKaryawan($request);
+
             foreach ($data as $key => $value) {
-                $model->updateOrCreate(
-                    ['tanggal_kehadiran' => $tanggal_kehadiran, 'karyawan_id' => $value['karyawan_id']],
-                    [
-                        'karyawan_id' => $value['karyawan_id'],
-                        'hitungan_hari' => $value['hitungan_hari'],
-                        'jam_masuk' => $value['jam_masuk'],
-                        'jam_keluar' => $value['jam_keluar'],
-                        'jam_lembur_1' => $value['jam_lembur_1'],
-                        'jam_lembur_2' => $value['jam_lembur_2'],
-                    ]
-                );
+                $absensi = Absensi::where([
+                    ['tanggal_kehadiran', '=', $tanggal_kehadiran],
+                    ['karyawan_id', '=', $value['karyawan_id']]
+                ])->first();
+
+                if (empty($absensi)) {
+                    $absensi = new Absensi;
+                }
+
+                $absensi->karyawan_id = $value['karyawan_id'];
+                $absensi->tanggal_kehadiran = $tanggal_kehadiran;
+                $absensi->hitungan_hari = $value['hitungan_hari'];
+                $absensi->jam_masuk = $value['jam_masuk'];
+                $absensi->jam_keluar = $value['jam_keluar'];
+                $absensi->jam_lembur_1 = $value['jam_lembur_1'];
+                $absensi->jam_lembur_2 = $value['jam_lembur_2'];
+                $absensi->save();
             }
             DB::commit();
             return redirect(route('absensi'))->with("message", "Berhasil Simpan");

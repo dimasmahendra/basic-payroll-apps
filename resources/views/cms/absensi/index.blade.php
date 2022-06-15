@@ -103,7 +103,8 @@
         function init() {
             $('#absensi-datatable').dataTable( {
                 "ordering": false,
-                "bLengthChange" : false
+                "bLengthChange" : false,
+                "pageLength": 50
             });
             $(document).on('change', '.custom-control-input', function() {
                 $(this).closest('tr').find('.nilai, .jam-hadir, .jam-lembur-1, .jam-lembur-2').prop('disabled', !this.checked);
