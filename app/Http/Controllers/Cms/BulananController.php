@@ -193,7 +193,8 @@ class BulananController extends Controller
                 $array['masuk_kerja'] = isset($absen->total_masuk) ? $absen->total_masuk : 0;
                 $array['total_lembur_1'] = isset($absen->total_lembur_1) ? $absen->total_lembur_1 : 0;
                 $array['total_lembur_2'] = isset($absen->total_lembur_2) ? $absen->total_lembur_2 : 0;
-                $array[$komponen->komponen_nama] = floatval(str_replace('.', '' , $komponen->komponen_nilai));
+                // $array[$komponen->komponen_nama] = floatval(str_replace('.', '' , $komponen->komponen_nilai));
+                $array[$komponen->komponen_nama] = floatval($komponen->komponen_nilai);
                 $array['angsuran_ke_kantor'] = isset($value->angsuranKeKantor) ? (empty($value->angsuranKeKantor->angsuran_ke_terakhir) ? 0 : $value->angsuranKeKantor->angsuran_ke_terakhir) : 0;
                 $array['angsuran_ke_koperasi'] = isset($value->angsuranKeKoperasi) ? (empty($value->angsuranKeKoperasi->angsuran_ke_terakhir) ? 0 : $value->angsuranKeKoperasi->angsuran_ke_terakhir) : 0;
             }
