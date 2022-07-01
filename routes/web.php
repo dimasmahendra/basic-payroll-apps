@@ -27,6 +27,7 @@ Route::middleware(["auth"])->group(function(){
         // Absensi
         Route::get('/absensi', [App\Http\Controllers\Cms\AbsensiController::class, 'index'])->name('absensi');
         Route::post('/absensi/store', [App\Http\Controllers\Cms\AbsensiController::class, 'store'])->name('absensi.store');
+        Route::get('/absensi/remove/{idabsensi?}', [App\Http\Controllers\Cms\AbsensiController::class, 'remove'])->name('absensi.remove');
 
         // Angsuran Kantor
         Route::get('/angsuran/kantor', [App\Http\Controllers\Cms\AngsuranController::class, 'indexKantor'])->name('angsuran.kantor');

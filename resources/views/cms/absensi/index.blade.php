@@ -41,6 +41,7 @@
                             <th>Jam Datang</th>
                             <th>Jam Lembur 1</th>
                             <th>Jam Lembur 2</th>
+                            <th>#</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,6 +75,13 @@
                                 <input type="text" class="form-control jam-lembur-2" name="jam_lembur_2[{{ $item->id }}]" 
                                 value="{{ empty($item->jam_lembur_2) ? '' : $item->jam_lembur_2 }}"
                                 {{ isset($item->hitungan_hari) ? '' : 'disabled' }}/>
+                            </td>
+                            <td style="width: 5%">
+                                <a href="{{ route('absensi.remove', $item->absensi_id) }}" onclick="return confirm('Apakah anda yakin akan menghapus Absensi ini?')"
+                                    class="btn {{ ($item->absensi_id == null) ? 'btn-secondary' : 'btn-outline-danger waves-effect waves-light d-inline-block' }} 
+                                    {{ ($item->absensi_id == null) ? 'disabled' : '' }}">
+                                    <i class="fa fa-trash-alt"></i>
+                                </a>
                             </td>
                         </tr>
                         @endforeach
