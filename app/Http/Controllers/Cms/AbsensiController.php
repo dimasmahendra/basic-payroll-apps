@@ -84,7 +84,9 @@ class AbsensiController extends Controller
     {
         DB::beginTransaction();
         try {
-            $keterangan = "Absensi dihapus oleh " . Auth::user()->email;
+            $absensi = Absensi::find($idabsensi);
+
+            $keterangan = "Absensi karyawan id " . $absensi->karyawan_id. " pada tanggal " . $absensi->tanggal_kehadiran . " dihapus oleh " . Auth::user()->email;
             History::create([
                 'name' => 'Absensi',
                 'nilai' => $idabsensi,
@@ -93,7 +95,6 @@ class AbsensiController extends Controller
                 'updated_by' => Auth::id(),
             ]);
 
-            $absensi = Absensi::find($idabsensi);
             $absensi->forceDelete();
             DB::commit();
             return redirect(route('absensi'))->with("message", "Berhasil Hapus Data");
