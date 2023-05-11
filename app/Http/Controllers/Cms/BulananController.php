@@ -26,16 +26,20 @@ class BulananController extends Controller
 
     public function generate(Request $request)
     {
-        DB::beginTransaction();
         try {
+
+            DB::beginTransaction();
+
             $model = new KaryawanBulanan;
             $karyawan = $model->select('karyawan.*')->bulanan()
                         ->jenisWaktu($request->waktu_penggajian)
                         ->leftJoin('jabatan', 'jabatan.id', '=', 'karyawan.jabatan_id')
                         ->orderBy('jabatan.order')
-                        ->get()->dataBulanan($request);
+                        ->get()
+                        ->dataBulanan($request);
 
             DB::commit();
+
             if (count($karyawan) > 0) {
                 $awal = date('Y-m-d', strtotime(str_replace('/', '-', $request->periode_awal)));
                 $akhir = date('Y-m-d', strtotime(str_replace('/', '-', $request->periode_akhir)));
@@ -50,9 +54,15 @@ class BulananController extends Controller
             } else {
                 return redirect(route('bulanan'))->with("error", "Tidak Ada karyawan Bulanan Pada periode yang di pilih.");
             }
-        } catch (\Throwable $th) {
-            dd($th->getMessage());
+        } catch (Throwable $th) {                        
             DB::rollBack();
+            History::log([
+                'name' => 'Gaji Bulanan Generate',
+                'nilai' => json_encode($request->all()),
+                'tipe' => 'Generate Gaji Bulanan',
+                'keterangan' => $th->getMessage(),
+                'updated_by' => Auth::id(),
+            ]);
         }
     }
 

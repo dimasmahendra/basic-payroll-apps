@@ -15,4 +15,15 @@ class History extends BaseModel
     {
         return $this->hasOne(User::class, 'id', 'updated_by');
     }
+
+    public static function log($data)
+    {
+        $model = new self;
+        $model->name = $data['name']; 
+        $model->nilai = $data['nilai']; 
+        $model->tipe = $data['tipe']; 
+        $model->keterangan = $data['keterangan']; 
+        $model->updated_by = $data['updated_by'];
+        return $model->save();
+    }
 }

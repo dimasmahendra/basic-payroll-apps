@@ -4,10 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('index');
-
+Route::get('/', [App\Http\Controllers\InternalDataController::class, 'index']);
 Route::get('/login', [App\Http\Controllers\AuthController::class, 'loginForm'])->name('login');
 Route::post('/login', [App\Http\Controllers\AuthController::class, 'loginProcess'])->name('login-process');
 Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logoutProcess'])->name('logout');

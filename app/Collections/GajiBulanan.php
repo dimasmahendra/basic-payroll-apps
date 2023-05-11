@@ -152,7 +152,7 @@ class GajiBulanan extends Collection
         } else {
             $nilai = 0;
         }
-        $nilaiPotBPJS = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        $nilaiPotBPJS = floatval($komponenkaryawan->komponen_nilai);
         $komponenkaryawan->komponen_nilai = $nilai  * $nilaiPotBPJS;
 
         return $this->map($komponenkaryawan);
@@ -166,7 +166,7 @@ class GajiBulanan extends Collection
         } else {
             $nilai = 0;
         }
-        $nilaiPotBPJS = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        $nilaiPotBPJS = floatval($komponenkaryawan->komponen_nilai);
         $komponenkaryawan->komponen_nilai = $nilai  * $nilaiPotBPJS;
 
         return $this->map($komponenkaryawan);
@@ -180,7 +180,7 @@ class GajiBulanan extends Collection
         } else {
             $nilai = 0;
         }
-        $nilaiPotBPJS = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        $nilaiPotBPJS = floatval($komponenkaryawan->komponen_nilai);
         $komponenkaryawan->komponen_nilai = $nilai  * $nilaiPotBPJS;
 
         return $this->map($komponenkaryawan);

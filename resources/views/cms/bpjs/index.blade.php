@@ -97,17 +97,17 @@
 
             if (persenkesehatan) {
                 var totalkesehatan = (persenkesehatan / 100) * nilai;
-                $("#nilai-kesehatan").val(totalkesehatan);
+                $("#nilai-kesehatan").val(totalkesehatan.toFixed(2));
             }
 
             if (persentenagakerja) {
                 var totaltenagakerja = (persentenagakerja / 100) * nilai;
-                $("#nilai-tenagakerja").val(totaltenagakerja);
+                $("#nilai-tenagakerja").val(totaltenagakerja.toFixed(2));
             }
 
             if (persenorangtua) {
                 var totalorangtua = (persenorangtua / 100) * nilai;
-                $("#nilai-orangtua").val(totalorangtua);
+                $("#nilai-orangtua").val(totalorangtua.toFixed(2));
             }
         });
 
@@ -116,7 +116,7 @@
             var persenkesehatan = parseFloat($(this).val());
 
             var totalkesehatan = (persenkesehatan / 100) * nilai;
-            $("#nilai-kesehatan").val(totalkesehatan);
+            $("#nilai-kesehatan").val(totalkesehatan.toFixed(2));
         });
 
         $(document).on('change', '#persen-tenagakerja', function() {
@@ -124,7 +124,8 @@
             var persentenagakerja = parseFloat($(this).val());
 
             var totaltenagakerja = (persentenagakerja / 100) * nilai;
-            $("#nilai-tenagakerja").val(totaltenagakerja);
+            console.log(totaltenagakerja);
+            $("#nilai-tenagakerja").val(totaltenagakerja.toFixed(2));
         });
 
         $(document).on('change', '#persen-orangtua', function() {
@@ -132,7 +133,7 @@
             var persenorangtua = parseFloat($(this).val());
 
             var totalorangtua = (persenorangtua / 100) * nilai;
-            $("#nilai-orangtua").val(totalorangtua);
+            $("#nilai-orangtua").val(totalorangtua.toFixed(2));
         });
     </script>
 @endpush

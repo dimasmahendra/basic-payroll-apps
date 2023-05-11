@@ -19,9 +19,9 @@ class KomponenKaryawan extends BaseModel
             if (count($komponens) == 2) {
                 list($k, $v) = $komponens;
                 if ($v == "bpjs_orangtua") {
-                    $value = floatval(str_replace('.', '' , $value)) * $jumlah_orangtua;
+                    $value = floatval($value) * $jumlah_orangtua;
                 } else {
-                    $value = floatval(str_replace('.', '' , $value));
+                    $value = floatval($value);
                 }
                 $count += 1;
                 $result[] = [
