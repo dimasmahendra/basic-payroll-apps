@@ -93,63 +93,63 @@
                     <table>                   
                         <tr>
                             <td>Upah Pokok</td>
-                            <td>{{ number_format($item['upah_pokok'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['upah_pokok'], 2, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td>Tunj. T. Makan</td>
-                            <td>{{ number_format($item['tunjangan_makan'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['tunjangan_makan'], 2, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td>Tunj. Stkr</td>
-                            <td>{{ number_format($item['tunjangan_stkr'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['tunjangan_stkr'], 2, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td>Tunj. Prh</td>
-                            <td>{{ number_format($item['tunjangan_prh'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['tunjangan_prh'], 2, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td>Tunj. Phg</td>
-                            <td>{{ number_format($item['tunjangan_phg'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['tunjangan_phg'], 2, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td>Upah Lembur</td>
-                            <td>{{ number_format($item['upah_lembur'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['upah_lembur'], 2, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td>Total Gaji</td>
-                            <td class="text-right">{{ number_format($item['total_gaji'], 0, ',', '.') }}</td>
+                            <td class="text-right">{{ number_format($item['total_gaji'], 2, ',', '.') }}</td>
                         </tr>                        
                         <tr>
                             <td>Pot. BPJS Kes</td>
-                            <td>{{ number_format($item['bpjs_kesehatan'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['bpjs_kesehatan'], 2, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td>Pot. BPJS Ket</td>
-                            <td>{{ number_format($item['bpjs_tenagakerja'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['bpjs_tenagakerja'], 2, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td>Pot. BPJS Orang Tua</td>
-                            <td>{{ number_format($item['bpjs_orangtua'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['bpjs_orangtua'], 2, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td>Iuran Wjb Kop</td>
-                            <td>{{ number_format($item['iuran_wajib'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['iuran_wajib'], 2, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td>Potongan Absen</td>
-                            <td>{{ number_format($item['potongan_absen'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['potongan_absen'], 2, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td class="text-inline">Angsuran Koperasi <div class="angsuran-ke">Ke {{ $item['angsuran_ke_koperasi'] }}</div></td>
-                            <td>{{ number_format($item['angsuran_koperasi'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['angsuran_koperasi'], 2, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td class="text-inline">Angsuran Kantor <div class="angsuran-ke">Ke {{ $item['angsuran_ke_kantor'] }}</div></td>
-                            <td>{{ number_format($item['angsuran_kantor'], 0, ',', '.') }}</td>
+                            <td>{{ number_format($item['angsuran_kantor'], 2, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td>Sisa Gaji</td>
-                            <td class="text-right">{{ number_format(($item['total_gaji'] - $item['total_potongan']), 0, ',', '.') }}</td>
+                            <td class="text-right">{{ number_format(($item['total_gaji'] - $item['total_potongan']), 2, ',', '.') }}</td>
                         </tr>
                     </table>
                 </div>

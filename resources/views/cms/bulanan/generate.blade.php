@@ -68,6 +68,11 @@
                                     @php
                                         unset($komponenkaryawan);
                                     @endphp
+                                @elseif ($komponenkaryawan['komponen_nama'] == 'bpjs_orangtua' || $komponenkaryawan['komponen_nama'] == 'bpjs_tenagakerja' 
+                                || $komponenkaryawan['komponen_nama'] == 'bpjs_kesehatan' )
+                                    <td>
+                                        {{ number_format($komponenkaryawan['komponen_nilai'], 2, ',', '.') }}
+                                    </td>
                                 @else
                                     <td>
                                         {{ number_format($komponenkaryawan['komponen_nilai'], 0, ',', '.') }}
