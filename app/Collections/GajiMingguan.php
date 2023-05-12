@@ -27,9 +27,9 @@ class GajiMingguan extends Collection
 
         $keterangan = "Generate Gaji Mingguan periode " . $periode_awal . " - " . $periode_akhir;
         History::create([
-            'name' => 'Checkbox BPJS Ortu',
-            'nilai' => $req->potong_bpjsortu,
-            'tipe' => 'mingguan',
+            'name' => 'Generate',
+            'nilai' => 'Gaji',
+            'tipe' => 'Mingguan',
             'keterangan' => $keterangan,
             'updated_by' => Auth::id(),
         ]);

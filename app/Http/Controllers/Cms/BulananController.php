@@ -57,10 +57,10 @@ class BulananController extends Controller
         } catch (Throwable $th) {                        
             DB::rollBack();
             History::log([
-                'name' => 'Gaji Bulanan Generate',
-                'nilai' => json_encode($request->all()),
+                'name' => 'Gaji Bulanan',
+                'nilai' => 'Generate',
                 'tipe' => 'Generate Gaji Bulanan',
-                'keterangan' => $th->getMessage(),
+                'keterangan' => $th->getMessage() . " Request " . json_encode($request->all()),
                 'updated_by' => Auth::id(),
             ]);
         }

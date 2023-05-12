@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Cms;
 
+use Auth;
+use App\Models\History;
 use App\Models\Karyawan;
 use App\Models\KomponenKaryawan;
 use App\Models\Setting;
@@ -44,6 +46,14 @@ class BPJSController extends Controller
             DB::commit();
 
             $this->updateKaryawan($request->all());
+
+            History::log([
+                'name' => 'BPJS',
+                'nilai' => 'Update',
+                'tipe' => 'Update BPJS',
+                'keterangan' => json_encode($request->all()),
+                'updated_by' => Auth::id(),
+            ]);
 
             return redirect(route('bpjs'))->with("message", "Berhasil Simpan");
         } catch (Throwable $th) {
