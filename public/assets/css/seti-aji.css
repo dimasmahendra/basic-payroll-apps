@@ -91,3 +91,19 @@ body.loading{
 body.loading .overlay{
     display: block;
 }
+
+/* container */
+
+.m-r-10 {
+    margin-right: 10px !important;
+}
+
+.m-l-10 {
+    margin-left: 10px !important;
+}
+
+.custom-width {
+    max-width: 1220px !important;
+}
+
+/* container */

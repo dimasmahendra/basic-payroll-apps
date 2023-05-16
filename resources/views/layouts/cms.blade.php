@@ -29,7 +29,7 @@
     <div class="page-wrapper">
         @include('components.topbar')
         <div class="page-content">
-            <div class="container-fluid">
+            <div class="container custom-width">
                 @include('components.breadcrumb')
                 <div class="row">
                     <div class="col-lg-12">
