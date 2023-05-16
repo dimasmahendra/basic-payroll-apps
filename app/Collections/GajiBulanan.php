@@ -3,6 +3,7 @@ namespace App\Collections;
 
 use Auth;
 use App\Models\Angsuran;
+use App\Models\History;
 use App\Models\GajiBulanan as Bulanan;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -24,6 +25,15 @@ class GajiBulanan extends Collection
     {
         $periode_awal = date('Y-m-d', strtotime(str_replace('/', '-', $req->periode_awal)));
         $periode_akhir = date('Y-m-d', strtotime(str_replace('/', '-', $req->periode_akhir)));
+
+        $keterangan = "Generate Gaji Bulanan periode " . $periode_awal . " - " . $periode_akhir;
+        History::create([
+            'name' => 'Generate',
+            'nilai' => 'Gaji',
+            'tipe' => 'Bulanan',
+            'keterangan' => $keterangan,
+            'updated_by' => Auth::id(),
+        ]);
 
         $komponen = array();
         foreach ($this as $key => $karyawan) {

@@ -27,9 +27,9 @@ class GajiMingguan extends Collection
 
         $keterangan = "Generate Gaji Mingguan periode " . $periode_awal . " - " . $periode_akhir;
         History::create([
-            'name' => 'Checkbox BPJS Ortu',
-            'nilai' => $req->potong_bpjsortu,
-            'tipe' => 'mingguan',
+            'name' => 'Generate',
+            'nilai' => 'Gaji',
+            'tipe' => 'Mingguan',
             'keterangan' => $keterangan,
             'updated_by' => Auth::id(),
         ]);
@@ -156,7 +156,7 @@ class GajiMingguan extends Collection
                 $nilai = 0;
             }
             
-            $komponenkaryawan->komponen_nilai = $nilai * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+            $komponenkaryawan->komponen_nilai = $nilai * floatval($komponenkaryawan->komponen_nilai);
         }
 
         return $this->map($komponenkaryawan);
@@ -170,7 +170,7 @@ class GajiMingguan extends Collection
         } else {
             $nilai = 0;
         }
-        $nilaiPotBPJS = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai)) / 4;
+        $nilaiPotBPJS = floatval($komponenkaryawan->komponen_nilai) / 4;
         $komponenkaryawan->komponen_nilai = $nilai  * $nilaiPotBPJS;
 
         return $this->map($komponenkaryawan);
@@ -184,7 +184,7 @@ class GajiMingguan extends Collection
         } else {
             $nilai = 0;
         }
-        $nilaiPotBPJS = floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai)) / 4;
+        $nilaiPotBPJS = floatval($komponenkaryawan->komponen_nilai) / 4;
         $komponenkaryawan->komponen_nilai = $nilai  * $nilaiPotBPJS;
 
         return $this->map($komponenkaryawan);
@@ -229,7 +229,7 @@ class GajiMingguan extends Collection
     public function checkBonusMasuk($absen, $komponenkaryawan)
     {
         $total_masuk = (!empty($absen)) ? $absen->total_masuk : 0;
-        $komponenkaryawan->komponen_nilai = (($total_masuk == 6) ? $total_masuk : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        $komponenkaryawan->komponen_nilai = (($total_masuk == 7) ? $total_masuk : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
         return $this->map($komponenkaryawan);
     }
 

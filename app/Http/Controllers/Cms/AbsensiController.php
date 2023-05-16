@@ -71,6 +71,15 @@ class AbsensiController extends Controller
                     $absensi->save();
                 }
                 DB::commit();
+
+                History::log([
+                    'name' => 'Absensi',
+                    'nilai' => 'Update',
+                    'tipe' => 'Update Absensi',
+                    'keterangan' => json_encode($data),
+                    'updated_by' => Auth::id(),
+                ]);
+                
                 return redirect(route('absensi'))->with("message", "Berhasil Simpan");
             } else {
                 return redirect()->back();

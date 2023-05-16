@@ -41,87 +41,87 @@ class GajiMingguanExport implements FromCollection, WithMapping, WithStyles, Wit
                     [
                         $sheet->setCellValue("D{$totalRow}", "=SUM(D4:D{$totalRow})"),
                         $sheet->setCellValue("D{$totalRow}", $sheet->getCell("D{$totalRow}")->getCalculatedValue()),
-                        $sheet->getStyle("D4:D{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                        $sheet->getStyle("D4:D{$totalRow}")->getNumberFormat()->setFormatCode('#,##0.00')
                     ],
                     [
                         $sheet->setCellValue("E{$totalRow}", "=SUM(E4:E{$totalRow})"),
                         $sheet->setCellValue("E{$totalRow}", $sheet->getCell("E{$totalRow}")->getCalculatedValue()),
-                        $sheet->getStyle("E4:E{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                        $sheet->getStyle("E4:E{$totalRow}")->getNumberFormat()->setFormatCode('#,##0.00')
                     ],
                     [
                         $sheet->setCellValue("F{$totalRow}", "=SUM(F4:F{$totalRow})"),
                         $sheet->setCellValue("F{$totalRow}", $sheet->getCell("F{$totalRow}")->getCalculatedValue()),
-                        $sheet->getStyle("F4:F{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                        $sheet->getStyle("F4:F{$totalRow}")->getNumberFormat()->setFormatCode('#,##0.00')
                     ],
                     [
                         $sheet->setCellValue("G{$totalRow}", "=SUM(G4:G{$totalRow})"),
                         $sheet->setCellValue("G{$totalRow}", $sheet->getCell("G{$totalRow}")->getCalculatedValue()),
-                        $sheet->getStyle("G4:G{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                        $sheet->getStyle("G4:G{$totalRow}")->getNumberFormat()->setFormatCode('#,##0.00')
                     ],
                     [
                         $sheet->setCellValue("H{$totalRow}", "=SUM(H4:H{$totalRow})"),
                         $sheet->setCellValue("H{$totalRow}", $sheet->getCell("H{$totalRow}")->getCalculatedValue()),
-                        $sheet->getStyle("H4:H{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                        $sheet->getStyle("H4:H{$totalRow}")->getNumberFormat()->setFormatCode('#,##0.00')
                     ],
                     [
                         $sheet->setCellValue("I{$totalRow}", "=SUM(I4:I{$totalRow})"),
                         $sheet->setCellValue("I{$totalRow}", $sheet->getCell("I{$totalRow}")->getCalculatedValue()),
-                        $sheet->getStyle("I4:I{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                        $sheet->getStyle("I4:I{$totalRow}")->getNumberFormat()->setFormatCode('#,##0.00')
                     ],
                     [
                         $sheet->setCellValue("J{$totalRow}", "=SUM(J4:J{$totalRow})"),
                         $sheet->setCellValue("J{$totalRow}", $sheet->getCell("J{$totalRow}")->getCalculatedValue()),
-                        $sheet->getStyle("J4:J{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                        $sheet->getStyle("J4:J{$totalRow}")->getNumberFormat()->setFormatCode('#,##0.00')
                     ],
                     [
                         $sheet->setCellValue("K{$totalRow}", "=SUM(K4:K{$totalRow})"),
                         $sheet->setCellValue("K{$totalRow}", $sheet->getCell("K{$totalRow}")->getCalculatedValue()),
-                        $sheet->getStyle("K4:K{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                        $sheet->getStyle("K4:K{$totalRow}")->getNumberFormat()->setFormatCode('#,##0.00')
                     ],
                     [
                         $sheet->setCellValue("L{$totalRow}", "=SUM(L4:L{$totalRow})"),
                         $sheet->setCellValue("L{$totalRow}", $sheet->getCell("L{$totalRow}")->getCalculatedValue()),
-                        $sheet->getStyle("L4:L{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                        $sheet->getStyle("L4:L{$totalRow}")->getNumberFormat()->setFormatCode('#,##0.00')
                     ],
                     [
                         $sheet->setCellValue("M{$totalRow}", "=SUM(M4:M{$totalRow})"),
                         $sheet->setCellValue("M{$totalRow}", $sheet->getCell("M{$totalRow}")->getCalculatedValue()),
-                        $sheet->getStyle("M4:M{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                        $sheet->getStyle("M4:M{$totalRow}")->getNumberFormat()->setFormatCode('#,##0.00')
                     ],
                     [
                         $sheet->setCellValue("N{$totalRow}", "=SUM(N4:N{$totalRow})"),
                         $sheet->setCellValue("N{$totalRow}", $sheet->getCell("N{$totalRow}")->getCalculatedValue()),
-                        $sheet->getStyle("N4:N{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                        $sheet->getStyle("N4:N{$totalRow}")->getNumberFormat()->setFormatCode('#,##0.00')
                     ],
                     [
                         $sheet->setCellValue("O{$totalRow}", "=SUM(O4:O{$totalRow})"),
                         $sheet->setCellValue("O{$totalRow}", $sheet->getCell("O{$totalRow}")->getCalculatedValue()),
-                        $sheet->getStyle("O4:O{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                        $sheet->getStyle("O4:O{$totalRow}")->getNumberFormat()->setFormatCode('#,##0.00')
                     ],
                     [
                         $sheet->setCellValue("P{$totalRow}", "=SUM(P4:P{$totalRow})"),
                         $sheet->setCellValue("P{$totalRow}", $sheet->getCell("P{$totalRow}")->getCalculatedValue()),
-                        $sheet->getStyle("P4:P{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                        $sheet->getStyle("P4:P{$totalRow}")->getNumberFormat()->setFormatCode('#,##0.00')
                     ],
                     [
                         $sheet->setCellValue("Q{$totalRow}", "=SUM(Q4:Q{$totalRow})"),
                         $sheet->setCellValue("Q{$totalRow}", $sheet->getCell("Q{$totalRow}")->getCalculatedValue()),
-                        $sheet->getStyle("Q4:Q{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                        $sheet->getStyle("Q4:Q{$totalRow}")->getNumberFormat()->setFormatCode('#,##0.00')
                     ],
                     [
                         $sheet->setCellValue("R{$totalRow}", "=SUM(R4:R{$totalRow})"),
                         $sheet->setCellValue("R{$totalRow}", $sheet->getCell("R{$totalRow}")->getCalculatedValue()),
-                        $sheet->getStyle("R4:R{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                        $sheet->getStyle("R4:R{$totalRow}")->getNumberFormat()->setFormatCode('#,##0.00')
                     ],
                     [
                         $sheet->setCellValue("S{$totalRow}", "=SUM(S4:S{$totalRow})"),
                         $sheet->setCellValue("S{$totalRow}", $sheet->getCell("S{$totalRow}")->getCalculatedValue()),
-                        $sheet->getStyle("S4:S{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                        $sheet->getStyle("S4:S{$totalRow}")->getNumberFormat()->setFormatCode('#,##0.00')
                     ],
                     [
                         $sheet->setCellValue("T{$totalRow}", "=SUM(T4:T{$totalRow})"),
                         $sheet->setCellValue("T{$totalRow}", $sheet->getCell("T{$totalRow}")->getCalculatedValue()),
-                        $sheet->getStyle("T4:T{$totalRow}")->getNumberFormat()->setFormatCode('#,##0')
+                        $sheet->getStyle("T4:T{$totalRow}")->getNumberFormat()->setFormatCode('#,##0.00')
                     ],
                 ],
         ];

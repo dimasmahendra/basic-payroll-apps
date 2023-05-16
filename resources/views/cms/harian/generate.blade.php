@@ -25,6 +25,9 @@
                 <p class="text-muted mb-0">Periode : {{ $periode }}</p>
             </div>
             <div class="col-auto">
+                <a href="{{ route('history-harian.pdf', ['awal' => $awal, 'akhir' => $akhir]) }}">
+                    <button class="btn btn-info me-1 float-end">Download</button>
+                </a>
                 <a href="{{ route('generate.export', ['awal' => $awal, 'akhir' => $akhir]) }}" download>
                     <button class="btn btn-warning me-1 float-end">Export</button>
                 </a>
@@ -66,6 +69,11 @@
                                     @php
                                         unset($komponenkaryawan);
                                     @endphp
+                                @elseif ($komponenkaryawan['komponen_nama'] == 'bpjs_orangtua' || $komponenkaryawan['komponen_nama'] == 'bpjs_tenagakerja' 
+                                || $komponenkaryawan['komponen_nama'] == 'bpjs_kesehatan' )
+                                    <td>
+                                        {{ number_format($komponenkaryawan['komponen_nilai'], 2, ',', '.') }}
+                                    </td>
                                 @else
                                     <td>
                                         {{ number_format($komponenkaryawan['komponen_nilai'], 0, ',', '.') }}
