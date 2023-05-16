@@ -102,4 +102,52 @@ class BPJSController extends Controller
             dd($th->getMessage());
         }
     }
+
+    public function jamlemburIndex(Request $request)
+    {
+        $data = Setting::Jamlembur()->get();
+        foreach ($data as $key => $value) {
+            $setting[$value->komponen_nama] = $value->komponen_nilai;
+        }
+        return view('cms.jam-lembur.index', [
+            "setting" => $setting
+        ]);
+    }
+
+    public function jamlemburStore(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            foreach ($request->all() as $key => $value) {
+                if ($key == "_token") {
+                    continue;
+                } else {
+                    $model = new Setting;
+                    $model->updateOrCreate(
+                        [
+                            'nama' => "jam-lembur", 
+                            'komponen_nama' => $key
+                        ],
+                        [
+                            'komponen_nilai' => $value
+                        ]
+                    );
+                }
+            }
+            DB::commit();
+
+            History::log([
+                'name' => 'Jam Lembur',
+                'nilai' => 'Update',
+                'tipe' => 'Update Jam Lembur',
+                'keterangan' => json_encode($request->all()),
+                'updated_by' => Auth::id(),
+            ]);
+
+            return redirect(route('jam-lembur'))->with("message", "Berhasil Simpan");
+        } catch (Throwable $th) {
+            DB::rollBack();
+            dd($th->getMessage());
+        }
+    }
 }

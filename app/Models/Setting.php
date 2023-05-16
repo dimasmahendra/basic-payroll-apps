@@ -14,4 +14,9 @@ class Setting extends BaseModel
     {
         return $query->where('nama', '=', 'bpjs');
     }
+
+    public function scopeJamlembur($query)
+    {
+        return $query->where('nama', '=', 'jam-lembur');
+    }
 }

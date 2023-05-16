@@ -4,6 +4,7 @@ namespace App\Collections;
 use Auth;
 use App\Models\History;
 use App\Models\Angsuran;
+use App\Models\Setting;
 use App\Models\GajiMingguan as Mingguan;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -235,8 +236,13 @@ class GajiMingguan extends Collection
 
     public function checkUpahLembur($absen, $komponenkaryawan)
     {
-        $total_lembur_1 = 1.5 * ((!empty($absen)) ? $absen->total_lembur_1 : 0) * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
-        $total_lembur_2 = 2 * ((!empty($absen)) ? $absen->total_lembur_2 : 0) * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));        
+        $data = Setting::Jamlembur()->get();
+        foreach ($data as $key => $value) {
+            $setting[$value->komponen_nama] = floatval(str_replace(',', '.' , $value->komponen_nilai));
+        }
+
+        $total_lembur_1 = $setting['jam_lembur1'] * ((!empty($absen)) ? $absen->total_lembur_1 : 0) * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        $total_lembur_2 = $setting['jam_lembur2'] * ((!empty($absen)) ? $absen->total_lembur_2 : 0) * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));        
         $komponenkaryawan->komponen_nilai = $total_lembur_1 + $total_lembur_2;
         return $this->map($komponenkaryawan);
     }

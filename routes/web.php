@@ -73,6 +73,10 @@ Route::middleware(["auth"])->group(function(){
 
         // History
         Route::get('/history', [App\Http\Controllers\InternalDataController::class, 'history'])->name('history');
+
+        // Jam Lembur
+        Route::get('/jam-lembur', [App\Http\Controllers\Cms\BPJSController::class, 'jamlemburIndex'])->name('jam-lembur');
+        Route::post('/jam-lembur/store', [App\Http\Controllers\Cms\BPJSController::class, 'jamlemburStore'])->name('jam-lembur.store');
     });
 
     Route::prefix("internal-api")->group(function(){

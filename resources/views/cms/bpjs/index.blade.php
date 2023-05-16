@@ -1,7 +1,7 @@
 @php
     $title = "BPJS";
     $breadcrumbs[] = [
-            "label" => "Master Data", "url" => route('jabatan')
+            "label" => "Master Data", "url" => route('bpjs')
         ];
     $breadcrumbs[] = [
             "label" => "BPJS", "url" => "#"

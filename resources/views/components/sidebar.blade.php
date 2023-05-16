@@ -104,7 +104,12 @@
                     </li>
                     <li class="nav-item {{ (strpos($page, 'history') !== false) ? 'item-active' : '' }}">
                         <a class="nav-link" href="{{ route('history') }}">
-                            <i class="ti-control-record"></i>History
+                            <i class="ti-control-record"></i>User Activity
+                        </a>
+                    </li>
+                    <li class="nav-item {{ (strpos($page, 'jam-lembur') !== false) ? 'item-active' : '' }}">
+                        <a class="nav-link" href="{{ route('jam-lembur') }}">
+                            <i class="ti-control-record"></i>Jam Lembur
                         </a>
                     </li>
                 </ul>

@@ -42,6 +42,12 @@ class DatabaseSeeder extends Seeder
                 'order' => 4,
                 'created_at' => now(),
             ],[
+                'nama' => 'tunjangan_phg',
+                'label' => 'Tunj. Phg',
+                'status' => '1',
+                'order' => 5,
+                'created_at' => now(),
+            ],[
                 'nama' => 'bonus_masuk',
                 'label' => 'Bonus Masuk',
                 'status' => '1',
@@ -54,20 +60,20 @@ class DatabaseSeeder extends Seeder
                 'order' => 6,
                 'created_at' => now(),
             ],[
-                'nama' => 'bpjs_kesehatan',
-                'label' => 'Pot. BPJS Kes',
+                'nama' => 'potongan_absen',
+                'label' => 'Potongan Absen',
                 'status' => '1',
                 'order' => 7,
                 'created_at' => now(),
             ],[
-                'nama' => 'bpjs_tenagakerja',
-                'label' => 'Pot. BPJS Ket',
+                'nama' => 'bpjs_kesehatan',
+                'label' => 'Pot. BPJS Kes',
                 'status' => '1',
                 'order' => 8,
                 'created_at' => now(),
             ],[
-                'nama' => 'iuran_wajib',
-                'label' => 'Iuran Wjb Kop.',
+                'nama' => 'bpjs_tenagakerja',
+                'label' => 'Pot. BPJS Ket',
                 'status' => '1',
                 'order' => 9,
                 'created_at' => now(),
@@ -77,7 +83,13 @@ class DatabaseSeeder extends Seeder
                 'status' => '1',
                 'order' => 10,
                 'created_at' => now(),
-            ]
+            ],[
+                'nama' => 'iuran_wajib',
+                'label' => 'Iuran Wjb Kop.',
+                'status' => '1',
+                'order' => 11,
+                'created_at' => now(),
+            ],
         ];
 
         foreach ($komponen as $key => $value) {
@@ -118,6 +130,16 @@ class DatabaseSeeder extends Seeder
             ], [
                 'nama' => 'bpjs',
                 'komponen_nama' => 'bpjs_orangtua',
+                'komponen_nilai' => '0',
+                'created_at' => now(),
+            ], [
+                'nama' => 'jam-lembur',
+                'komponen_nama' => 'jam_lembur1',
+                'komponen_nilai' => '0',
+                'created_at' => now(),
+            ], [
+                'nama' => 'jam-lembur',
+                'komponen_nama' => 'jam_lembur2',
                 'komponen_nilai' => '0',
                 'created_at' => now(),
             ]
