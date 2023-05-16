@@ -135,7 +135,7 @@ class BulananController extends Controller
     {
         $data = Bulanan::select('periode_awal', 'tipe','periode_akhir', 'updated_by', DB::raw('DATE(created_at) as created_at'))
                         ->distinct()
-                        ->orderBy("periode_awal")
+                        ->orderBy("periode_awal", "DESC")
                         ->get();
 
         return view('cms.bulanan.history', [
