@@ -1,7 +1,7 @@
 @php
-	$title = "History";
+	$title = "User Activity";
 	$breadcrumbs[] = [
-		"label" => "Daftar", "url" => "#"
+		"label" => "List", "url" => "#"
 	];
 @endphp
 
@@ -15,7 +15,7 @@
     <div class="card-header">
         <div class="row align-items-center">
             <div class="col">
-                <h4 class="card-title">History</h4>
+                <h4 class="card-title">User Activity</h4>
             </div>
         </div>
     </div>
