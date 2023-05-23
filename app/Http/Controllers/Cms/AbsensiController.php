@@ -16,23 +16,21 @@ class AbsensiController extends Controller
     {
         $eventDate = Absensi::distinct()->pluck('tanggal_kehadiran');
         if($request->ajax()){
-            $karyawan = Karyawan::select('karyawan.*', 'absensi.id AS absensi_id', 'absensi.hitungan_hari', 'absensi.jam_masuk', 'absensi.jam_keluar', 'absensi.jam_lembur_1', 'absensi.jam_lembur_2', 
-                    'absensi.tanggal_kehadiran')
+            $karyawan = Karyawan::select('karyawan.*', 'absensi.id AS absensi_id', 'absensi.hitungan_hari', 'absensi.jam_masuk', 'absensi.jam_keluar', 'absensi.jam_lembur_1', 
+                    'absensi.jam_lembur_2', 'absensi.tanggal_kehadiran')
                     ->leftJoin('absensi', function($query) use($request) {
-                        $query->on('karyawan.id', '=', 'absensi.karyawan_id')
-                        ->whereDate('tanggal_kehadiran', '=', $request->t);
+                        $query->on('absensi.karyawan_id', '=', 'karyawan.id')->whereDate('tanggal_kehadiran', '=', $request->t);
                     })
-                    ->get();
+                    ->get();            
             return view('cms.absensi.index-ajax', [
                 "karyawan" => $karyawan,
                 "event" => $eventDate
             ]);
         } else {
-            $karyawan = Karyawan::select('karyawan.*', 'absensi.id AS absensi_id', 'absensi.hitungan_hari', 'absensi.jam_masuk', 'absensi.jam_keluar', 'absensi.jam_lembur_1', 'absensi.jam_lembur_2', 
-                        'absensi.tanggal_kehadiran')
+            $karyawan = Karyawan::select('karyawan.*', 'absensi.id AS absensi_id', 'absensi.hitungan_hari', 'absensi.jam_masuk', 'absensi.jam_keluar', 'absensi.jam_lembur_1', 
+                        'absensi.jam_lembur_2', 'absensi.tanggal_kehadiran')
                         ->leftJoin('absensi', function($query) {
-                        $query->on('karyawan.id', '=', 'absensi.karyawan_id')
-                        ->whereDate('tanggal_kehadiran', '=', date('Y-m-d'));
+                        $query->on('karyawan.id', '=', 'absensi.karyawan_id')->whereDate('tanggal_kehadiran', '=', date('Y-m-d'));
                     })
                     ->get();
             return view('cms.absensi.index', [
@@ -53,7 +51,7 @@ class AbsensiController extends Controller
     
                 foreach ($data as $key => $value) {
                     $absensi = Absensi::where([
-                        ['tanggal_kehadiran', '=', $tanggal_kehadiran],
+                        ['tanggal_kehadiran', '=', $tanggal_kehadiran . ' 00:00:00'],
                         ['karyawan_id', '=', $value['karyawan_id']]
                     ])->first();
     
