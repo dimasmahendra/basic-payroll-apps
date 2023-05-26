@@ -5,3 +5,11 @@ $(".currency").maskMoney({
     affixesStay: false,
     allowZero: true
 })
+
+$(".currency2").maskMoney({
+    thousands: ".",
+    decimal:',',
+    precision: 0,
+    affixesStay: false,
+    allowZero: true
+})

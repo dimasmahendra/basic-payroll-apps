@@ -105,7 +105,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>{{ $item->label }}</label> 
-                                <input type="text" class="form-control currency" id="{{ str_replace('_', '-', $item->nama) }}" name="{{ $item->id .'|'. $item->nama }}"/>
+                                <input type="text" class="form-control currency2" id="{{ str_replace('_', '-', $item->nama) }}" name="{{ $item->id .'|'. $item->nama }}"/>
                             </div>
                         </div>
                     @endif

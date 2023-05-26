@@ -20,8 +20,10 @@ class KomponenKaryawan extends BaseModel
                 list($k, $v) = $komponens;
                 if ($v == "bpjs_orangtua") {
                     $value = floatval($value) * $jumlah_orangtua;
-                } else {
+                } elseif ($v == "bpjs_kesehatan" || $v == "bpjs_tenagakerja") {
                     $value = floatval($value);
+                } else {
+                    $value = floatval(str_replace('.', '' , $value));
                 }
                 $count += 1;
                 $result[] = [
