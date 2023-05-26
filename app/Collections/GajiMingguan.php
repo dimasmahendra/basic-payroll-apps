@@ -230,7 +230,7 @@ class GajiMingguan extends Collection
     public function checkBonusMasuk($absen, $komponenkaryawan)
     {
         $total_masuk = (!empty($absen)) ? $absen->total_masuk : 0;
-        $komponenkaryawan->komponen_nilai = (($total_masuk == 7) ? $total_masuk : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
+        $komponenkaryawan->komponen_nilai = (($total_masuk == 7) ? 1 : 0)  * floatval(str_replace('.', '' , $komponenkaryawan->komponen_nilai));
         return $this->map($komponenkaryawan);
     }
 
