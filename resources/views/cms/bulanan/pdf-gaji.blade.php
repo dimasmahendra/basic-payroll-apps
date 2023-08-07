@@ -149,7 +149,7 @@
                         </tr>
                         <tr>
                             <td>Sisa Gaji</td>
-                            <td class="text-right">{{ number_format(($item['total_gaji'] - $item['total_potongan']), 2, ',', '.') }}</td>
+                            <td class="text-right">{{ number_format(($item['total_gaji'] - $item['total_potongan'] - $item['angsuran_kantor'] - $item['angsuran_koperasi']), 2, ',', '.') }}</td>
                         </tr>
                     </table>
                 </div>

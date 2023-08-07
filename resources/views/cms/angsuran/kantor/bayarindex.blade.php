@@ -98,7 +98,8 @@
         function init() {
             $('#absensi-datatable').dataTable( {
                 "ordering": false,
-                "bLengthChange" : false
+                "bLengthChange" : false,
+                "pageLength": 50
             });
             $(document).on('change', '.custom-control-input', function() {
                 $(this).closest('tr').find('.saldo, .keterangan, .angsuran_ke').prop('disabled', !this.checked);
