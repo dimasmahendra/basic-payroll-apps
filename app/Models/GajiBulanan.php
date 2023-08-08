@@ -39,8 +39,8 @@ class GajiBulanan extends BaseModel
             'bpjs_orangtua',
             'iuran_wajib',
             'potongan_absen',
-            // 'angsuran_koperasi',
-            // 'angsuran_kantor',
+            'angsuran_koperasi',
+            'angsuran_kantor',
         ];
         foreach ($komponen as $key => $value) {
             if (in_array($key, $pemasukan)) {
