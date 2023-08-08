@@ -20,8 +20,8 @@ class AbsensiController extends Controller
                     'absensi.jam_lembur_2', 'absensi.tanggal_kehadiran')
                     ->leftJoin('absensi', function($query) use($request) {
                         $query->on('absensi.karyawan_id', '=', 'karyawan.id')->whereDate('tanggal_kehadiran', '=', $request->t);
-                    })
-                    ->get();            
+                    })->get();
+
             return view('cms.absensi.index-ajax', [
                 "karyawan" => $karyawan,
                 "event" => $eventDate
@@ -30,9 +30,9 @@ class AbsensiController extends Controller
             $karyawan = Karyawan::select('karyawan.*', 'absensi.id AS absensi_id', 'absensi.hitungan_hari', 'absensi.jam_masuk', 'absensi.jam_keluar', 'absensi.jam_lembur_1', 
                         'absensi.jam_lembur_2', 'absensi.tanggal_kehadiran')
                         ->leftJoin('absensi', function($query) {
-                        $query->on('karyawan.id', '=', 'absensi.karyawan_id')->whereDate('tanggal_kehadiran', '=', date('Y-m-d'));
-                    })
-                    ->get();
+                            $query->on('absensi.karyawan_id', '=', 'karyawan.id')->whereDate('tanggal_kehadiran', '=', date('Y-m-d'));
+                        })->get();
+                        
             return view('cms.absensi.index', [
                 "karyawan" => $karyawan,
                 "event" => $eventDate
