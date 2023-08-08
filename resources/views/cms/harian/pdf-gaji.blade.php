@@ -136,11 +136,11 @@
                             <td>{{ number_format($item['iuran_wajib'], 2, ',', '.') }}</td>
                         </tr>
                         <tr>
-                            <td class="text-inline">Angsuran Koperasi <div class="angsuran-ke">Ke {{ $item['angsuran_ke_koperasi'] }}</div></td>
+                            <td class="text-inline">Angsuran Koperasi - Ke : {{ $item['angsuran_ke_koperasi'] }}</td>
                             <td>{{ number_format($item['angsuran_koperasi'], 2, ',', '.') }}</td>
                         </tr>
                         <tr>
-                            <td class="text-inline">Angsuran Kantor <div class="angsuran-ke">Ke {{ $item['angsuran_ke_kantor'] }}</div></td>
+                            <td class="text-inline">Angsuran Kantor - Ke : {{ $item['angsuran_ke_kantor'] }}</td>
                             <td>{{ number_format($item['angsuran_kantor'], 2, ',', '.') }}</td>
                         </tr>
                         <tr>
